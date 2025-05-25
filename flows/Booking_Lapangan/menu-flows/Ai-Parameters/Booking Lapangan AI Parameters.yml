@@ -1,0 +1,80 @@
+Name: 
+  tag_penawaran:
+    When this happens:
+      Custom field value changed:
+        bl_status_booking: 
+          has Changed and contains: 
+            Penawaran
+    actions:
+      Remove Tag:
+        perkenalan
+        Pengecekan
+        Penjadwalan
+        Penutupan
+        Pembayaran
+      Add Tag:
+        penawaran
+Name: 
+  tag_pengecekan:
+    When this happens:
+      Custom field value changed:
+        bl_status_booking: 
+          has Changed and contains: 
+            Pengecekan
+    actions:
+      Remove Tag:
+        perkenalan
+        penawaran
+        Penjadwalan
+        Penutupan
+        Pembayaran
+      Add Tag:
+        Pengecekan
+Name: 
+  tag_penjadwalan:
+    When this happens:
+      Custom field value changed:
+        bl_status_booking: 
+          has Changed and contains: 
+            Pengecekan
+    actions:
+      Remove Tag:
+        perkenalan
+        penawaran
+        Penjadwalan
+        Penutupan
+        Pembayaran
+      Add Tag:
+        Pengecekan
+Name: 
+  tag_pembayaran:
+    When this happens:
+      Custom field value changed:
+        bl_status_booking: 
+          has Changed and contains: 
+            Penjadwalan
+    actions:
+      Remove Tag:
+        perkenalan
+        penawaran
+        Pengecekan
+        Penutupan
+        Pembayaran
+      Add Tag:
+        Penjadwalan
+Name: 
+  tag_penjadwalan:
+    When this happens:
+      Custom field value changed:
+        bl_status_booking: 
+          has Changed and contains: 
+            Penutupan
+    actions:
+      Remove Tag:
+        perkenalan
+        penawaran
+        Pengecekan
+        Penjadwalan
+        Pembayaran
+      Add Tag:
+        Penutupan
