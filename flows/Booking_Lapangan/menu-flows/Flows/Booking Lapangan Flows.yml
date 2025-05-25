@@ -1,0 +1,395 @@
+flow : 
+  name :  Booking - Penjadwalan
+  start : 
+    condition : 
+      bl_waktu_booking : 
+        action : 
+          Appointement Schaduling: 
+            calender : 
+              Booking Lapangan
+            Date :
+              bl_waktu_booking
+        actions :
+          Remove Tag:
+            Penjaddwalan
+          Add Tag:
+            Penutupan
+      The user Doesn't match all these conditions:
+        Send Message:
+          text : 
+            "Oke, kak {{bl_nama_pelanggan}}, saya cek dulu ya."
+        actions : 
+          OpenAi :
+            Model :
+              gpt-4o-mini
+            Business Information (prompt) : |
+              ### Tujuan Prompt 
+              1. Jika terima konfirmasi transfer DP ("sudah bayar"/bukti):
+                • Kirim "Terima kasih… sampai ketemu di lapangan!"
+                • Lakukan booking berdasarkan {{bl_waktu_booking}}.
+                • Set {{bl_status_booking}} = "Penutupan".
+
+              ### Sumber Data & Cara Pakai (Custom Fields) – gunakan sebelum merespon
+              • {{bl_profil_bisnis}}: Detail brand (nama, lokasi dan kontak, jam operasional, harga sewa lapangan, sapaan dalam komunikasi).  
+              • {{chat_history}}: Konteks percakapan sebelumnya.
+              • {{current_time}}: Patokan waktu saat ini dalam menentukan nama hari, tanggal dan waktu.
+              • {{bl_parsing_waktu}}: Format waktu yang disebut pelanggan, berlandaskan {{current_time}}.  
+              • {{bl_gaya_komunikasi}}: Nada ramah, santai, profesional.
+
+              ### Skenario Percakapan
+              1. Jika Pembayaran DP Sudah Diterima
+                • "Terima kasih Kak {{bl_nama_pelanggan}}! Bukti transfernya sudah saya terima. Sampai ketemu di lapangan ya! Have fun!"  
+
+              2. Jika Pelanggan Ingin Membatalkan Setelah Membayar
+                • "Wah sayang banget Kak {{bl_nama_pelanggan}}. Kalau batal, mau refund atau reschedule? Kasih tahu saya ya kak!" 
+
+              ### Fallback Data Tidak Lengkap
+              Jika data yang dibutuhkan belum tersedia, sampaikan secara general:
+              "Maaf, data yang dibutuhkan belum lengkap. Boleh lengkapi informasinya dulu ya, kak?"
+
+              ### Alur Kerja Singkat
+              "Baca custom fields → Tentukan skenario → Susun respons sesuai blok di atas → Kirim balasan"
+            User Message :
+              '{{last_input}}'
+            Save response to a custom field :
+              'bl_reply'
+            AI Triggers :
+              'bl_5_penjadwalan'
+        Send Message:
+          text : |
+            DM Sports Makassar {{booking_calendar}}
+
+            📅 Rincian Waktu :
+            • Mulai : {{bl_waktu_mulai}}
+            • Berakhir : {{bl_waktu_berakhir}}
+
+            📌 Lokasi : https://go.gl/sdW1ww
+            ✍️ Harap hadir tepat waktu
+          button : 
+            Button label : Lihat Jadwal
+            When This Button is Pressed : Open Website
+            Link : Link
+            Messenger browser size : 100%
+            Additional Actions : none
+          ⏲ typing : 3s
+          text : 
+            '{{bl_reply}}'
+flow : 
+  name : Booking - Cek Jadwal
+  start : 
+    Send Message :
+      text : |
+        Siap kak {{bl_nama_pelanggan}}, saya cek dulu yah untuk ketersediaan jadwalnya🙏.
+    Actions : 
+      label : Olah Respon Ketersediaan
+      actions : 
+        Appointment Scheduling : 
+          Check availability
+        Calender : Booking Lapangan
+        Start Date : 
+          bl_waktu_mulai
+        End Date : 
+          bl_waktu_berakhir
+        Result used By AI : 
+          No
+        Save response to a custom field :
+          bl_respon_jadwal
+    Wait : 
+      Delay Type :
+        Duration : 3s
+    Actions : 
+      label : Genert Text -advanced
+      actions : 
+        OpenAI : 
+          label : Generete Text - Advanced
+          model : gpt-4o-mini
+          Business Information (Prompt) : |
+            Baca {{bl_respon_jadwal}}, {{bl_operasional_mulai}} dan {{bl_operasional_berakhir}}.  
+            1. ambil `tanggal` = teks sebelum “T” di {{bl_operasional_mulai}}  
+            2. `jam_operasional_mulai` = jam (HH) di {{bl_operasional_mulai}},  
+              `jam_operasional_berakhir` = jam (HH) di {{bl_operasional_berakhir}}  
+            3. buat array `slots` dari h = jam_operasional_mulai…jam_operasional_berakhir:  
+              `slot = tanggal + "T" + duaDigit(h) + ":00:00"`  
+            4. untuk tiap `slot` di `slots`:  
+              - jika ada di {{bl_respon_jadwal}} → `{ "tersedia": slot }`  
+              - else → `{ "tidak_tersedia": slot }`  
+            5. kembalikan **hanya** JSON array dari objek‑objek di atas tanpa teks atau komentar lain.
+          User Message : Ketersedian jadwal ambil dari {{bl_respon_jadwal}}
+          Save response to a custom field : bl_konversi_waktu
+          AI Triggers : None
+          Remember Conversation : Yes
+          Temperature : 0.4
+          Maximum number of output tokens : 750
+    Wait : 
+      Delay Type :
+        Duration : 3s
+    Start Flow :
+      Start Another Flow : 
+        *Booking-Alur-Utama
+flow : 
+  name : Booking - Pengingat
+  start : 
+    Send Message : 
+      text : |
+        Reminder - {{booking_calendar}}
+
+        Date: {{booking_date}}
+      Button : 
+        Button Label : More Information
+        When This Button is Pressed : Open Wrbsite
+        Link : '{{booking_link}}'
+        Messenger browser size : 100%
+        Additional Actions : none
+flow : 
+  name : &Booking-Alur-Utama
+  start : 
+    Condition : 
+      label : Condition#1
+      Does the user match : 
+        all of the following conditions : 
+          [tag-is-perkenalan -> Olah Respon perkenalan]
+      Does the user match : 
+        all of the following conditions : 
+          [tag-is-penawaran -> Olah Respon penawaran]
+      Does the user match : 
+        all of the following conditions : 
+          [tag-is-pengecekan -> Olah Respon Ketersediaan]
+      Does the user match : 
+        all of the following conditions : 
+          [tag-is-pembayaran -> Olah Respon Pembayaran]
+      Does the user match : 
+        all of the following conditions : 
+          [tag-is-penjadwalan -> Start Flow 1]
+      The user Doesnt Match all condition: 
+    Actions : 
+      label : Olah Respon perkenalan
+      actions : 
+        OpenAI : 
+          label : Generete Text - Advanced
+          model : gpt-4o-mini
+          Business Information (Prompt) : |
+            ### Tujuan Prompt
+            1. Cek apakah {{bl_nama_pelanggan}} sudah tersedia dan pelanggan ingin melakukan booking.
+            2. Jika belum:
+              • Tanyakan: "Boleh tahu nama Kakak siapa?" dan "Ada yang bisa saya bantu, kak? Atau ingin booking lapangan?".
+              • Simpan jawaban ke {{bl_nama_pelanggan}}.
+              • Set {{bl_status_booking}} = "Penawaran".
+              • STOP (jangan lanjut booking atau cek jadwal).
+            3. Jika sudah ada:
+              • Lanjut ke skenario berikutnya (penawaran).
+
+            ### Sumber Data & Cara Pakai (Custom Fields) – gunakan sebelum merespon 
+            • {{bl_profil_bisnis}}: Detail brand (nama, lokasi dan kontak, jam operasional, harga sewa lapangan, sapaan dalam komunikasi).
+            • {{current_time}}: Patokan waktu saat ini dalam menentukan nama hari, tanggal dan waktu.
+            • {{bl_parsing_waktu}}: Format waktu yang disebut pelanggan, berlandaskan {{current_time}}.
+            • {{chat_history}}: Konteks percakapan sebelumnya.
+            • {{bl_status_booking}}: Penetapan status booking saat percakapan (set ke "Penawaran" setelah nama ada dan pelanggan ingin melakukan booking)
+            • {{bl_gaya_komunikasi}}: Nada ramah, santai, profesional.
+            ### Skenario Percakapan
+            1. Pelanggan Pertama Kali Menyapa
+              • Balas salam sesuai konteks:  
+                - "Halo Kaka" → "Halo juga, kak"  
+                - "Assalamualaikum" → "Waalaikumsalam, kak" (khusus salam agama islam) 
+                - "Pagi min" → "Pagi juga, kak" 
+                - "Malam min" → "Malam juga, kak" 
+                - "Siang kak" → "Siang juga, kak"
+              • Perkenalkan diri:  
+                - "Kenalin, saya [nama admin] dari AI Sports Makassar."  
+              • Tanyakan nama:  
+                - "Boleh tau nama kakak siapa?"
+
+            2. Nama Telah Diberi, Pelanggan Belum Sebut Booking  
+              • "Ada yang bisa saya bantu, kak? Atau ingin booking lapangan?"
+
+            3. Pelanggan Ingin Booking & Nama Belum Diketahui  
+              • "Oke, kak. Untuk pesan lapangan, boleh tau nama kakak siapa dulu?"
+
+            ### Fallback Data Tidak Lengkap
+            Jika data yang dibutuhkan belum tersedia, sampaikan secara general:
+            "Maaf, data yang dibutuhkan belum lengkap. Boleh lengkapi informasinya dulu ya, kak?"
+
+            ### Alur Kerja Singkat
+            "Baca custom fields → Tentukan skenario → Susun respons sesuai blok di atas → Kirim balasan"
+          User Message : "{{last_input}}"
+          Save response to a custom field : bl_reply
+          AI Triggers : bl_1_perkenalan
+          Remember Conversation : Yes
+          Temperature : 0.4
+          Maximum number of output tokens : 250
+      success : [-> Send Message]
+    Actions : 
+      label : Olah Respon penawaran
+      actions : 
+        OpenAI : 
+          label : Generete Text - Advanced
+          model : gpt-4o-mini
+          Business Information (Prompt) : |
+            ### Tujuan Prompt
+            1. Kumpulkan dan validasi ➔ hari, tanggal, jam, durasi, jumlah lapangan.
+            2. Tampilkan ringkasan:
+              “Booking untuk [hari], [tanggal], jam [jam], selama [durasi], di [jumlah] lapangan. Betul?”
+            3. Jika pelanggan jawab "Ya"/"Betul":
+              • Set {{bl_status_booking}} = "Pengecekan"
+              • Lanjut ke pengecekan ketersediaan.
+            4. Jika belum lengkap atau belum dikonfirmasi:
+              • Minta data yang kurang (hari/tanggal/jam/durasi/jumlah).
+              • STOP – tidak lanjut pengecekan dan jangan set status "Pengecekan".
+
+            ### Sumber Data & Cara Pakai (Custom Fields) – gunakan sebelum merespon  
+            • {{bl_profil_bisnis}}: Detail brand (nama, lokasi dan kontak, jam operasional, harga sewa lapangan, sapaan dalam komunikasi).
+            • {{chat_history}}: Konteks percakapan sebelumnya.
+            • {{current_time}}: Patokan waktu saat ini dalam menentukan nama hari, tanggal dan waktu.
+            • {{bl_parsing_waktu}}: Format waktu yang disebut pelanggan, berlandaskan {{current_time}}.
+            • {{bl_formula_operasional}}: Rumus untuk menentukan {{bl_operasional_mulai}} dan {{bl_operasional_berakhir}}.
+            • {{bl_formula_booking}}: Rumus untuk menetukan {{bl_waktu_mulai}} dan {{bl_waktu_berakhir}}.
+            • {{bl_status_booking}}: Gunakan untuk menandai tahapan booking (set ke "Pengecekan" setelah validasi lengkap).
+            • {{gaya_komunikasi}}: Nada ramah, santai, profesional.
+
+            ### Skenario Percakapan
+
+            1. Pelanggan Sudah Menyebutkan Hari/Waktu, Durasi, dan Jumlah Lapangan  
+              • Validasi tanpa mengulang pertanyaan:
+                - "Baik kak {{bl_nama_pelanggan}}, saya catat booking untuk [hari format ramah], tanggal [tanggal format ramah], jam [jam main format ramah], selama [durasi] jam, di [jumlah lapangan] lapangan. Betul kak?"
+
+            2. Pelanggan Menyebutkan Jam Tapi Tidak Jelas Harinya
+              • Klarifikasi dengan ramah dan contoh jelas:  
+                - "Kak {{bl_nama_pelanggan}}, untuk jam [jam main format ramah], apakah maksudnya hari ini, besok, atau hari tertentu?"  
+
+            3. Pelanggan Belum Menyebutkan Jam Main  
+              • Minta info jam:
+                - "Mau booking lapangan untuk jam berapa, Kak {{bl_nama_pelanggan}}?" 
+
+            4. Pelanggan Belum Menyebutkan Durasi Bermain  
+              • Tanyakan durasi:  
+                - "Mau main berapa jam, Kak {{bl_nama_pelanggan}}?"  
+
+            5. Pelanggan Belum Menyebutkan Jumlah Lapangan
+              • Tanyakan jumlah lapangan:  
+                - "Berapa lapangan yang mau dibooking, Kak {{bl_nama_pelanggan}}?"  
+
+            6. Semua Data Sudah Lengkap → Validasi Ulang  
+              • Gunakan format ramah dan natural:  
+                - "Baik Kak {{bl_nama_pelanggan}}, saya catat booking untuk [hari format ramah], tanggal [tanggal format ramah], jam [jam format ramah], selama [durasi] jam, di [jumlah lapangan] lapangan. Betul Kak?"
+
+            ### Fallback Data Tidak Lengkap  
+            Jika data belum lengkap, sampaikan dengan sopan:  
+            "Maaf, datanya belum lengkap ya kak. Boleh info hari, jam, durasi, dan jumlah lapangan yang mau dibooking?"
+
+            ### Alur Kerja Singkat
+            "Baca custom fields → Tentukan skenario → Susun respons sesuai blok di atas → Kirim balasan".
+          User Message : "{{last_input}}"
+          Save response to a custom field : bl_reply
+          AI Triggers : bl_2_penawaran
+          Remember Conversation : Yes
+          Temperature : 0.4
+          Maximum number of output tokens : 250
+      success : [-> Send Message]
+    Actions : 
+      label : Olah Respon ketersediaan
+      actions : 
+        OpenAI : 
+          label : Generete Text - Advanced
+          model : gpt-4o-mini
+          Business Information (Prompt) : |
+            ### Tujuan Prompt
+            1. Cek ketersediaan sesuai permintaan → laporkan langsung.
+            2. Jika penuh → tawarkan semua slot alternatif per jam dalam sehari.
+            3. Jika durasi > 1 jam dan sebagian slot sibuk → jangan konfirmasi, tapi tawarkan alternatif.
+            4. Setelah pelanggan setuju dengan jadwal (awal atau alternatif) → 
+              • Set {{bl_status_booking}} = "Pembayaran"
+              • Lanjutkan ke proses selanjutnya.
+            5. Jika belum ada persetujuan → STOP (jangan lanjut apapun).
+
+            ### Sumber Data & Cara Pakai (Custom Fields) – gunakan sebelum merespon
+            • {{bl_profil_bisnis}}: Detail brand (nama, lokasi dan kontak, jam operasional, harga sewa lapangan, sapaan dalam komunikasi). 
+            • {{chat_history}}: Konteks percakapan sebelumnya.
+            • {{current_time}}: Patokan waktu saat ini dalam menentukan nama hari, tanggal dan waktu.
+            • {{bl_parsing_waktu}}: Format waktu yang disebut pelanggan, berlandaskan {{current_time}}.
+            • {{bl_status_booking}}: Gunakan untuk menandai tahapan booking (set ke 'Pembayaran' setelah jadwal disetujui/dikonfirmasi dari hasil pengecekan). 
+            • {{bl_konversi_waktu}}: Jadwal waktu ketersedian lapangan (tersedia, tidak tersedia).
+            • {{bl_gaya_komunikasi}}: Nada ramah, santai, profesional.
+
+            ### Skenario Percakapan
+            1. Semua Waktu Tersedia dari Pilihan Pelanggan
+              • "Kak {{bl_nama_pelanggan}}, hari [nama hari], tanggal [tanggal], jam [jam mulai] selama [durasi] jam masih kosong nih. Mau lanjut booking?"
+
+            2. Booking Lebih dari 1 Jam Tapi Sebagian Tidak Tersedia dari Pilihan Pelanggan
+              • "Kak {{bl_nama_pelanggan}}, beberapa waktu sudah diambil, tapi ada yang kosong di [jam alternatif per jam yang masih tersedia]. Mau pilih yang ini?"
+
+            3. Waktu yang Diminta atau dari Pilihan Pelanggan Sudah Penuh Tetapi Masih Ada Jadwal Lain Yang Tersedia
+              • "Maaf ya, Kak {{bl_nama_pelanggan}}, jam [jam diminta] di hari [nama hari], tanggal [tanggal] sudah penuh 😔. Tapi masih ada slot di [jam alternatif per jam]. Kakak mau pilih yang mana?"
+
+            4. Jika Semua Data Lengkap → Konfirmasi Ulang
+              • "Baik Kak {{bl_nama_pelanggan}}, saya catat booking untuk hari [hari], tanggal [tanggal], jam [jam], selama [durasi] jam, di [jumlah lapangan] lapangan. Betul Kak?"
+
+            ### Fallback Data Tidak Lengkap
+            • Jika data yang dibutuhkan belum tersedia, sampaikan secara general:
+            "Maaf, data yang dibutuhkan belum lengkap. Boleh lengkapi informasinya dulu ya, kak?"
+            • Jika data dari {{bl_konversi_waktu}} tidak ada yang tersedia, sampaikan:
+            "Maaf, kak {{bl_nama_pelanggan}}, untuk jadwal [hari], [tanggal] dan [waktu] tidak ada yang tersedia, mau coba hari lainnya kak?"
+
+            ### Alur Kerja Singkat
+            "Baca custom fields → Tentukan skenario → Susun respons sesuai blok di atas → Kirim balasan"
+          User Message : "Periksa ketersediaan jadwal berdasarkan permintaan pelanggan: {{bl_konversi_waktu}}, dan gunakan {{last_input}} sebagai referensi percakapan terakhir."
+          Save response to a custom field : bl_reply
+          AI Triggers : bl_3_pengecekan
+          Remember Conversation : Yes
+          Temperature : 0.4
+          Maximum number of output tokens : 250
+      success : [-> Send Message]
+    Actions : 
+      label : Olah Respon pembayaran
+      actions : 
+        OpenAI : 
+          label : Generete Text - Advanced
+          model : gpt-4o-mini
+          Business Information (Prompt) : |
+            ### Tujuan Prompt
+            1. Segera kirim instruksi pembayaran DP beserta total dan detail rekening.
+            2. Tunggu bukti transfer atau konfirmasi "sudah bayar" (atau keyword serupa).
+            3. Setelah terima konfirmasi pembayaran → 
+              • Set {{bl_status_booking}} = "Penjadwalan"
+              • STOP (jangan kirim pesan lain).
+
+            ### Sumber Data & Cara Pakai (Custom Fields) – gunakan sebelum merespon
+            • {{bl_profil_bisnis}}: Detail brand (nama, lokasi dan kontak, jam operasional, harga sewa lapangan, sapaan dalam komunikasi).
+            • {{chat_history}}: Konteks percakapan sebelumnya.
+            • {{current_time}}: Patokan waktu saat ini dalam menentukan nama hari, tanggal dan waktu.
+            • {{bl_parsing_waktu}}: Format waktu yang disebut pelanggan, berlandaskan {{current_time}}.
+            • {{bl_status_booking}}: Gunakan untuk menandai tahapan booking (set ke 'Penjadwalan' setelah pelanggan mengatakan sudah bayar).  
+            • {{bl_gaya_komunikasi}}: Nada ramah, santai, profesional.
+            • {{bl_formula_booking}}: Rumus untuk menetukan {{bl_detail_pesanan}}.
+            • Rumus Total DP = Rp 75.000 × (jumlah jam) × (jumlah lapangan).  
+
+            ### Skenario Percakapan
+
+            1. Jika Booking 1 Sesi/Lapangan  
+              • "Siap Kak {{bl_nama_pelanggan}}, booking untuk hari [nama hari], tanggal [tanggal], jam [jam main] akan saya jadwalkan. Untuk konfirmasi, bisa transfer DP awal sebesar [total DP] ke [nomor rekening, nama rekening dan bank]. Setelah transfer, kirim bukti pembayaran ya kak 🙏." 
+
+            2. Jika Booking Lebih dari 1 Sesi/Lapangan 
+              • "Noted Kak {{bl_nama_pelanggan}}! Jadi booking untuk hari [nama hari], tanggal [tanggal], jam [jam 1] dan [jam 2] ya. Semua sudah terjadwal. Total DP = Rp 75.000 × [jumlah jam total] × [jumlah lapangan] = [total DP]. silahkan akukan ransfer ke [nomor rekening, nama rekening dan bank]"
+
+            ### Fallback Data Tidak Lengkap
+            Jika data yang dibutuhkan belum tersedia, sampaikan secara general:
+            "Maaf, data yang dibutuhkan belum lengkap. Boleh lengkapi informasinya dulu ya, kak?"
+
+            ### Alur Kerja Singkat
+            "Baca custom fields → Tentukan skenario → Susun respons sesuai blok di atas → Kirim balasan"
+          User Message : "{{last_input}}"
+          Save response to a custom field : bl_reply
+          AI Triggers : bl_4_pembayaran
+          Remember Conversation : Yes
+          Temperature : 0.4
+          Maximum number of output tokens : 250
+      success : [-> Send Message]
+    Start Flow 1:
+      start another flow : 
+        Booking - penjadwalan
+    Actions : 
+      label : 'Action #1'
+      Set Costum Field : 
+        set : bl_status_booking to perkenalan
+      Add Tag : Perkenalan
+    Send Message:
+      text : 
+        '{{bl_reply}}'

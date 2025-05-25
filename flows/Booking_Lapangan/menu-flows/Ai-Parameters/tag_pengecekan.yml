@@ -1,0 +1,16 @@
+Name: 
+  tag_pengecekan:
+    When this happens:
+      Custom field value changed:
+        bl_status_booking: 
+          has Changed and contains: 
+            Pengecekan
+    actions:
+      Remove Tag:
+        perkenalan
+        penawaran
+        Penjadwalan
+        Penutupan
+        Pembayaran
+      Add Tag:
+        Pengecekan
