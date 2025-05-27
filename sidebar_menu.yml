@@ -1,0 +1,934 @@
+---
+layout: main_dashboard
+header:
+  logo Pekerja.ai:
+    name: user-name
+    avatar: user-icon
+    menu:
+      My Profile:
+        My Account:
+          name: User Name
+          plan: ''
+          Status: Active
+          Contacts: ''
+          inbox: ''
+          nontifications: 0
+          tree dot as action btn:
+          - get ID
+          - manage
+          - leave account
+        Login Account:
+        - facebook
+        - google
+        - email
+      &Settings-connectedPlatforms :
+        general:
+          Default Reply: Default Reply
+          Target country: uknown
+          Default Language: Indonesian
+          Account Timezone: ''
+          Brand Color: Brand Color
+          Development Mode: toggle(off)
+          Delete Account: Delete Account
+        Channels:
+        - Facebook Messenger:
+            button : 
+                label : Connect
+        - WhatsApp:
+            button : 
+                label : Connect
+        - Instagram:
+            Account: ''
+            Disconnect: button[Disconnect]
+            Story Mention Reply: dropdown[None]
+            Persistent Menu: button[Edit]
+            Conversation Starters: button[Edit]
+            Refresh Permissions: button[Reconnect]
+        - Web Chat:
+            button : 
+                label : Connect
+        - Telegram:
+            button : 
+                label : Connect
+        - Email:
+            button : 
+                label : Connect
+        Integrations:
+        - Facebook:
+            Facebook Conversion Tracking: 
+                button : 
+                    label : Connect
+        - OpenAl ChatGPT:
+            Automated Responses: toggle(off)
+            Automatic Voice Response: toggle(off)
+            Agents: button[Manage]
+            Assistants: button[Manage]
+            AI Triggers: button[Manage]
+        - xAl:
+            xAl: button[Connect]
+        - Google Sheets:
+            Google Sheets: button[Connect]
+        - Google Speech to Text:
+            &GoogleSpeech-to-Text 
+            button : 
+                label : Connect
+                dialog : 
+                    api key : input your api key
+      Sign Out:
+        Sign Out: button[Sign Out]
+sidebar:
+  menu:
+  - title: Chat
+    soon: soon
+  - title: Kanban Boards
+    main:
+      section1:
+      - pipelines
+      - button[Add]
+      section2:
+        table:
+          column-name:
+          - name
+          - contact
+          - action-btn:
+            - rename
+            - duplicate
+            - delete
+        route: https://client.pekerja.ai/en/boards?
+  - title: Dashboard
+    main:
+      section:
+      - Total Contacts
+      - New Contacts
+      - Average response time (Minutes)
+      - Average first response time by admins (Minutes)
+      - Average response time by admins (Minutes)
+      - Average duration of a conversation (Minutes)
+      - Admins
+      - Messages received by the bot
+      - Messages sent by Human/bot
+      - Conversations moved to human/bot
+      - Unique conversations by admins
+      - Messages sent by admins
+      - All contacts by channel
+      - New contacts by channel
+      - New Contacts by Source
+      - Assigned conversations by admins
+      - Assigned conversations
+      - Follow Up conversations
+      - Archived conversations
+      - Blocked conversations
+      - All contacts by country
+      - New contacts by country
+    route: https://client.pekerja.ai/en/dashboard?
+  - title: Contacts Customer
+    main:
+      section:
+        - Contact
+        - button[Add] : 
+            - Create New Contact 
+            - Phone
+            - Email (Optional)
+            - First Name (Optional)
+            - Last Name (Optional)
+            - Gender :
+                - male
+                - female
+                - other
+      section2:
+        - Search
+        - &btn-for-filter-or-condition:
+            first row:
+                Language
+                Full Name
+                Country
+                Continent
+                Gender
+                Subscribed to broadcasts
+                Contact Created Date
+                Contact Created Date (minutes ago)
+                Source
+                Conversation transferred to human
+                Interacted in last 24h
+                Existing Contact
+                Is Guest User
+                Current channel
+                Timezone
+                - Instagram
+                Follows business on Instagram
+                Business follows user on Instagram
+                Verified account on Instagram
+                Follower count on Instagram
+                - Analytics
+                Last Sent
+                Last Delivered
+                Last Seen
+                Last seen (minutes ago)
+                Last interaction
+                Last interaction (minutes ago)
+                No admin reply
+                Tags
+                Get data from JSON
+                Messenger List
+                Subscribed to drip campaign
+                Conversation assigned
+                Entry Points Links
+                Sent message
+                Automated Response Received
+                Executed Flow
+                Executed Step
+                Finished questionnaire
+                Voted on the poll
+                - Facebook/Instagram Comment
+                Commented on Post
+                - SMS
+                Phone
+                Phone was Verified
+                Opted in for SMS
+                - Broadcast (WhatsApp)
+                Broadcast Sent
+                Broadcast Delivered
+                Broadcast Seen
+                Broadcast Clicked
+                Broadcast Failed
+                - Email
+                Email
+                Email was Verified
+                Opted in for Email
+                Email Sent
+                Email Delivered
+                Email Opened
+                Email Clicked
+                - Ecommerce
+                Bought
+                Bought the items
+                Total spent
+                Number of orders
+                Shopping cart total
+                Shopping cart subtotal
+                Shopping cart is empty
+                Shopping cart contains items
+                - Custom Fields
+                *custom fields 
+                - System Fields
+                Last user input
+                Last user input type
+            second row:
+                Is
+                Is Not
+                Has any value
+                Greater than
+                Less than
+                Greater than or Equal to
+                Less than or Equal to
+                Contains
+                Doesn't contain
+                Starts with
+                Ends with
+                Interval
+                Not interval
+            third row:
+                [depend on the first row]
+        - btn[actions]:
+            - Assign Conversation to an Admin
+            - Add Tag
+            - Set Custom Field
+            - Delete Contact
+            - Export Data
+            - Import Contacts
+            - More Options:
+            - Remove Tag
+            - Clear Custom Field
+            - Transfer Conversation to Human
+            - Transfer Conversation to bot
+            - Archive
+            - Subscribe to receive broadcasts
+            - Unsubscribe from all broadcast
+      section3:
+        table:
+          column-name:
+          - name
+          - source
+          - Assigned to:
+            - dropdown for choose agent
+          - last seen
+          - date
+  - title: Broadcasts
+    main: 
+        h1: "Reach all your customers quickly"
+        p: "Send bulk messages to your contact list to announce deals, new products, and other news."
+        button: 
+            label: "send"
+            Select Channel: 
+                Omnichannel : 
+                    button : 
+                        label : continue
+                        section: "Omnichannel"
+                        section2: 
+                            Flow to send : 'eksisting flow'
+                        When to send this message?:
+                            - now
+                            - schedule for later (All dimultaneously)
+                        Targeting (optional) :
+                            [ any | all ]
+                            condition : 
+                                *btn-for-filter-or-condition
+
+    route: "/broadcasts"
+  - title: Connected Platforms
+    main: 
+      *Settings-connectedPlatforms
+    route: "/platforms"
+  - title: Pekerja Ai
+    main: 
+      section : 
+        - Assistants
+        - button : 
+          label : add
+          dialog : name
+        - button : 
+          label : *Ai-Trigger
+          route : "/chatgpt-triggers"
+    route: "/pekerja-ai"
+  - title: Pekerja Bot
+    main:
+        tab: 
+          - Connected:
+            *Settings-connectedPlatforms
+          - &Instagram-Comment-to-DM :
+            - flow Instagram Comment Automations :
+                flow UI
+            - button :
+                label : add
+                section:
+                - Track comment on :
+                    - all Post
+                    - specific Post
+                - Private reply to comment :
+                    - Text :
+                        type a message
+                    - Flow :
+                        select existing flow
+                    - None
+                - Public reply to comment :
+                    - Text :
+                        type a message
+                    - Flow :
+                        select existing flow
+                    - None
+                - Reply to : 
+                    - All comments
+                    - Comment equal to:
+                        type a message
+                    - Comment that contains:
+                        type a message
+                - more : 
+                    - Exclude comments with these keywords (Optional) :
+                        type a message
+                    - Hide comments with these keywords : [yes | no]
+                    - Only reply to new contacts : [yes | no]
+                    - Reply only once to each user in one post : [yes | no]
+                    - Reply to users who have already commented in others posts : [yes | no]
+                    - Don't reply to replies to comments : [yes | no]
+                    - Reply After :
+                        - immediately
+                        - second
+                        - minute
+                        - hour
+                        - random within (time)
+          - Instagram DM to DM :
+            User Message :
+                - Text :
+                    type a message
+                - add more
+            Bot Response :
+                Text Message :
+                    type a message
+                Flow :
+                    select existing flow
+          - Instagram Auto Reply Story :
+            - button :
+                label : add
+                section:
+                - Track story on :
+                    - all Story
+                    - specific Story:
+                        select stories
+                - Reply With :
+                    - Text :
+                        type a message
+                    - Flow :
+                        select existing flow
+                - Reply to : 
+                    - All user replies
+                    - User reply equal to keyword:
+                        type a message
+                    - User reply that include keyword:
+                        type a message
+          - Facebook Comment to Chat :
+            - button :
+                label : add
+                section:
+                - Track comment on :
+                    - all Post
+                    - specific Post :
+                        select 
+                - Private reply to comment :
+                    - Text :
+                        type a message
+                    - Flow :
+                        select existing flow
+                    - None
+                - Public reply to comment :
+                    - Text :
+                        type a message
+                    - Flow :
+                        select existing flow
+                    - None
+                - Reply to : 
+                    - All comments
+                    - Comment equal to:
+                        type a message
+                    - Comment that contains:
+                        type a message
+                - more : 
+                    - Exclude comments with these keywords (Optional) :
+                        type a message
+                    - Hide comments with these keywords : [yes | no]
+                    - Only reply to new contacts : [yes | no]
+                    - Reply only once to each user in one post : [yes | no]
+                    - Reply to users who have already commented in others posts : [yes | no]
+                    - Don't reply to replies to comments : [yes | no]
+                    - Reply After :
+                        - immediately
+                        - second
+                        - minute
+                        - hour
+                        - random within (time)
+    route: "/pekerja-bot"
+  - title: Pekerja Human
+    main: 
+      section:
+        - Admin :
+          p: Bekerja sama dengan mudah bersama tim Anda, tetapkan peran, dan kelola akun dengan lebih praktis untuk meningkatkan produktivitas.
+          button: 
+            label : manage
+            route : "https://client.pekerja.ai/en/admins"
+            section :
+                p : Admins
+                button :
+                    label : add
+                    dialog : 
+                        p: Add New
+                        Permissions :
+                            Super Admin
+                            Analytics
+                            Flows
+                            Contacts / Inbox
+                            View email and phone of contacts
+                            Broadcasts
+                            Ecommerce
+            table :
+                row :
+                    contacts
+                    Analytics
+                    Flows
+                    Settings
+                    Notifications
+                action button :
+                    edit
+                    delete
+        
+        - Inbox Teams :
+          p: Permudah pengelolaan percakapan di kotak masuk dengan mengelompokkan anggota tim berdasarkan keahlian, departemen, atau level dukungan untuk kerja sama yang lebih lancar.
+          button: 
+            label : manage
+            route : "https://client.pekerja.ai/en/teams"
+            section : 
+                p : Inbox Teams
+                button :
+                    label : add
+                    dialog : 
+                        p: Add New
+                        name : type name
+                        Team Members : select bot 
+            table :
+                row :
+                    name :
+                        Team Members :
+                            "team members name"
+                        button :
+                            label : add
+                            dialog : 
+                                p: Add New 
+                                select : Team Members 
+                        button : delete
+                    Team Members :
+                        "how many"
+                    action button :
+                        add
+                        rename
+                        delete
+    route: "/pekerja-human"
+  - title: Flows
+    main: 
+        tabs :
+            Flows :
+                section :
+                    p: Flows
+                    Button : 
+                        label : add
+                        dialog : 
+                            p: Add New
+                            input : type flow name
+                section2 :
+                    new Folder/ :
+                        create new folder 
+                    'trash/'
+                    'list flow floder.../':
+                        - rename 
+                        - delete
+                table :
+                    row :
+                        - select
+                        - name
+                        - status : [on | off]
+                        - inbox : [on | off]
+                        - modified : date
+                    action button : 
+                        - rename
+                        - duplicat
+                        - copy to another account
+                        - preview
+                        - get link
+                        - view analytics
+                        - move to folder
+                        - delete
+            Tags :
+                section :
+                    p: Tags
+                    Button : 
+                        label : add
+                        dialog : 
+                            p: Add New
+                            input : type tag name
+                section2 :
+                    new Folder/ :
+                        create new folder 
+                    'list tag floder.../':
+                        - rename
+                        - delete
+                table :
+                    row :
+                        - select
+                        - name
+                        - Contacts : date
+                    action button : 
+                        - rename
+                        - view analytics
+                        - move to folder
+                        - get ID
+                        - delete
+            Custom Fields : 
+                container Custom Fields : 
+                    section :
+                        p: Custom Fields
+                        Button : 
+                            label : add
+                            dialog : 
+                                p: Add New
+                                input : type custom field name
+                                Type : 
+                                    text
+                                    number
+                                    date
+                                    date and time
+                                    true | false
+                                    long text
+                                Description :
+                                    input : optional
+                    section2 :
+                        new Folder/ :
+                            create new folder 
+                        'list custom field floder.../':
+                            - rename
+                            - delete
+                    table :
+                        row :
+                            - select
+                            - name
+                            - Type
+                            - inbox : [on | off]
+                        action button : 
+                            - rename
+                            - view analytics
+                            - move to folder
+                            - get ID
+                            - delete
+                container Account Fields : 
+                    section :
+                        p: Account Fields
+                        Button : 
+                            label : add
+                            dialog : 
+                                p: Add New
+                                input : type account field name
+                                Type : 
+                                    text
+                                    number
+                                    date
+                                    date and time
+                                    true | false
+                                    long text
+                                Value : 
+                                    input : Prompt | optional
+                                Description :
+                                    input : optional
+                    table :
+                        row :
+                            - select
+                            - name
+                            - Type
+                            - Value
+                        action button : 
+                            - rename
+                            - view analytics
+                            - move to folder
+                            - get ID
+                            - delete
+            Error Logs :
+                section :
+                    p: Error Logs
+                table :
+                    row :
+                        - select
+                        - Type
+                        - Desctriptioni
+                        - Contact
+                        - Date
+                    action button :
+                        - get ID
+                        - delete
+            Ai Triggers :
+                section :
+                    p: Ai Triggers
+                    button :
+                        label : add
+                        dialog : 
+                            p: Add New
+                            Name : type ai trigger name
+                            What does this trigger do? : 
+                                example:
+                                    allow the user to book an appointment
+                            What data to collect? :
+                                button :
+                                    label : add new
+                                input : Prompt | optional
+                            What flow is triggered :
+                                select existing flow
+                            What is the output message? (Optional):
+                                "input text"
+                            example : | 
+                                - Name: bl_1_perkenalan 
+                                - What does this trigger do?:
+                                    Jalankan saat pelanggan telah menyebutkan nama mereka dan ingin melakukan booking.
+                                - What data to collect?:
+                                    - status_booking_penawaran: bl_status_booking
+                                    - nama_pelanggan: bl_nama_pelanggan
+                                - What flow is triggered: Booking - Alur Utama
+                                - What is the output message?: (Optional)
+                table :
+                    row :
+                        - collapsible
+                        - name
+                        - action button :
+                            edit 
+                            duplicate
+                            delete
+            Ai Parameters :
+                section :
+                    p: Ai Parameters
+                    button :
+                        label : add
+                        dialog : 
+                            p: Add New
+                            name : input Ai parameter name
+                        section :
+                            When this happens: 
+                                triggers option :
+                                    Tags :
+                                        Tag applied
+                                        Tag removed
+                                    Custom Fields :
+                                        Custom field value changed
+                                    Date/Time based trigger :
+                                        Conversation transferred to human
+                                        Conversation transferred to bot
+                                        New contact
+                                        Contact unsubscribed from broadcasts
+                                        Archived
+                                        Follow Up
+                                        Conversation assigned
+                                        Conversation unassigned
+                                    Drip campaigns (Sequences) :
+                                        Subscribed to drip campaign
+                                        Unsubscribed from drip campaign
+                                    Entry Points Links :
+                                        Contact referred a new contact
+                                        Contact referred existing contact
+                                action option :
+                                    Start Another Flow
+                                    Start External Step
+                                    Add Tag
+                                    Remove Tag
+                                    Set Custom Field
+                                    Clear Custom Field
+                                    Notify Admins
+                                    Transfer Conversation to Human
+                section2:
+                    new Folder/ :
+                        create new folder 
+                    'list tag floder.../':
+                        - rename
+                        - delete
+                table :
+                    row :
+                        - name
+                        - active : [on | off]
+                        - action button : 
+                            - rename
+                            - move to folder
+                            - delete
+    route: "/flows"
+  - title: Tools
+    main:
+      section:
+        h1 : Content Creator Tools
+        p: Otomatisasi Facebook & Instagram Kamu hingga FYP dengan Fitur Auto Commenct to DM, DM to DM, Story to DM dan lainnya.
+        routes : *Instagram-Comment-to-DM
+      tools : 
+        name : Drip Campaigns
+        p: Kirim pesan terus menerus ke pelangganmu dengan priode waktu yang kamu inginkan.
+        routes : https://client.pekerja.ai/en/sequences?
+        container : 
+            section : 
+                p: Drip Campaigns
+                button :
+                    label : add
+                    dialog : 
+                        p: Add New
+                        input : type drip campaign name
+                    section : 
+                        send : 
+                            select : exsiting flow
+                            after : choose time
+                        button :
+                            label : + message
+            section2 :
+                    new Folder/ :
+                        create new folder 
+                    'trash/'
+                    'list flow floder.../':
+                        - rename 
+                        - delete
+            table :
+                row :
+                    - select
+                    - name
+                    - messages
+                    - action button : 
+                        - rename
+                        - move to folder
+                        - delete
+      tools : 
+        name : Shortcut Links
+        p: Buat link sebagai titik awal percakapan di semua platform media sosialmu.
+        routes : https://client.pekerja.ai/en/sequences?
+        container : 
+            section: 
+                p: Magic Link
+                button : 
+                    label : add
+                    dialog : 
+                        p : Magic Link
+                        name : input text
+                        URL : input text url
+            table :
+                row :
+                    - select
+                    - Fixed Link
+                    - Dynamic Link
+                    - action button : 
+                        - edit
+                        - get link
+                        - get QR code
+                        - delete
+      tools : 
+        name : Entry Point Links
+        p: Buat link sebagai titik awal percakapan di semua platform media sosialmu dan tracking semacam referral.
+        routes : https://client.pekerja.ai/en/sequences?
+        container : 
+            section :
+                button : 
+                    label : 
+                        add
+                    dialog : 
+                        name : input text
+                        Bot Response (Flows) : select existing flow 
+                        more Options : 
+                            Save Payload to a Custom Field (Optional) : select custom field
+            table :
+                row :
+                    - select
+                    - name
+                    - Bot Response
+                    - action button : 
+                        - get link
+                        - View analytics
+      tools : 
+        name : Short Links & QR Code
+        p: Buat short links dan QR Code..
+        routes : https://client.pekerja.ai/en/tools-qr-code
+        container : 
+            section: 
+                image Size : 
+                    input number
+                Flow : 
+                    select existing FLow
+                button :
+                    label : generate
+                    result : 
+                        - preview qr
+                        - download button
+      tools : 
+        name : Google Spreadsheets
+        p: Rekap data secara realtime kedalam google spread sheetsmu.
+        routes : https://client.pekerja.ai/en/spreadsheets
+        note : tools ini hanya bisa di akses jika sudah connect di menuu integration -> google sheet
+        container : 
+            section : 
+                p: Spreadsheet
+                button :
+                    label : add
+                    dialog :
+                        label :add new
+                    name : sheet name
+                    spreadsheet : spreadsheeet link
+            table: 
+                row : 
+                - name
+                - link
+                action button : 
+                - edit
+                - delete
+      tools : 
+        name : Google Calendar
+        p: Buat janjian secara otomatis dan simpan ke google celender untuk pengingat..
+        routes : https://client.pekerja.ai/en/calendars
+        container : 
+            tab :
+                Calenders :
+                    section :
+                        p: calenders
+                        button : 
+                            label : 
+                                add
+                            dialog : 
+                                label : add new
+                                name : calendar name
+                    table : 
+                        row : 
+                        - name 
+                        - Active : [on | off]
+                        action button : 
+                            - edit
+                            - delete
+                appointments : 
+                    tab: 
+                    - Next  
+                    - Past 
+                    table : 
+                        row: 
+                            name
+                            date
+                            status
+                            calender
+                            search
+                External calenders :
+                    p: External calender
+                    table :
+                        row: 
+                            - Email 
+                            - calender ID
+                            - date
+                        action button : 
+                            - edit
+                            - delete
+                    button : 
+                        label : Connect google calender
+                        redirect : google sign in
+      tools : 
+        name : Google Speech to Text
+        p: Ubah voice note chat kamu menjadi teks.
+        routes : https://client.pekerja.ai/en/settings#integrations
+        container : 
+            *GoogleSpeech-to-Text 
+      tools : 
+        name : Branch Maps
+        p: Buat pelanggan kamu mudah menemukan lokasi cabang bisnis terdekatmu..
+        routes : https://client.pekerja.ai/en/settings#integrations
+        container : 
+            tab:
+                categories :
+                    section :
+                        p: categories
+                        button : 
+                            label : add
+                            dialog : 
+                                label : add new
+                                name : category name
+                                image (optional) : upload image
+                                Rank : 
+                                - number input
+                                - default (10)
+                    table : 
+                        row :
+                        - name
+                        - visible
+            section :
+                h1: places near me
+                P: let your customers easuly find your business location near themm
+                button :
+                    label : add
+                    redirect : 
+                        section :
+                            name : text input
+                            latitude : text input
+                            longitude : text input
+            table: 
+                
+    route: "https://client.pekerja.ai/en/lls"
+  - title: Ai Academy
+    icon: ai-academy
+    route: "/academy"
+  - title: Discord Agency
+    icon: discord-agency
+    route: "/discord"
+  - title: Affiliate
+    icon: affiliate
+    route: "/affiliate"
+  upgrade:
+    label: Upgrade Paket
+    route: "/upgrade"
+    trialEndsInDays: 4
+main:
+  cards:
+  - type: info
+    title: Pipelines
+    description: Track leads and deals visually with a Kanban board. Prioritize, manage
+      stages, and close deals faster with an intuitive drag-and-drop interface.
+    button:
+      label: Add
+      action: openAddPipelineModal
+footer:
+  text: "© 2025 Pekerja.ai"
