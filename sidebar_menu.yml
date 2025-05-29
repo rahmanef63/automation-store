@@ -209,7 +209,7 @@ sidebar:
                 Shopping cart is empty
                 Shopping cart contains items
                 - Custom Fields
-                *custom fields 
+                *customField
                 - System Fields
                 Last user input
                 Last user input type
@@ -277,7 +277,7 @@ sidebar:
     route: "/broadcasts"
   - title: Connected Platforms
     main: 
-      *Settings-connectedPlatforms
+      <<: *Settings-connectedPlatforms
     route: "/platforms"
   - title: Pekerja Ai
     main: 
@@ -504,6 +504,574 @@ sidebar:
                         - view analytics
                         - move to folder
                         - delete
+                flow page:
+                    header:
+                        - breadscrumb
+                        - undo button
+                        - redo batton
+                        - publish button
+                        - action button :
+                            - Rename
+                            - Duplicate
+                            - Get Draft Link
+                            - Get Published Link
+                            - Copy to another account
+                            - Get JSON for Messenger Ads
+                            - Get Payload for Messenger Ads
+                            - View Analytics
+                            - Flow Versions
+                            - Delete
+                            - Revert to Published
+                    main :
+                    - node canvas:
+                        - node collection:
+                            - Send Message :
+                                label : Send Message
+                                container: 
+                                    sidebar:
+                                    - node label
+                                    - message type:
+                                        omnichannel
+                                        Webchat
+                                    - quick replay :
+                                        button label : place holder
+                                        when this button is pressed :
+                                            - Send Message
+                                            - Perform Action
+                                            - Start Another Flow
+                                            - Start Another Step
+                                            - Start External Step
+                                    - button :
+                                        label :
+                                            +Add Content :
+                                            - Text :
+                                              - is active:
+                                                container :
+                                                    input text : type a message
+                                                    &add-button : 
+                                                        button dialog :
+                                                        label : add button
+                                                        input : button name
+                                                        when this button is pressed :
+                                                            - Send Message
+                                                            - Open Website
+                                                            - Call Number
+                                                            - Perform Action
+                                                            - Start Another Flow
+                                                            - Start Another Step
+                                                            - Start External Step
+                                            - Image :
+                                              - is active:
+                                                container :
+                                                    upload image or insert link
+                                            - Card :
+                                              - id : &card-container
+                                              - is active:
+                                                container :
+                                                    - upload image or insert link
+                                                    - title (required)
+                                                    - subtitle
+                                                    - *add-button
+                                            - Carousel :
+                                              - is active: *card-container
+                                            - Get User Data : 
+                                              - is active:
+                                                - input text: type a message
+                                                - button :
+                                                    label : edit
+                                                    dialog :
+                                                        Reply type:
+                                                            ui_dropdown:
+                                                                select:
+                                                                    Number
+                                                                    Text
+                                                                    Email
+                                                                    Phone
+                                                                    Image
+                                                                    File
+                                                                    Link
+                                                                    Location
+                                                                    Date
+                                                                    Date and Time
+                                                                    Multiple choice
+                                                                    QR Code Reader (Viber)
+                                                        Save response to a custom field:
+                                                            - button :
+                                                                << : *AddCustomField
+                                                            - ui_dropdown:
+                                                                select:
+                                                                    existing tag
+                                                        Retry message if the reply is invalid:
+                                                            - example : What you've entered is not a valid email. Please try again
+                                                        Skip Button Label:
+                                                            - example : skip
+                                                        ui_checkbox: 
+                                                            label : Auto Skip after
+                                                            input number of time:
+                                                                - input time
+                                                            auto skip after failed attempts:
+                                                                - imput number
+                                                                - example : 3
+                                                additional node : 
+                                                    - Data was saved
+                                            - Video :
+                                              - is active:
+                                                container :
+                                                    upload video or insert link
+                                            - GIF :
+                                                is active:
+                                                    dialog :
+                                                        label : poert by giphy
+                                            - Typing :
+                                                is active:
+                                                    label :
+                                                        typing for #number of second
+                                            - File :
+                                                ui_dropdown:
+                                                    select:
+                                                    - audio :
+                                                        is active:
+                                                            container :
+                                                                upload audio or insert link
+                                                    - other :
+                                                        is active:
+                                                            container :
+                                                                upload file or insert link
+                                            - Actions :
+                                              id : &ActionDropdown
+                                                ui_dropdown:
+                                                - Inbox :
+                                                  select:
+                                                    - Transfer Conversation to Human :
+                                                        is active:
+                                                            p: Transfer Conversation to human
+                                                            ui_checkbox: notify Admin
+                                                    - Transfer Conversation to bot
+                                                    - Assign Conversation to an Admin :
+                                                        is active:
+                                                            p: Assign Conversation to an Admin
+                                                            select: 
+                                                            - place holder: nothing selected
+                                                            - select an admin
+                                                    - Auto Assign conversation to an Admin :
+                                                        is active:
+                                                            p: Auto Assign conversation to an Admin
+                                                            dialog:
+                                                                label: Auto Assign conversation to an Admin
+                                                                select:
+                                                                - label: select an admin
+                                                                - place holder: select one or more admin
+                                                                select:
+                                                                    - Equal conversationo distribution (last):
+                                                                        all time
+                                                                        hours
+                                                                        8 hours
+                                                                        24 hours
+                                                            ui_checkbox: notify Admin
+                                                            additional node : 
+                                                                success
+                                                                failed
+                                                    - Remove Assignment :
+                                                        is active:
+                                                            p: Remove Assignment
+                                                    - Add Notes :
+                                                        is active:
+                                                            p: Add Notes
+                                                            dialog :
+                                                                input text
+                                                    - Mark Conversation as Follow Up :
+                                                        is active:
+                                                            p: Mark Conversation as Follow Up
+                                                    - Remove Conversation From Follow Up :
+                                                        is active:
+                                                            p: Remove Conversation From Follow Up
+                                                    - Archive :
+                                                        is active:
+                                                            p: Archive
+                                                    - Unarchive :
+                                                        is active:
+                                                            p: Unarchive
+                                                    - Block Contact :
+                                                        is active:
+                                                            p: Block Contact
+                                                - OpenAI :
+                                                    is active:
+                                                        p: OpenAI
+                                                        dialog:
+                                                            select model:
+                                                                - Generete text:
+                                                                    - model : &AiModel
+                                                                        GPT-4.1 mini
+                                                                        GPT-4.1 nano
+                                                                        GPT-4.1
+                                                                        GPT-4o mini
+                                                                        GPT-4o
+                                                                        o1-mini
+                                                                        o1
+                                                                        o1-pro
+                                                                        o3-mini
+                                                                        GPT-4
+                                                                        GPT-4 Turbo
+                                                                        GPT-3.5 Turbo 16K
+                                                                    - Business Information (prompt) (optional) :
+                                                                        input prormpt
+                                                                    - User Message:
+                                                                        - input text
+                                                                        - example: "{{last input}}" 
+                                                                    - Save response to a custom field:
+                                                                        - select custom field
+                                                                        - button :
+                                                                            << : *AddCustomField
+                                                                    - AI triggers (optional):
+                                                                        - select existing AI trigger (one or more)
+                                                                - Generete text - Advanced :
+                                                                    - model : 
+                                                                        <<: *AiModel
+                                                                    - Business Information (prompt) (optional) :
+                                                                        input prormpt
+                                                                    - User Message: 
+                                                                        - input text
+                                                                        - example: "{{last input}}" 
+                                                                    - Save response to a custom field:
+                                                                        - select custom field
+                                                                        - button :
+                                                                            << : *AddCustomField
+                                                                    - AI triggers (optional):
+                                                                        - select existing AI trigger (one or more)
+                                                                    - Remember conversation : true | false
+                                                                    - temprature : between 0 and 2
+                                                                    - Maximum number of output tokens (optional) :
+                                                                        between 0 and 4096
+                                                                - Generete text - Assitant :
+                                                                    - Assistants:
+                                                                        select existing AI assistant from ("https://client.pekerja.ai/en/openai-assistants")
+                                                                    - User message:
+                                                                        "input variable like {{last_input}}"
+                                                                    - Save response to a custom field:
+                                                                        - select custom field
+                                                                        - button :
+                                                                            << : *AddCustomField
+                                                                - Analyze image:
+                                                                    - image: 
+                                                                        select custom field
+                                                                    - prompt:
+                                                                        whats in this image? | prompt
+                                                                    - Model :
+                                                                        - GPT-4o mini
+                                                                        - GPT-4o 
+                                                                    - save response to a custom field:
+                                                                        - select custom field
+                                                                        - button :
+                                                                            << : *AddCustomField
+                                                                - Generate Image:
+                                                                    - User message:
+                                                                        "input variable like {{last_input}}"
+                                                                    - Model :
+                                                                        - GPT Image 1
+                                                                        - DALL-E 3
+                                                                        - DALL-E 2
+                                                                    - Quality : 
+                                                                        - Auto
+                                                                        - High
+                                                                        - Medium 
+                                                                        - Low
+                                                                    - Image Size :
+                                                                        Auto
+                                                                        Square - 1024x1024
+                                                                        Landscape - 1536x1024
+                                                                        Portrait - 1024x1536
+                                                                        256x256 (DALL.E 2)
+                                                                        512x512 (DALL.E 2)
+                                                                        1792x1024 (DALL·E 3)
+                                                                        1024x1792 (DALL.E 3)
+                                                                    - Save response to a custom field:
+                                                                        - select custom field
+                                                                        - button :
+                                                                            << : *AddCustomField
+                                                                - Edit Image:
+                                                                    - select image
+                                                                    - Image :
+                                                                        selelct custom field
+                                                                    - User message:
+                                                                        "input variable like {{last_input}}"
+                                                                    - Save response to a custom field:
+                                                                        - select custom field
+                                                                        - button :
+                                                                            << : *AddCustomField
+                                                                - Convert speach to text:
+                                                                    - audio :
+                                                                        seletct audio from custom field
+                                                                    - Save response to a custom field:
+                                                                        - select custom field
+                                                                        - button :
+                                                                            << : *AddCustomField
+                                                                - convert text to speach:
+                                                                    - input text
+                                                                    - voice Type:
+                                                                        - alloy
+                                                                        - ash
+                                                                        - ballad
+                                                                        - coral
+                                                                        - echo
+                                                                        - fable
+                                                                        - onyx
+                                                                        - nova
+                                                                        - sage
+                                                                        - shimmer
+                                                                        - verse
+                                                                    - Voice tone (Optional):
+                                                                        - input text
+                                                                    - Save response to a custom field:
+                                                                        - select custom field
+                                                                        - button :
+                                                                            << : *AddCustomField
+                                                                - delete message history
+                                                - Add Tag :
+                                                    is active:
+                                                        p: Add Tag
+                                                        select:
+                                                            existing tag
+                                                - Remove Tag :
+                                                    is active:
+                                                        p: remove tag
+                                                        select:
+                                                            existing tag
+                                                - Notify Admins:
+                                                    is active:
+                                                        p: Notify Admins
+                                                        input:
+                                                            type or click here (select existing admin)
+                                                        notification text:
+                                                        - type a message
+                                                        - example : something happened that required your attention
+                                                - Set Custom Field:
+                                                    is active:
+                                                        button :
+                                                            label : Set custom field
+                                                            dialog :
+                                                                label : Set custom field
+                                                                select:
+                                                                - place holder: select a custom field
+                                                                - button:
+                                                                    << : *AddCustomField
+                                                                operation:
+                                                                - send to 
+                                                                - append to the ending
+                                                                - append to the beginning
+                                                                value:
+                                                                - type a message
+                                                - Clear Custom Field:
+                                                    is active:
+                                                        p: Clear Custom Field
+                                                        ui_select: existing custom field
+                                                - Google Sheets:
+                                                    is active:
+                                                        label: Google sheets
+                                                        dialog:
+                                                            label: Google sheets
+                                                            actions:
+                                                            - send data
+                                                            - Get Row
+                                                            - Get Random Row
+                                                            - Update Row
+                                                            - Clear Row
+                                                            - Generate Dynamic Gallery
+                                                            Spreadsheet:
+                                                            - select existing spreadsheet
+                                                            - button : 
+                                                                label: add new
+                                                                redirect: "https://client.pekerja.ai/en/spreadsheets"
+                                                                id: *Google-spreadsheets
+                                                            Worksheet:
+                                                                select : your sheet
+                                                            Lookup Columns :
+                                                            - return rows that match : all filter | any filter 
+                                                            - button :
+                                                                label : + filter
+                                                            - if there is a filter :
+                                                              - select your columnt titles
+                                                              - validation:
+                                                                -  Is
+                                                                - Is Not
+                                                                - Greater than or Equal to
+                                                                - Less than or Equal to
+                                                                - Greater than
+                                                                - Less than
+                                                                - Contains
+                                                                - Doesn't contain
+                                                                - Starts with
+                                                                - Ends with
+                                                              - input value
+                                                            Custom field:
+                                                            - select existing custom field
+                                                            - select your Google columnt titles
+                                                - Subscribe to drip campaign:
+                                                    is active:
+                                                    - p: subscribe to drip campaign
+                                                    - select existing drip campaign
+                                                - Unsubscribe from drip campaign:
+                                                    is active:
+                                                    - p: unsubscribe from drip campaign
+                                                    - select existing drip campaign
+                                                - Log Custom Events:
+                                                    is active:
+                                                    - p: log custom events
+                                                    - select existing custom event
+                                                - Subscribe to receive broadcasts:
+                                                    is active:
+                                                    - p: subscribe to receive broadcasts
+                                                - Unsubscribe from all broadcast:
+                                                    is active:
+                                                    - p: unsubscribe from all broadcast
+                                                    - select existing broadcast
+                                                - Delete Contact:
+                                                    is active:
+                                                    - p: delete contact
+                                                - External API Request:
+                                                    is active:
+                                                    - p: external API request
+                                                    - dialog:
+                                                        label: external request
+                                                        request type:
+                                                        - GET
+                                                        - POST
+                                                        - DELETE
+                                                        - PUT
+                                                        - PATCH
+                                                        request URL:
+                                                            input url
+                                                        tab:
+                                                            Headers:
+                                                            - key: value
+                                                            - button:
+                                                                label: add
+                                                            - body
+                                                            - response mapping:
+                                                                JsonPath: input your json path
+                                                                Save to Custom Field : select existing custom field
+                                                                button :
+                                                                    label : Add
+                                                            - Test now:
+                                                                button :
+                                                                    label : test now
+                                                - Appointment Scheduling: 
+                                                    is active:
+                                                        p: appointment scheduling
+                                                        dialog:
+                                                          label:  Appointment scheduling
+                                                          select :
+                                                          - book an appointment
+                                                          - cencel appointment
+                                                          - check availability
+                                                        calender : select your calender
+                                                        date: custom field
+                                                        button :
+                                                            << : *AddCustomField
+                                                - Trigger :
+                                                  select:
+                                                  - Trigger Zapier:
+                                                    is active:
+                                                        p: trigger zapier
+                                                        ui_select: select your tigger (you might need to configure it first)
+                                                  - Trigger Make:
+                                                    is active:
+                                                        p: trigger make
+                                                        ui_select: select your tigger (you might need to configure it first)
+                                                  - Trigger Pabbly:
+                                                    is active:
+                                                        p: trigger pabbly
+                                                        ui_select: select your tigger (you might need to configure it first)
+                                                  - Trigger Pabbly:
+                                                    is active:
+                                                        p: trigger pabbly
+                                                        ui_select: select your tigger (you might need to configure it first)
+                                                - More Options :
+                                                    select:
+                                                    - Find locations near me:
+                                                        is active:
+                                                            p: find locations near me
+                                                            select loacation: all
+                                                    - Start Another Flow:
+                                                        is active:
+                                                            p: Start another flow
+                                                            select: existing flow
+                                                    - Start Another Step:
+                                                        is active:
+                                                            p: Start another step
+                                                            select: existing step
+                                                    - Start External Step:
+                                                        is active:
+                                                            p: Start external step
+                                                            select: write step ID
+                                                    - Cancel Pending User Input:
+                                                        is active:
+                                                            p: Cancel pending user input
+                                                - Tools :
+                                                  select:
+                                                  - Get data from JSON:
+                                                    is active:
+                                                        p: Get data from JSON
+                                                        dialog:
+                                                            label: Get json from data
+                                                            Json data: select existing custom field
+                                                            save respond to a custom frield:
+                                                                jason path: select existing custom field
+                                                                button:
+                                                                    << : *AddCustomField
+                                                  - Format Date:
+                                                    is active:
+                                                        p: Format Date
+                                                        dialog:
+                                                            label: Formate date
+                                                            date & time custom field:
+                                                                select time | tag
+                                                            Format:
+                                                                write format
+                                                            Save to custom field :
+                                                                - select custom field
+                                                                - button :
+                                                                    << : *AddCustomField
+                                                                - format date using
+                                                  - Generate Random Number/Text:
+                                                    is active:
+                                                        p: Generate Random Number/Text
+                                                        dialog:
+                                                            label: Generate Random Number/Text
+                                                            type: 
+                                                            - Numeric (Minimum/Maximum length)
+                                                            - Numeric (Minimum/Maximum number)
+                                                            - Alphanumeric (Minimum/Maximum length)
+                                                            Minimum:
+                                                            - input variable
+                                                            Maximum: 
+                                                            - input variable
+                                                            save to custom field :
+                                                            - select custom field ( only shows custom field with numer type)
+                                                  - Character Counter:
+                                                  is active:
+                                                        p: Generate Random Number/Text
+                                                        dialog:
+                                                            label: Generate Random Number/Text
+                                                            custom field : 
+                                                                select existing custom field 
+                                                            save to custom field :
+                                                            - select custom field ( only shows custom field with numer type)
+                                                            - button :
+                                                                << : *AddCustomField
+                            - Start Flow:
+                                label : select existing flow
+                                container : 
+                                    sidebar : select existing flow
+                            - Actions:
+                                id : &ActionDropdown
+                            - Condition
+                            - Send Email
+                            - Split Traffic
+                            - Wait
+                            - Landing Page
+                    - preview button:
+                            postion: right center
+                    
             Tags :
                 section :
                     p: Tags
@@ -532,21 +1100,23 @@ sidebar:
             Custom Fields : 
                 container Custom Fields : 
                     section :
-                        p: Custom Fields
-                        Button : 
-                            label : add
-                            dialog : 
-                                p: Add New
-                                input : type custom field name
-                                Type : 
-                                    text
-                                    number
-                                    date
-                                    date and time
-                                    true | false
-                                    long text
-                                Description :
-                                    input : optional
+                        - p: Custom Fields
+                        - button:
+                          id: &AddCustomField
+                            label: add new
+                            add new:
+                                dialog:
+                                    name : intput custom field name
+                                    type :
+                                        select type:
+                                            - text
+                                            - number
+                                            - date
+                                            - date and time
+                                            - true | false
+                                    description :
+                                        input description
+                                    p: Use custom fields to save users data like email, phone number ...
                     section2 :
                         new Folder/ :
                             create new folder 
@@ -802,6 +1372,7 @@ sidebar:
                         - download button
       tools : 
         name : Google Spreadsheets
+        id : &Google-spreadsheets
         p: Rekap data secara realtime kedalam google spread sheetsmu.
         routes : https://client.pekerja.ai/en/spreadsheets
         note : tools ini hanya bisa di akses jika sudah connect di menuu integration -> google sheet
@@ -872,7 +1443,7 @@ sidebar:
         p: Ubah voice note chat kamu menjadi teks.
         routes : https://client.pekerja.ai/en/settings#integrations
         container : 
-            *GoogleSpeech-to-Text 
+            <<: *GoogleSpeech-to-Text 
       tools : 
         name : Branch Maps
         p: Buat pelanggan kamu mudah menemukan lokasi cabang bisnis terdekatmu..
@@ -921,14 +1492,5 @@ sidebar:
     label: Upgrade Paket
     route: "/upgrade"
     trialEndsInDays: 4
-main:
-  cards:
-  - type: info
-    title: Pipelines
-    description: Track leads and deals visually with a Kanban board. Prioritize, manage
-      stages, and close deals faster with an intuitive drag-and-drop interface.
-    button:
-      label: Add
-      action: openAddPipelineModal
 footer:
   text: "© 2025 Pekerja.ai"
