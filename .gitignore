@@ -1,0 +1,2 @@
+# Ignore all desktop.ini files in the repository
+**/desktop.ini
