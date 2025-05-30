@@ -1,1 +1,0 @@
-ini pekerja-ai readme
