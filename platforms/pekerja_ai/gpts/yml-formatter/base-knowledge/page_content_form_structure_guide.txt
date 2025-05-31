@@ -1,0 +1,25 @@
+// page_content_form_structure_guide.txt
+Jika input pengguna secara spesifik menjelaskan antarmuka berbasis FORMULIR (bukan tabel) yang ditujukan untuk bagian `pageContent` dalam `sidebar_menu.yml` (misalnya, halaman pengaturan dengan field-field input), terapkan struktur umum berikut. Ganti semua placeholder `<...>` dengan nilai aktual dari input pengguna, dan pastikan semua `type`, `action`, dan `options` selaras dengan definisi di `sidebar_menu.yml`.
+
+pageContent: # Atau key relevan lainnya dari sidebar_menu.yml
+  tabs: # Jika UI memiliki tabs
+    - title: <JudulTabAktif>
+      section:
+        title: <JudulSection> # Bisa judul tab atau lebih spesifik
+        fields:
+          - name: <namaUnikUntukField1>
+            label: <TeksLabelField1>
+            type: <tipeField1_sesuai_sidebar_menu_yml> # Contoh: input, select, textarea, number, toggle, multiSelect, uploader
+            description: <TeksDeskripsiField1_jikaAda>
+            placeholder: <TeksPlaceholder_jikaAda>
+            # Jika tipe 'select' atau 'multiSelect' dengan opsi statis:
+            # options:
+            #   - value: <nilaiOpsiA>
+            #     label: <LabelOpsiA>
+            #   - <opsiB_string_saja>
+            # Jika tipe 'select' atau 'multiSelect' dengan sumber data dinamis:
+            # dataSource: <namaSumberDataDari_sidebar_menu_yml>
+            defaultValue: <NilaiDefault_jikaAda>
+            # Atribut lain yang relevan dari sidebar_menu.yml (mis. helperText, required, dsb.)
+          # ... (ulangi untuk setiap field dalam form)
+  # ... (struktur untuk tab lain jika ada)

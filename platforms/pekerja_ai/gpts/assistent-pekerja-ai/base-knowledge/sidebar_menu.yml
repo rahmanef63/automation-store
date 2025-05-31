@@ -2298,6 +2298,444 @@ appConfig:
                   - title: Analytic
                     redirect: true
                     route: https://client.pekerja.ai/en/dashboard-shop
+            - name: Quiz
+              description: >-
+                Buat kuis dan survei di dalam chat dan dapatkan hasilnya secara akurat.
+              route: 'https://client.pekerja.ai/en/questionnaires'
+              pageContent:
+                section:
+                  title: Questionnaires
+                  addButton:
+                    label: Add
+                    action:
+                      dialog:
+                        - title: Add new
+                        - label: Name
+                        - placeholder: name
+                        - isPress:
+                          redirect: true
+                          id: questionnaireForm
+                          type: form
+                          fields:
+                            - key: triggerFlow
+                              type: select
+                              label: Trigger the flow by completing the questionnaire
+                              options: existing flow 
+                            - key: givePoints
+                              type: checkbox
+                              label: Give points for each question answered.
+                            - key: retryMessages
+                              type: checkbox
+                              label: Customize retry messages in case of reply failure.
+                            - key: saveToCustom
+                              type: checkbox
+                              label: Save data to custom fields.
+                              defaultValue: true
+                            - key: question
+                              type: text
+                              label: Question
+                            - key: responseType
+                              type: select
+                              label: Response Type
+                              options:
+                                - Text
+                                - Number 
+                                - email
+                                - phone
+                                - multiple choice
+                                - date
+                                - date and time
+                                - image
+                                - file
+                                - location
+                                - website link
+                            - key: customFieldTarget
+                              type: select
+                              label: Save response to a custom field
+                              options: existing custom field
+                          actions:
+                            - label: Add New
+                              action: addNewQuestion
+                            - label: save
+                              action: saveQuestion
+                            - lavel: cancel
+                              action: cancelQuestion
+                  table:
+                    columns:
+                      - key: name
+                        type: text
+                        label: Name
+                      - key: applicants
+                        type: number 
+                        label: Applicants
+            - name: Polling
+              description: >-
+                Salin flow dan konten lainnya dengan cepat ke akun lain.
+              route: '' 
+              pageContent:
+                tabs:
+                  - title: Poll Manager
+                    section:
+                      title: Poll Manager
+                      addButton:
+                        label: Add
+                        action:
+                          type: dialog
+                          redirect: true
+                          pageContent:
+                            type: form
+                            fields:
+                              - key: name
+                                type: text
+                                label: Name
+                                required: true
+                              - key: startDate
+                                type: datetime
+                                label: Start Date
+                              - key: endDate
+                                type: datetime
+                                label: End Date
+                              - key: image
+                                type: file
+                                label: Image
+                                required: true
+                              - key: candidates
+                                type: group
+                                label: Candidates or Options
+                                multiple: true
+                                fields:
+                                  - key: name
+                                    type: text
+                                    label: Name
+                                  - key: description
+                                    type: textarea
+                                    label: Description
+                                  - key: image
+                                    type: file
+                                    label: Image
+                              - key: flowAfterVote
+                                type: select
+                                label: Flow to be sent after the user vote
+                                options: existing flow
+                    table:
+                      columns:
+                        - key: name
+                          type: text
+                          label: Name
+                        - key: startDate
+                          type: date
+                          label: Start Date
+                        - key: endDate
+                          type: date
+                          label: End Date
+                        - key: votes
+                          type: number
+                          label: Votes
+            - name: Template
+              description: >-
+                Salin flow dan konten lainnya dengan cepat ke akun lain.
+              route: '' 
+              pageContent:
+                section:
+                  title: Templates
+                  addButton:
+                    label: Add
+                    action:
+                      type: dialog
+                      redirect: true
+                      pageContent:
+                        type: form
+                        fields:
+                          - key: name
+                            type: text
+                            label: Template Name
+                            required: true
+                          - key: image
+                            type: file
+                            label: Image
+                          - key: createFolder
+                            type: toggle
+                            label: Create a folder on the installed account and install resources.
+                            defaultValue: true
+                          - key: contents
+                            type: accordion
+                            label: Template Contents
+                            multiple: true
+                            sections:
+                              - key: settings
+                                label: Settings
+                                selectAll: true
+                                accordion:
+                                  - key: general
+                                    label: General
+                                    type: checkbox
+                                  - key: persistentMenu
+                                    label: Persistent Menu
+                                    type: checkbox
+                              - key: flows
+                                label: Flows
+                                selectAll: true
+                                accordion:
+                                  - key: analisaGambar
+                                    label: Analisa Gambar
+                                    type: checkbox
+                                    actions: [view, edit]
+                                  - key: otherExistingFlows
+                                    label: Other Existing Flows
+                                    type: checkbox
+                                    actions: [view, edit]
+                              - key: automatedResponses
+                                label: Automated Responses
+                                selectAll: true
+                                accordion: []
+                              - key: triggersAndActions
+                                label: Triggers and Actions
+                                selectAll: true
+                                accordion: []
+                              - key: entryPointsLinks
+                                label: Entry Points Links
+                                selectAll: true
+                                accordion: []
+                              - key: products
+                                label: Products
+                                selectAll: true
+                                accordion: []
+                              - key: aiTriggers
+                                label: AI Triggers
+                                selectAll: true
+                                accordion: []
+                              - key: webchats
+                                label: Webchats
+                                selectAll: true
+                                accordion: []
+                              - key: calendars
+                                label: Calendars
+                                selectAll: true
+                                accordion: []
+                              - key: fbCommentAutomations
+                                label: Facebook Comment Automations
+                                selectAll: true
+                                accordion: []
+                            section: 
+                              label: Permission on installed templates
+                              options:
+                                - key: autoUpdate
+                                  type: checkbox
+                                  label: Auto-update installed templates
+                                - key: allowDelete
+                                  type: checkbox
+                                  label: Permission to delete installed templates
+                          - more option:
+                            - more information:
+                              - key: publisherName
+                                type: text
+                                label: Publisher name
+                                placeholder: Unknown
+                              - key: description
+                                type: textarea
+                                label: Description
+                                placeholder: iptional
+                              - key: youtubeVideoId
+                                type: text
+                                label: Youtube Video ID
+                              - key: testLink
+                                type: text
+                                label: Test Link
+                                placeholder: Optional
+                table: 
+                  column:
+                    - key: name
+                      label: Name
+                    - key: instalas
+                      label: number | 0
+                  action: 
+                    - get link
+                    - view analytic
+                    - delete
+            - name: Facebook Messenger List
+              description: >-
+                Bangun daftar database facebook messenger untuk dilakukan drip campaigns.
+              route: 'https://client.pekerja.ai/en/otn' 
+              pageContent:
+                section:
+                  title: Messenger List
+                  addButton:
+                    label: Add
+                    action:
+                      type: dialog
+                      redirect: true
+                      type: form
+                      fields:
+                        - key: name
+                          type: text
+                table:
+                  columns:
+                    - key: name
+                      type: text
+                      label: Name
+                    - key: contacts
+                      type: number
+                      label: Contacts
+            - name: Facebook Ads
+              description: >-
+                Konekkan facebook ads.
+              route: '' # TODO: Isi URL route
+              pageContent: 
+                soon: true
+            - name: Facebook Auto Lead Ads
+              description: >-
+                Tingkatkan jualanmu dengan dengan mengkualifikasi leads yang prospek Facebook atau Instagram di Whatsapp.
+              route: '' # TODO: Isi URL route
+              pageContent: 
+                soon: true
+            - name: Facebook Conversion Tracking (Pixel)
+              description: >-
+                Tracking conversion dari facebook ads kamu.
+              route: '' # TODO: Isi URL route
+              pageContent: 
+                soon: true
+            - name: Testing Chat
+              description: >-
+                Prompt & Flows System? saatnya lihat hasilnya disini.
+              route: '' # TODO: Isi URL route
+              pageContent:
+                section:
+                  title: Web Chat Generator
+                  section:
+                    - key: website
+                      type: text
+                      label: Website Link
+                      required: true
+                    - key: chatbot
+                      type: select
+                      label: Web Chatbot
+                      optionsRef: chatbotOptions # TODO: Sesuaikan source list chatbot
+                  addButton:
+                    label: Add New
+                    action:
+                      type: dialog
+                      redirect: true
+                      table: 
+                        - key: name
+                          type: text
+                          label: Name
+                          required: true
+                        - key: modified
+                          type: text
+                          label: Modified
+                          required: true
+                        - key: active
+                          type: toggle
+                          label: Active
+                        - addButton:
+                          label: Add
+                          action:
+                            type: route
+                            redirect: true
+                            pageContent:
+                            type: form
+                            fields:
+                              - key: name
+                                type: text
+                                label: Name
+                                required: true
+                              - key: welcomeMessage
+                                type: select
+                                label: Welcome Message
+                                optionsRef: welcomeMessages # TODO: Klarifikasi source pesan
+                              - key: authorizedWebsites
+                                type: list
+                                label: Authorized websites
+                                item:
+                                  type: text
+                                  label: Website
+                              - key: conversationStarters
+                                type: list
+                                label: Conversation Starters
+                                item:
+                                  type: text
+                                  label: Prompt
+                              - key: persistentMenu
+                                type: list
+                                label: Persistent Menu
+                                item:
+                                  type: text
+                                  label: Menu Item
+                              - key: template
+                                type: select
+                                label: Template
+                                optionsRef: webchatTemplates # TODO: Daftar template jika tersedia
+                              - key: brandColor
+                                type: color
+                                label: Brand Color
+                              - key: hideHeader
+                                type: checkbox
+                                label: Hide the webchat header.
+                              - key: showLogoAsPersona
+                                type: checkbox
+                                label: Show logo as persona.
+                              - key: hideComposer
+                                type: checkbox
+                                label: Hide the message composer.
+                              - key: customCss
+                                type: code
+                                language: css
+                                label: Customize webchat with CSS
+            - name: Upload Images Free
+              description: >-
+                Upload gambar kamu di sini tanpa harus bayar alias gratis.
+              route: '' # TODO: Isi URL route
+              pageContent:
+                section:
+                  title: Images
+                  addButton:
+                    label: Add
+                    action:
+                      upload an image
+                table:
+                  columns:
+                    - key: name
+                      type: text
+                      label: Name
+            - name: API
+              description: >-
+                Konekkan pekerja.ai dengan system kamu agar Bot Ai dapat melakukan hal yang lebih keren.
+              route: '' # TODO: Isi URL route
+              pageContent: {}
+            - name: Webhooks
+              description: >-
+                Kirimkan data ke system kamu agar bisa berdiskusi dua arah.
+              route: 'https://client.pekerja.ai/en/webhooks'
+              pageContent:
+                tabs:
+                  - title: Webhooks
+                    section:
+                      title: Webhooks
+                      addButton:
+                        label: Add
+                        action:
+                          type: dialog
+                          redirect: true
+                          id: webhookForm
+                      type: form
+                      fields:
+                        - key: triggers
+                          type: selectmultiple
+                          label: When this happens
+                          optionsRef: webhookTriggers
+                          required: true
+                        - key: url
+                          type: textarea
+                          label: Notify this URL
+                          required: true
+                      table:
+                        columns:
+                          - key: name
+                            type: text
+                            label: Name
+                          - key: status
+                            type: toggle
+                            label: Status
       - title: Ai Academy
         icon: ai-academy
         route: /academy
