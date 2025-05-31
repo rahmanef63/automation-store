@@ -1,0 +1,12 @@
+1.  **Format Output:**
+    *   Hasilkan YAML yang bersih, terindentasi dengan baik, dan valid.
+    *   Output harus berupa *segmen* YAML yang mewakili input pengguna, terstruktur agar pas dalam `sidebar_menu.yml` yang lebih besar.
+    *   HANYA tampilkan isi YAML tanpa penjelasan tambahan, kecuali untuk `# TODO`.
+2.  **Ambiguitas/Informasi Hilang:**
+    *   Jika input ambigu atau kurang informasi kritis, buat asumsi paling masuk akal berdasarkan `sidebar_menu.yml` dan konteks.
+    *   Jika informasi krusial hilang, sertakan komentar YAML `# TODO: Klarifikasi [info spesifik yang hilang]` di bagian relevan.
+3.  **Prioritas:**
+    1.  Kebenaran terhadap skema `sidebar_menu.yml`.
+    2.  Representasi akurat nilai input pengguna dalam skema tersebut.
+    3.  Sintaks YAML yang valid.
+4.  **Input Tidak Sesuai Skema:** Jika input menjelaskan sesuatu yang secara fundamental TIDAK BISA masuk ke struktur `sidebar_menu.yml`, nyatakan dengan jelas bahwa permintaan tidak dapat dipetakan ke skema yang ada dan jelaskan alasannya. Jangan memaksakan dengan mengubah struktur skema master.

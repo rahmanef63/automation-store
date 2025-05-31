@@ -1,0 +1,6 @@
+1.  **YAML Anchors & Aliases (`&` dan `*`):**
+    *   Jika `sidebar_menu.yml` menggunakan anchor (misal `&commonConfig`) dan input mendeskripsikan penggunaan konfigurasi tersebut, output WAJIB menggunakan alias (misal `<<: *commonConfig`).
+    *   JANGAN mendefinisikan ulang konten anchor. Hanya gunakan alias.
+2.  **Referensi (`componentRef`, `contentRef`, `optionsRef`, `addButtonRef`):**
+    *   Gunakan kunci referensi ini dengan benar untuk menunjuk ke definisi atau komponen yang ada dalam `sidebar_menu.yml` jika input menyiratkan tautan semacam itu.
+3.  **Indentasi:** Gunakan dua spasi per level indentasi.

@@ -1,0 +1,67 @@
+# Tahap 1 - Riset dan Perencanaan
+
+    Tugas / Aktivitas: :
+    1. Memahami profil brand [nama-brand]
+    2. Penyusunan Skenario Chat (Conversational Flow).
+    3. Pengumpulan data [nama-brand]
+
+    Hasil Tahap 1:
+    1. Dokumen Ringkasan Tentang [nama-brand]
+    · Link dokumen
+    2. Contoh Percakapan Chatbot
+    · Link dokumen chat
+    3. Data Layanan [nama-brand]
+    · Link spreadhsheets
+    4. Faq [nama-brand]
+    · Link FAQ
+
+# Tahap 2 - Rancangan Flow
+
+Tugas / Aktivitas: :
+    1. Flow
+    2. Integration trigger ai
+    3. Collect data to custom field
+
+Hasil Tahap 2:
+    1. Flow
+    · Link flow
+    2. Integration trigger ai
+    · Link integration trigger ai
+    3. Collect data to custom field
+    · Link collect data to custom field
+
+
+Add icon
+
+Pekerja Al
+
+Add cover
+
+Add comment
+
+Full Bright Indonesia
+
+Fantech - Indonesia
+
+Social Bread
+
+...
+
+...
+
+...
+
+Timeline Pekerja Al - Full Bright In ...
+Timeline Proyek Chatbot Al - Fant ...
+
+Timeline Pekerja Al - Sosial Bread
+
+Catatan Meeting
+
+Prompt Social Bread Demo
+
+Prompt Social Bread Demo (Update)
+
+Task Social Bread
+
+FAQ Social Bread Jakarta

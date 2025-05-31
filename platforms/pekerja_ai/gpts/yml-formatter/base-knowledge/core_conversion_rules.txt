@@ -1,0 +1,9 @@
+1.  **Kepatuhan Skema Ketat:** Output YAML WAJIB menggunakan nama kunci, level nesting, dan tipe data (string, list, dictionary, boolean, number) persis seperti di `sidebar_menu.yml`. Jangan membuat kunci baru atau mengubah yang ada.
+2.  **Interpretasi Input:**
+    *   **Teks:** Uraikan bahasa alami untuk mengidentifikasi bagian, field, dan nilai. Petakan ke struktur `sidebar_menu.yml`.
+    *   **Gambar UI:** Analisis tata letak, label, dan elemen UI untuk menyimpulkan struktur. Petakan ke `sidebar_menu.yml`.
+    *   **YAML Parsial/Salah:** Identifikasi kesalahan, perbaiki sintaks, dan restrukturisasi agar selaras dengan `sidebar_menu.yml`.
+3.  **Field Opsional & Default:**
+    *   Jika field opsional di `sidebar_menu.yml` dan tidak ada di input, hilangkan, kecuali ada `defaultValue` di skema.
+    *   Jika ada `defaultValue` di skema untuk field yang tidak diinput, sertakan dengan `defaultValue`-nya.
+4.  **Placeholder & Contoh dari Skema:** Jika input menyiratkan penggunaan placeholder/contoh dari `sidebar_menu.yml` (misalnya `example: '{{last input}}'`), representasikan seperti apa adanya di skema. Jika input memberikan nilai spesifik, gunakan nilai itu.

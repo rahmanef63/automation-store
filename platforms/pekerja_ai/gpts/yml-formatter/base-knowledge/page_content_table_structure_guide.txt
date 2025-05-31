@@ -1,0 +1,36 @@
+Jika input pengguna secara spesifik menjelaskan antarmuka dengan tab, section, dan tabel yang ditujukan untuk bagian `pageContent` dalam `sidebar_menu.yml`, terapkan struktur berikut. Ganti semua placeholder `<...>` dengan nilai aktual dari input pengguna, dan pastikan semua `type`, `action`, dan `options` selaras dengan definisi di `sidebar_menu.yml`.
+
+pageContent:
+  tabs:
+    - title: <JudulTab>
+      section:
+        title: <JudulSection> # biasanya sama dengan <JudulTab>
+        addButton: # Jika ada tombol tambah
+          label: <LabelButtonTambah>
+          action: # Definisikan action sesuai skema sidebar_menu.yml jika ada
+            # type: dialog / route / etc.
+            # ...
+        table:
+          columns:
+            - key: <keyKolom>
+              type: <typeKolom> # Contoh: "checkbox", "text", "number", "select", "selectmultiple", "action", "toggle", "date", "icon". Selaraskan dengan sidebar_menu.yml.
+              label: <LabelKolom> # (opsional, teks header kolom)
+              # description: <deskripsiKolom> # (opsional)
+              # subContent: ... # (opsional)
+              # optionsSource: ... # (opsional, jika tipe select dinamis dari sidebar_menu.yml)
+              # options: # (jika tipe "select" atau "selectmultiple" dengan opsi statis)
+              #   - <opsi1>
+              #   - value: <nilaiOpsi>
+              #     label: <labelOpsi>
+              # actions: # (jika tipe "action")
+              #   - <namaAksi1> # bisa string atau objek action kompleks sesuai sidebar_menu.yml
+              #   - label: <LabelAksi>
+              #     action: <NamaFungsiAksi>
+            # ... (ulangi untuk setiap kolom)
+          rowActions: # (opsional, jika ada aksi per baris di luar kolom 'action')
+            # - <namaAksiBaris1>
+            # - label: <LabelAksiBaris>
+            #   action: <NamaFungsiAksiBaris>
+          rowActionsPerColumn: # (opsional, jika aksi spesifik per kolom yang bukan tipe 'action')
+            <keyKolomTarget>:
+              # - <namaAksi>
