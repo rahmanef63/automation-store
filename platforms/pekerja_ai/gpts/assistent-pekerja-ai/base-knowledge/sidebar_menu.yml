@@ -2210,7 +2210,94 @@ appConfig:
                               label: Other Fees / Services Fees
                               type: number
                               description: Other fees related to the sale.
-                        - 
+                        - title: Shipping
+                          section:
+                            title: Shipping
+                            section:
+                            - key: shippingType
+                              type: select
+                              label: Shipping type
+                              option:
+                              description: This option allows you to control how the customer will get their order.
+                            - key: storeAddress
+                              type: text
+                              label: Store address
+                              description: This address is shown to the customer in the checkout page if you allow pick up in the store.
+                            - key: shippingCountries
+                              label: Shipping countries
+                              type: selectmultiple
+                              option: 
+                              - countries
+                              description: The countries that you ship an order.
+                            - key: defaultShippingCountry
+                              type: select
+                              label: Default Shipping country
+                              defaultValue: Indonesia
+                              description: The country that will be selected by default in the checkout page
+                            - key: deliveryCost
+                              type: number
+                              label: Delivery cost
+                              defaultValue: 0.00
+                              description: A flat rate cost to deliver the order to the customer address.
+                              button:
+                                - label: Set cost per location
+                                  action: setCostPerLocation
+                                  redirect: true
+                                  pageContent: 
+                                    label: Contact the support team to learn more.
+                                    button: 
+                                      label: select file
+                                      type: file loader
+                        - title: Checkout
+                          section:
+                            - key: checkoutPage
+                              type: select
+                              label: Checkout
+                              option:
+                              - Default checkout page
+                              - Custom External checkout page
+                              - Flow
+                              - Visit the external product page
+                              defaultValue: Default checkout page
+                              description: >
+                                This setting control where your customers will finish their orders.
+                                If you want the user to complete the order outside of your bot like on your website, Amazon,.. 
+                                don't use our default checkout page.
+                            - key: minimumOrderValue
+                              type: number
+                              label: Minimum order value
+                              defaultValue: 0.00
+                              description: >
+                                The minimum value of the order that a customer can place.
+                                This condition is checked when all discounts are applied.
+                            - key: requireBuyerName
+                              type: toggle
+                              label: Require buyer name
+                              defaultValue: true
+                              description: The buyer Name will be collected during the checkout.
+                            - key: requireEmail
+                              type: toggle
+                              label: Require email address
+                              defaultValue: true
+                              description: The buyer Email will be collected during the checkout.
+                            - key: requirePhone
+                              type: toggle
+                              label: Require phone number
+                              defaultValue: false
+                              description: The buyer Phone will be collected during the checkout.
+                            - key: requireState
+                              type: toggle
+                              label: Require state/province
+                              defaultValue: true
+                              description: The buyer State will be collected during the checkout.
+                            - key: requireZip
+                              type: toggle
+                              label: Require zip code
+                              defaultValue: true
+                              description: The buyer ZIP Code will be collected during the checkout.
+                  - title: Analytic
+                    redirect: true
+                    route: https://client.pekerja.ai/en/dashboard-shop
       - title: Ai Academy
         icon: ai-academy
         route: /academy
