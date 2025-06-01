@@ -1,83 +1,232 @@
-Manajemen Tags:
-  Lokasi UI: >-
+# File: 00_main_app_config.yml
+# Deskripsi: Konfigurasi utama aplikasi dan titik masuk untuk navigasi fitur.
+# Berisi referensi ke file YAML lain untuk detail spesifik.
+
+PentingUntukAgenAI:
+  - Selalu rujuk nama menu/tab/tombol persis seperti di file struktur YAML yang ada.
+  - Saat pengguna bertanya "bagaimana cara...", coba petakan ke salah satu skenario di Walkthrough.
+  - Ingatkan pengguna untuk mengklik node di canvas flow untuk membuka sidebar konfigurasinya.
+  - Ingatkan pengguna untuk menghubungkan node di flow.
+  - Ingatkan pengguna untuk klik "Publish" di Flow Editor atau tombol "Save/Connect/Add" yang relevan di dialog/halaman lain.
+
+WalkthroughPareto:
+  Skenario1_MembuatMengeditFlowDasar:
+    deskripsi: >-
+      Memandu pengguna membuat atau mengedit flow dengan node pesan, aksi AI, dan kondisi.
+    langkah_langkah:
+      1_AksesHalamanFlows:
+        aksiPengguna: "Pergi ke sidebar, lalu klik menu 'Flows'."
+        referensiUI: "`appConfig.sidebar.menu[title=Flows]`"
+      2_MemulaiFlowBaruAtauEdit:
+        aksiPenggunaBaru: "Di tab 'Flows', klik tombol 'add'. Isi 'Flow Name' di dialog 'Add New Flow', lalu simpan."
+        aksiPenggunaEdit: "Di tab 'Flows', cari nama flow di tabel dan klik namanya."
+        hasil: "Membuka Flow Editor Page."
+        referensiUI_FlowEditor: "`appConfig.sidebar.menu[title=Flows].main.tabs[title=Flows].flowEditorPage`"
+      3_MenambahkanNodePesan:
+        aksiPengguna: "Di canvas Flow Editor, tambahkan node 'SendMessage'. Klik node tersebut untuk membuka sidebar konfigurasi. Beri nama node. Klik '+ Add Content', pilih 'Text', lalu isi pesan di 'textInput'. (Opsional) Tambah tombol via 'Add Button'."
+        referensiUI_Node: "`appConfig.sidebar.menu[title=Flows].main.tabs[title=Flows].flowEditorPage.mainCanvas.nodeCollection[type=SendMessage]`"
+        referensiUI_AddButton: "`_flowSidebarNodeAddButtonDialogRef`"
+      4_MenambahkanNodeAksi_OpenAI:
+        aksiPengguna: "Tambahkan node 'ActionsNode'. Klik node tersebut. Di sidebar, pilih 'OpenAI' > 'Generate text'. Isi 'modelSelector', 'businessInfoPrompt' (opsional), 'userMessage', 'saveToCustomField' (opsional), 'aiTriggers' (opsional). Beri nama node."
+        referensiUI_Node: "`appConfig.sidebar.menu[title=Flows].main.tabs[title=Flows].flowEditorPage.mainCanvas.nodeCollection[type=ActionsNode]`"
+        referensiUI_AksiOpenAI: "`FlowSidebarActions_ActionDropdownOptions.OpenAI[label='Generate text']`"
+      5_MenghubungkanNode:
+        aksiPengguna: "Klik titik output node sebelumnya (misal, 'SendMessage') dan tarik garis ke titik input node berikutnya (misal, 'ActionsNode')."
+      6_MenambahkanNodeKondisi:
+        aksiPengguna: "Tambahkan node 'Condition'. Klik node tersebut. Atur 'Following Condition Logic'. Klik '+Condition'. Isi 'firstRowOptions', 'secondRowOptions', dan 'thirdRowInputType'. Hubungkan output 'true'/'false' ke node selanjutnya. Beri nama node."
+        referensiUI_Node: "`appConfig.sidebar.menu[title=Flows].main.tabs[title=Flows].flowEditorPage.mainCanvas.nodeCollection[type=Condition]`"
+        referensiUI_ButtonKondisi: "`BtnForFilterOrCondition`"
+      7_PublikasiFlow:
+        aksiPengguna: "Jika semua sudah diatur dan terhubung, klik tombol 'Publish' di pojok kanan atas header Flow Editor."
+        referensiUI_PublishButton: "`appConfig.sidebar.menu[title=Flows].main.tabs[title=Flows].flowEditorPage.header.publishButton`"
+
+  Skenario2_MenghubungkanPlatformChannel_WhatsApp:
+    deskripsi: "Memandu pengguna menghubungkan channel WhatsApp."
+    langkah_langkah:
+      1_AksesPengaturanPlatform:
+        aksiPengguna: "Pergi ke sidebar, klik 'Connected Platforms', ATAU klik ikon Settings (header) > tab 'channels'."
+        referensiUI_Sidebar: "`appConfig.sidebar.menu[title=Connected Platforms]`"
+        referensiUI_HeaderSettings: "`appConfig.header.settings.componentRef: SettingsConnectedPlatforms.channels`"
+      2_PilihChannelDanHubungkan:
+        aksiPengguna: "Di tab 'channels', cari 'WhatsApp', lalu klik tombol 'Connect'. Ikuti instruksi."
+        referensiUI_Channel: "`SettingsConnectedPlatforms.channels[name=WhatsApp].button`"
+
+  Skenario3_MengelolaAsistenAI_OpenAI:
+    deskripsi: "Memandu pengguna menambah dan mengelola OpenAI Assistants."
+    langkah_langkah:
+      1_AksesPengaturanPekerjaAi:
+        aksiPengguna: "Pergi ke sidebar, klik menu 'Pekerja Ai'."
+        referensiUI: "`appConfig.sidebar.menu[title=Pekerja Ai]`"
+      2_TambahAsistenBaru:
+        aksiPengguna: "Di bagian 'Assistants', klik 'Add Assistant'. Isi 'Name' di dialog 'Add New Assistant', lalu simpan."
+        referensiUI_Button: "`appConfig.sidebar.menu[title=Pekerja Ai].main.sections[type=button,label=Add Assistant]`"
+      3_MengelolaAITriggers_JikaTerpisah: # Ini merujuk ke Ai Triggers di bawah menu Flow
+        aksiPengguna: "(Jika ingin mengelola AI Triggers secara spesifik) Pergi ke Sidebar > Flows > [Tab] Ai Triggers. Klik 'add', isi nama, deskripsi, dataToCollect, triggeredFlow, dll."
+        referensiUI_TriggersMenu: "`appConfig.sidebar.menu[title=Flows].main.tabs[title=Ai Triggers]`"
+        # Referensi UI spesifik untuk dialog "Add New AI Trigger" ada di sana.
+
+  Skenario4_MengaturOtomatisasiInstagramCommentToDM:
+    deskripsi: "Memandu pengguna mengatur balasan otomatis untuk komentar Instagram ke DM."
+    langkah_langkah:
+      1_AksesPengaturanPekerjaBot:
+        aksiPengguna: "Pergi ke sidebar, klik menu 'Pekerja Bot'."
+        referensiUI: "`appConfig.sidebar.menu[title=Pekerja Bot]`"
+      2_PilihFitur:
+        aksiPengguna: "Pilih tab 'Instagram Comment to DM'."
+        referensiUI_Tab: "`appConfig.sidebar.menu[title=Pekerja Bot].main.tabs[title=Instagram Comment to DM]`"
+      3_TambahAturanBaru:
+        aksiPengguna: "Klik tombol 'add'. Di dialog 'Add Instagram Comment Automation', isi 'Track comment on', 'Private reply to comment', 'Public reply to comment', 'Reply to', 'More Options', dan 'Reply After'. Lalu simpan."
+        referensiUI_Dialog: "`InstagramCommentToDMConfig.addButton.action.title: Add Instagram Comment Automation`" # (dan field-field di dalamnya)
+
+  Skenario5_MenggunakanGoogleSheetsDalamFlow_KirimData:
+    deskripsi: "Memandu pengguna mengirim data ke Google Sheets dari dalam Flow."
+    asumsi:
+      - "Pengguna sudah menghubungkan Google Sheets di Settings > Integrations."
+      - "Pengguna sedang berada di Flow Editor."
+    langkah_langkah:
+      1_TambahNodeAksiDiFlow:
+        aksiPengguna: "Di Flow Editor, tambahkan node 'ActionsNode'. Klik node tersebut."
+        referensiUI_Node: "`appConfig.sidebar.menu[title=Flows].main.tabs[title=Flows].flowEditorPage.mainCanvas.nodeCollection[type=ActionsNode]`"
+      2_PilihAksiGoogleSheets:
+        aksiPengguna: "Di sidebar, pilih 'GoogleSheets' > 'Google Sheets Action'. Dialog 'Google Sheets' akan muncul."
+        referensiUI_Aksi: "`FlowSidebarActions_ActionDropdownOptions.GoogleSheets[label='Google Sheets Action']`"
+      3_KonfigurasiAksiGoogleSheets:
+        aksiPengguna: "Di dialog 'Google Sheets': Pilih 'send data' untuk 'actionSelector'. Pilih 'spreadsheetSelector' (atau 'add new' jika perlu). Pilih 'worksheetSelector'. Petakan 'customFieldMapping'. Klik simpan."
+        referensiUI_DialogFields: "`FlowSidebarActions_ActionDropdownOptions.GoogleSheets[label='Google Sheets Action'].dialog`"
+      4_SelesaikanFlow:
+        aksiPengguna: "Hubungkan node ini di flow Anda dan 'Publish' flow."
+
+  Skenario6_MelihatDanMengelolaKontak:
+    deskripsi: "Memandu pengguna melihat, memfilter, dan melakukan aksi pada kontak."
+    langkah_langkah:
+      1_AksesHalamanKontak:
+        aksiPengguna: "Pergi ke sidebar, klik menu 'Contacts Customer'."
+        referensiUI: "`appConfig.sidebar.menu[title=Contacts Customer]`"
+      2_MelihatDaftarKontak:
+        aksiPengguna: "Anda akan melihat tabel daftar kontak."
+        referensiUI_Table: "`appConfig.sidebar.menu[title=Contacts Customer].main.sections[table]`"
+      3_MenggunakanFilter:
+        aksiPengguna: "Klik tombol 'Filter'. Di dialog 'Filter Contacts', tambahkan kondisi filter."
+        referensiUI_FilterButton: "`appConfig.sidebar.menu[title=Contacts Customer].main.sections[filterButton]`"
+        referensiUI_FilterDialog: "`BtnForFilterOrCondition`"
+      4_MelakukanAksiMassal:
+        aksiPengguna: "(Jika tersedia) Pilih kontak via checkbox. Klik tombol 'Actions'. Pilih aksi dari menu (misal, 'Add Tag')."
+        referensiUI_ActionsButton: "`appConfig.sidebar.menu[title=Contacts Customer].main.sections[actionsButton]`"
+
+ManajemenTags:
+  LokasiUI: >-
     - Sidebar > Flows > [Tab] Tags
-  Referensi YAML Utama: >-
+  ReferensiYAMLUtama: >-
     - `appConfig.sidebar.menu[title=Flows].main.tabs[title=Tags]`
-  Contoh Implementasi Tagging dalam Flow: >-
+  WalkthroughPenggunaanDalamFlow: >-
+    - `#Skenario1_MembuatMengeditFlowDasar` (Tambahkan langkah spesifik untuk aksi 'Add Tag' atau 'Remove Tag' dari `FlowSidebarActions_ActionDropdownOptions.Tags`)
+    - `WalkthroughPareto.Skenario1_MembuatMengeditFlowDasar.langkah_langkah.4_MenambahkanNodeAksi_OpenAI` (Ganti aksi OpenAI dengan aksi Tag)
+  ContohImplementasiTaggingDalamFlow: >-
    - `04_flow_design.yml` -> `FlowLogic_Actions:TindakanActionAddTagFlow` (Cara penggunaan)
    - `booking_lapangan_example.yml` (Daftar tag untuk kasus booking)
    - `booking_lapangan_example.yml` (Otomatisasi tag via AI Parameters)
 
-Manajemen Custom Fields:
-  Lokasi UI: >-
+ManajemenCustomFields:
+  LokasiUI: >-
     - Sidebar > Flows > [Tab] Custom Fields
-  Referensi YAML Utama: >-
+  ReferensiYAMLUtama: >-
    - `appConfig.sidebar.menu[title=Flows].main.tabs[title=Custom Fields]`
-  Penjelasan Perbedaan Custom Field vs Account Field: >-
+  WalkthroughPenggunaanDalamFlow: >-
+    - `#Skenario1_MembuatMengeditFlowDasar` (Tambahkan langkah spesifik untuk aksi 'Set Custom Field' atau 'Clear Custom Field' dari `FlowSidebarActions_ActionDropdownOptions.CustomFields`)
+    - `WalkthroughPareto.Skenario1_MembuatMengeditFlowDasar.langkah_langkah.4_MenambahkanNodeAksi_OpenAI` (Ganti aksi OpenAI dengan aksi Custom Field)
+    - Juga, node 'Get User Data' (`SendMessage > addContentButton > Get User Data`) adalah cara utama untuk mengisi Custom Field dari input pengguna.
+  PenjelasanPerbedaanCustomFieldVsAccountField: >-
    - `01_platform_basics.yml` -> `ContactManagement_Data:CustomFieldVsAccountFieldDataDinamisStatis`
-  Contoh Implementasi Custom Fields: >-
+  ContohImplementasiCustomFields: >-
     - `booking_lapangan_example.yml`
 
-Manajemen AI Triggers:
-  Lokasi UI (untuk membuat/mengelola): >-
+ManajemenAITriggers:
+  LokasiUI_MembuatMengelola: >-
     - Sidebar > Flows > [Tab] Ai Triggers
-  Referensi YAML Utama: >-
+  ReferensiYAMLUtama: >-
     - `appConfig.sidebar.menu[title=Flows].main.tabs[title=Ai Triggers]`
-  Panduan Pembuatan & Konfigurasi: >-
+  WalkthroughPembuatan: >-
+    - `WalkthroughPareto.Skenario3_MengelolaAsistenAI_OpenAI.langkah_langkah.3_MengelolaAITriggers_JikaTerpisah` (Ini sudah mencakup pembuatan AI Trigger)
+  PanduanPembuatan_Konfigurasi: >-
    - `02_ai_configuration.yml` -> `AIConfiguration_Triggers:AITriggersOtomatisasiResponsAlurKerja`
    - `04_flow_design.yml` -> `FlowTriggers_AutomatedExecution:MenjalankanFlowAITriggersBerdasarkanDeteksiNiatIntentPelanggan`
-  Contoh Implementasi AI Triggers: >-
+  ContohImplementasiAITriggers: >-
   - `booking_lapangan_example.yml`
 
-Manajemen AI Parameters (Automation Rules):
-  Lokasi UI: >-
+ManajemenAIParameters_AutomationRules:
+  LokasiUI: >-
     - Sidebar > Flows > [Tab] Ai Parameters
-  Referensi YAML Utama: >-
+  ReferensiYAMLUtama: >-
     - `appConfig.sidebar.menu[title=Flows].main.tabs[title=Ai Parameters]`
-  Panduan Penggunaan: >-
+  WalkthroughPembuatan: >-
+    - "Pergi ke Sidebar > Flows > [Tab] Ai Parameters. Klik tombol 'add'. Di dialog 'Add New AI Parameter', isi 'Name'. Di bagian 'configuration', pilih 'Trigger Event' ('whenThisHappens') dan 'Action' ('actionOption'). Simpan."
+    - (Detail untuk trigger dan action spesifik perlu diambil dari definisi YAML `appConfig.sidebar.menu[title=Flows].main.tabs[title=Ai Parameters].configuration`)
+  PanduanPenggunaan: >-
    -  `04_flow_design.yml` -> `FlowTriggers_AutomatedExecution:MenjalankanFlowSecaraOtomatisTriggersParametersParameterPemicu`
-  Contoh Implementasi: >-
+  ContohImplementasi: >-
    - `booking_lapangan_example.yml`
 
-Flow Editor & Komponennya:
+FlowEditor_Komponennya:
   Akses: >-
    - `Sidebar > Flows > [Tab] Flows > [klik flow atau tombol add]`
-  Referensi YAML Utama (Struktur Editor & Node): >-
+  ReferensiYAMLUtama_StrukturEditorNode: >-
    - `appConfig.sidebar.menu[title=Flows].main.tabs[title=Flows].flowEditorPage`
-  Dasar Flow Builder: >-
+  WalkthroughDasar: >-
+    - `WalkthroughPareto.Skenario1_MembuatMengeditFlowDasar`
+  DasarFlowBuilder: >-
    - `04_flow_design.yml` -> `FlowDesign_Core:DasarDasarFlowBuilderDragDrop`
-  Penggunaan Variabel Sistem (seperti `{{last_input}}`): >-
+  PenggunaanVariabelSistem_last_input: >-
    - `04_flow_design.yml` -> `FlowDesign_Core:VariabelSistemSepertiLast_inputPesan`
-  Daftar Lengkap Variabel Sistem: >-
+  DaftarLengkapVariabelSistem: >-
    - `02_ai_configuration.yml` -> `SystemVariables_Reference:DaftarLengkapSystemFieldsVariabelSistemPekerjaai`
-  Contoh Flow Lengkap: >-
+  ContohFlowLengkap: >-
    - `booking_lapangan_example.yml` (setelah direstrukturisasi dengan benar)
    - `04_flow_design.yml` -> `UseCase_Examples_Detailed_Walkthroughs`
 
-Integrasi Channel (WhatsApp, Instagram, dll.):
-  Lokasi UI: >-
+IntegrasiChannel_WhatsApp_Instagram_dll:
+  LokasiUI: >-
     - Sidebar > Connected Platforms
-  Referensi YAML Utama: >-
+  ReferensiYAMLUtama: >-
    - `appConfig.sidebar.menu[title=Connected Platforms].mainRef: SettingsConnectedPlatforms`
-  Panduan Detail per Channel: >-
+  WalkthroughContoh_WhatsApp: >-
+    - `WalkthroughPareto.Skenario2_MenghubungkanPlatformChannel_WhatsApp`
+  WalkthroughContoh_InstagramCommentToDM: >-
+    - `WalkthroughPareto.Skenario4_MengaturOtomatisasiInstagramCommentToDM` (Ini lebih ke fitur bot, tapi melibatkan integrasi IG)
+  PanduanDetailPerChannel: >-
    - `03_channel_integration.yml` (misalnya, `ChannelIntegration_Setup:MenghubungkanBotAIWhatsAppWhatsAppBusinessAPI`)
 
-Tools (QR Code, E-commerce, Broadcast, dll.):
-  Lokasi UI: >-
+Tools_QRCode_Ecommerce_Broadcast_dll:
+  LokasiUI: >-
     - Sidebar > Tools
-  Referensi YAML Utama: >-
+  ReferensiYAMLUtama: >-
    - `appConfig.sidebar.menu[title=Tools]`
-  Panduan E-commerce (Import CSV): >-
+  Walkthrough_GoogleSheets: >-
+    - `WalkthroughPareto.Skenario5_MenggunakanGoogleSheetsDalamFlow_KirimData` (Menggunakan tool Google Sheets dalam Flow)
+  Walkthrough_QRCode: >-
+    - "Pergi ke Sidebar > Tools. Pilih 'Short Links & QR Code'. Isi field yang relevan (misal, 'flow' jika QR mengarah ke flow). Klik 'Generate'."
+    - Referensi YAML: `appConfig.sidebar.menu[title=Tools].main.tools[name='Short Links & QR Code']`
+  Walkthrough_Broadcast: >-
+    - "Pergi ke Sidebar > Broadcasts. Klik tombol 'Send'. Di dialog 'Select Channel for Broadcast', pilih 'Omnichannel' > 'Continue'. Di form 'Omnichannel Broadcast', pilih 'Flow to send', atur 'When to send this message?', dan (opsional) 'Targeting'. Klik kirim/jadwalkan."
+    - Referensi YAML: `appConfig.sidebar.menu[title=Broadcasts]`
+  Walkthrough_Ecommerce_TambahProduk: >-
+    - "Pergi ke Sidebar > Tools. Pilih 'Ecommerce'. Pilih tab 'Products'. Klik tombol 'add'. Halaman 'Add New Product' akan terbuka. Isi 'Basic Information', 'Pricing', 'Images', dll. Simpan."
+    - Referensi YAML: `appConfig.sidebar.menu[title=Tools].main.tools[name=Ecommerce].pageContent.tabs[title=Products].section.addButton`
+  PanduanEcommerce_ImportCSV: >-
    - `05_tools_extensions.yml` -> `Ecommerce_ProductFeatures:MenambahProdukFiturEcommerceMelaluiImporFileCSV`
-  Panduan Broadcast: >-
+  PanduanBroadcast: >-
    - `05_tools_extensions.yml` -> `Broadcast_MassMessaging`
-  Panduan QR Code Generator: >-
+  PanduanQRCodeGenerator: >-
    - `05_tools_extensions.yml` -> `PlatformTools_Utilities:PemanfaatanToolQRCodeGeneratorImageGenerationEditor`
 
-Pengaturan Akun & Pengguna:
-  Ganti Nama Akun: >-
+PengaturanAkun_Pengguna:
+  GantiNamaAkun: >-
    - `01_platform_basics.yml` -> `AccountManagement_Settings:MenggantiNamaAkunPekerjaAIAnda`
-  Tambah Admin/Agen: >-
+   - Kemungkinan lokasi UI: Header > User Profile > My Account > Manage, atau di Settings > General. Perlu konfirmasi dari struktur YAML yang lebih detail.
+  TambahAdminAgen: >-
    - `01_platform_basics.yml` -> `AccountManagement_Settings:MenambahkanPenggunaAgenAdminAkunMengaturIzinAkses`
-  Development Mode: >-
+   - Lokasi UI: Sidebar > Pekerja Human > [Bagian] Admin > [Tombol] manage > [Tombol] add.
+   - Referensi YAML: `appConfig.sidebar.menu[title=Pekerja Human].main.sections[title=Admin].manageButton.pageContent.addButton`
+  DevelopmentMode: >-
    - `01_platform_basics.yml` -> `AccountManagement_Settings:DevelopmentModePengujianBotTerisolasi`
+   - Lokasi UI: Header > Settings > [Tab] general > [Toggle] Development Mode.
+   - Referensi YAML: `SettingsConnectedPlatforms.general.developmentMode`
