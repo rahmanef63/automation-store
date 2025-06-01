@@ -1,0 +1,35 @@
+definitions:
+  _commonSaveToCustomFieldConfig: &commonSaveToCustomFieldConfig
+    customFieldSelector: true
+    addCustomFieldButtonRef: AddCustomFieldButtonAndDialog
+  _commonUserMessageInputLastInput: &commonUserMessageInputLastInput
+    type: input
+    label: User Message
+    example: '{{last input}}'
+    placeholder: 'input variable like {{last_input}}'
+  _commonAiTriggersMultiSelect: &commonAiTriggersMultiSelect
+    type: multiSelect
+    label: AI triggers (optional)
+    dataSource: aiTriggers
+  _flowSidebarNodeAddButtonDialogRef: &flowSidebarNodeAddButtonDialogRef
+    type: button
+    label: + Add Button
+    action:
+      type: dialog
+      contentRef: FlowSidebarNode_AddButtonDialog
+  _addCustomFieldButtonDialogRef: &addCustomFieldButtonDialogRef
+    type: button
+    label: add new
+    action:
+      type: dialog
+      contentRef: AddCustomFieldButtonAndDialog
+  _commonImageUploader: &commonImageUploader
+    type: uploader
+    label: Upload image or insert link
+  _commonTextInputPlaceholder: &commonTextInputPlaceholder
+    type: textarea
+    placeholder: type a message
+  _commonFlowSelector: &commonFlowSelector
+    type: select
+    dataSource: existingFlows
+    placeholder: select existing flow

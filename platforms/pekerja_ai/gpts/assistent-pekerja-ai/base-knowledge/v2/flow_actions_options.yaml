@@ -1,0 +1,397 @@
+# Configuration for Flow Sidebar Actions Dropdown Options
+# This is a large, specific configuration.
+# Note: This file might reference aliases from definitions_common.yaml
+# and component definitions from ui_components_dialogs.yaml or AiModelOptions from ui_components_dialogs.yaml
+
+FlowSidebarActions_ActionDropdownOptions:
+  Inbox:
+    - label: Transfer Conversation to Human
+      config:
+        notifyAdminCheckbox: true
+    - label: Transfer Conversation to bot
+    - label: Assign Conversation to an Admin
+      config:
+        adminSelector: true
+    - label: Auto Assign conversation to an Admin
+      config:
+        adminSelectorMultiple: true
+        distributionOptions:
+          - Equal conversation distribution (last time)
+          - hours
+          - 8 hours
+          - 24 hours
+        notifyAdminCheckbox: true
+        outputs:
+          - success
+          - failed
+    - label: Remove Assignment
+    - label: Add Notes
+      config:
+        textInput: true
+    - label: Mark Conversation as Follow Up
+    - label: Remove Conversation From Follow Up
+    - label: Archive
+    - label: Unarchive
+    - label: Block Contact
+  OpenAI:
+    - label: Generate text
+      config:
+        modelSelector:
+          optionsRef: AiModelOptions # Referensi ke ui_components_dialogs.yaml
+        businessInfoPrompt:
+          type: textarea
+          label: Business Information (prompt) (optional)
+        userMessage:
+          type: input
+          label: User Message
+          example: '{{last input}}'
+          placeholder: 'input variable like {{last_input}}'
+        saveToCustomField: *commonSaveToCustomFieldConfig # Menggunakan alias
+        aiTriggers: *commonAiTriggersMultiSelect # Menggunakan alias
+    - label: Generate text - Advanced
+      config:
+        modelSelector:
+          optionsRef: AiModelOptions # Referensi
+        businessInfoPrompt:
+          type: textarea
+          label: Business Information (prompt) (optional)
+        userMessage:
+          type: input
+          label: User Message
+          example: '{{last input}}'
+          placeholder: 'input variable like {{last_input}}'
+        saveToCustomField: *commonSaveToCustomFieldConfig # Menggunakan alias
+        aiTriggers: *commonAiTriggersMultiSelect # Menggunakan alias
+        rememberConversation:
+          type: boolean
+          defaultValue: true
+        temperature:
+          type: slider
+          min: 0
+          max: 2
+        maxOutputTokens:
+          type: number
+          min: 0
+          max: 4096
+          label: Maximum number of output tokens (optional)
+    - label: Generate text - Assistant
+      config:
+        assistantSelector:
+          dataSourceUrl: 'https://client.pekerja.ai/en/openai-assistants'
+        userMessage: *commonUserMessageInputLastInput # Menggunakan alias
+        saveToCustomField: *commonSaveToCustomFieldConfig # Menggunakan alias
+    - label: Analyze image
+      config:
+        imageSource:
+          type: customFieldSelect
+          label: Image
+        prompt:
+          type: input
+          label: Prompt
+          defaultValue: whats in this image?
+        modelSelector:
+          options:
+            - GPT-4o mini
+            - GPT-4o
+        saveToCustomField: *commonSaveToCustomFieldConfig # Menggunakan alias
+    - label: Generate Image
+      config:
+        userMessage: *commonUserMessageInputLastInput # Menggunakan alias
+        modelSelector:
+          options:
+            - GPT Image 1
+            - DALL-E 3
+            - DALL-E 2
+        qualitySelector:
+          options:
+            - Auto
+            - High
+            - Medium
+            - Low
+        imageSizeSelector:
+          options:
+            - Auto
+            - Square - 1024x1024
+            - Landscape - 1536x1024
+            - Portrait - 1024x1536
+            - 256x256 (DALL.E 2)
+            - 512x512 (DALL.E 2)
+            - 1792x1024 (DALL·E 3)
+            - 1024x1792 (DALL·E 3)
+        saveToCustomField: *commonSaveToCustomFieldConfig # Menggunakan alias
+    - label: Edit Image
+      config:
+        imageSource:
+          type: customFieldSelect
+          label: Image
+        userMessage: *commonUserMessageInputLastInput # Menggunakan alias
+        saveToCustomField: *commonSaveToCustomFieldConfig # Menggunakan alias
+    - label: Convert speech to text
+      config:
+        audioSource:
+          type: customFieldSelect
+          label: Audio
+        saveToCustomField: *commonSaveToCustomFieldConfig # Menggunakan alias
+    - label: Convert text to speech
+      config:
+        textInput:
+          type: input
+          label: Input text
+        voiceTypeSelector:
+          options:
+            - alloy
+            - ash
+            - ballad
+            - coral
+            - echo
+            - fable
+            - onyx
+            - nova
+            - sage
+            - shimmer
+            - verse
+        voiceTone:
+          type: input
+          label: Voice tone (Optional)
+        saveToCustomField: *commonSaveToCustomFieldConfig # Menggunakan alias
+    - label: Delete message history
+  Tags:
+    - label: Add Tag
+      config:
+        tagSelector: true
+        source: existingTags
+    - label: Remove Tag
+      config:
+        tagSelector: true
+        source: existingTags
+  Notifications:
+    - label: Notify Admins
+      config:
+        adminSelectorMultiple: true
+        notificationTextInput: true
+        exampleText: something happened that required your attention
+  CustomFields:
+    - label: Set Custom Field
+      config:
+        customFieldSelector: true
+        addCustomFieldButtonRef: AddCustomFieldButtonAndDialog # Referensi
+        operationSelector:
+          options:
+            - set to
+            - append to the ending
+            - append to the beginning
+        valueInput: true
+    - label: Clear Custom Field
+      config:
+        customFieldSelector: true
+        source: existingCustomFields
+  GoogleSheets:
+    - label: Google Sheets Action
+      dialog:
+        title: Google Sheets
+        actionSelector:
+          type: select
+          label: Action
+          options:
+            - send data
+            - Get Row
+            - Get Random Row
+            - Update Row
+            - Clear Row
+            - Generate Dynamic Gallery
+        spreadsheetSelector:
+          type: select
+          label: Spreadsheet
+          dataSource: existingSpreadsheets
+          addNewButton:
+            label: add new
+            action:
+              type: route
+              path: 'https://client.pekerja.ai/en/spreadsheets'
+        worksheetSelector:
+          type: select
+          label: Worksheet
+          dataSource: selectedSpreadsheetSheets
+        lookupColumnsConfig:
+          filterLogic:
+            type: select
+            options:
+              - all filter
+              - any filter
+          addFilterButton: true
+          filterStructure:
+            columnTitleSelector: true
+            validationSelector:
+              type: select
+              options:
+                - Is
+                - Is Not
+                - Greater than or Equal to
+                - Less than or Equal to
+                - Greater than
+                - Less than
+                - Contains
+                - Doesn't contain
+                - Starts with
+                - Ends with
+            valueInput: true
+        customFieldMapping:
+          - customFieldSelector: true
+            googleColumnTitleSelector: true
+  DripCampaigns:
+    - label: Subscribe to drip campaign
+      config:
+        dripCampaignSelector: true
+    - label: Unsubscribe from drip campaign
+      config:
+        dripCampaignSelector: true
+  Events:
+    - label: Log Custom Events
+      config:
+        customEventSelector: true
+  Broadcasts:
+    - label: Subscribe to receive broadcasts
+    - label: Unsubscribe from all broadcast
+      config:
+        broadcastSelector: true
+  Contacts:
+    - label: Delete Contact
+  API:
+    - label: External API Request
+      dialog:
+        title: External Request
+        fields:
+          - name: requestType
+            type: select
+            label: Request Type
+            options:
+              - GET
+              - POST
+              - DELETE
+              - PUT
+              - PATCH
+          - name: requestUrl
+            type: input
+            label: Request URL
+        tabs:
+          Headers:
+            keyValuePairs: true
+            addButton: true
+          Body:
+            type: textarea
+          ResponseMapping:
+            jsonPathInput: true
+            saveToCustomFieldSelector: true
+            addButton: true
+        testNowButton: true
+  Appointments:
+    - label: Appointment Scheduling
+      dialog:
+        title: Appointment Scheduling
+        fields:
+          - name: appointmentAction
+            type: select
+            label: Action
+            options:
+              - book an appointment
+              - cancel appointment
+              - check availability
+          - name: calendar
+            type: select
+            label: Calendar
+            dataSource: calendars
+          - name: dateCustomField
+            type: customFieldSelect
+            label: Date Custom Field
+            addCustomFieldButtonRef: AddCustomFieldButtonAndDialog # Referensi
+  Triggers:
+    - label: Trigger Zapier
+      config:
+        triggerSelector: true
+        source: zapierTriggers
+    - label: Trigger Make
+      config:
+        triggerSelector: true
+        source: makeTriggers
+    - label: Trigger Pabbly
+      config:
+        triggerSelector: true
+        source: pabblyTriggers
+  MoreOptions:
+    - label: Find locations near me
+      config:
+        locationSelector: all
+    - label: Start Another Flow
+      config:
+        flowSelector: true
+    - label: Start Another Step
+      config:
+        stepSelector: true
+    - label: Start External Step
+      config:
+        stepIdInput: true
+  Tools:
+    - label: Get data from JSON
+      dialog:
+        title: Get JSON from Data
+        fields:
+          - name: jsonDataCustomField
+            type: customFieldSelect
+            label: JSON Data Custom Field
+          - name: jsonPath
+            type: input
+            label: JSON Path
+          - name: saveToCustomField
+            type: select
+            label: Save to Custom Field
+            dataSource: customFields
+            addCustomFieldButtonRef: AddCustomFieldButtonAndDialog # Referensi
+    - label: Format Date
+      dialog:
+        title: Format Date
+        fields:
+          - name: dateTimeCustomField
+            type: customFieldSelectOrTag
+            label: Date/Time Custom Field or Tag
+          - name: formatString
+            type: input
+            label: Format String
+          - name: saveToCustomField
+            label: Save to Custom Field
+            <<: *commonSaveToCustomFieldConfig # Menggunakan alias
+          - name: formatDateUsingInfo
+            type: info
+            text: "Format date using specific information..."
+    - label: Generate Random Number/Text
+      dialog:
+        title: Generate Random Number/Text
+        fields:
+          - name: generationType
+            type: select
+            label: Type
+            options:
+              - Numeric (Minimum/Maximum length)
+              - Numeric (Minimum/Maximum number)
+              - Alphanumeric (Minimum/Maximum length)
+          - name: min
+            type: input
+            label: Minimum
+          - name: max
+            type: input
+            label: Maximum
+          - name: saveToCustomField
+            label: Save to Custom Field
+            customFieldSelector: true
+            filter: numberType
+    - label: Character Counter
+      dialog:
+        title: Character Counter
+        fields:
+          - name: customFieldSource
+            type: customFieldSelect
+            label: Source Custom Field
+          - name: saveToCustomField
+            label: Save to Custom Field
+            customFieldSelector: true
+            filter: numberType
+            addCustomFieldButtonRef: AddCustomFieldButtonAndDialog # Referensi

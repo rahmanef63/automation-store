@@ -1,0 +1,199 @@
+# Definitions for various UI components, dialogs, and their options
+# Note: This file might reference aliases from definitions_common.yaml
+
+GoogleSpeechToTextConnect:
+  button:
+    label: Connect
+    action:
+      type: dialog
+      title: Connect Google Speech to Text
+      fields:
+        - name: apiKey
+          label: API Key
+          type: input
+          placeholder: input your api key
+
+BtnForFilterOrCondition:
+  firstRowOptions:
+    - value: Language
+    - value: FullName
+    - value: Country
+    - value: Continent
+    - value: Gender
+    - value: SubscribedToBroadcasts
+    - value: ContactCreatedDate
+    - value: ContactCreatedDateMinutesAgo
+    - value: Source
+    - value: ConversationTransferredToHuman
+    - value: InteractedInLast24h
+    - value: ExistingContact
+    - value: IsGuestUser
+    - value: CurrentChannel
+    - value: Timezone
+    - group: Instagram
+      options:
+        - value: FollowsBusinessOnInstagram
+        - value: BusinessFollowsUserOnInstagram
+        - value: VerifiedAccountOnInstagram
+        - value: FollowerCountOnInstagram
+    - group: Analytics
+      options:
+        - value: LastSent
+        - value: LastDelivered
+        - value: LastSeen
+        - value: LastSeenMinutesAgo
+        - value: LastInteraction
+        - value: LastInteractionMinutesAgo
+        - value: NoAdminReply
+        - value: Tags
+        - value: GetDataFromJson
+        - value: MessengerList
+        - value: SubscribedToDripCampaign
+        - value: ConversationAssigned
+        - value: EntryPointsLinks
+        - value: SentMessage
+        - value: AutomatedResponseReceived
+        - value: ExecutedFlow
+        - value: ExecutedStep
+        - value: FinishedQuestionnaire
+        - value: VotedOnThePoll
+    - group: Facebook/Instagram Comment
+      options:
+        - value: CommentedOnPost
+    - group: SMS
+      options:
+        - value: Phone
+        - value: PhoneWasVerified
+        - value: OptedInForSMS
+    - group: Broadcast (WhatsApp)
+      options:
+        - value: BroadcastSent
+        - value: BroadcastDelivered
+        - value: BroadcastSeen
+        - value: BroadcastClicked
+        - value: BroadcastFailed
+    - group: Email
+      options:
+        - value: Email
+        - value: EmailWasVerified
+        - value: OptedInForEmail
+        - value: EmailSent
+        - value: EmailDelivered
+        - value: EmailOpened
+        - value: EmailClicked
+    - group: Ecommerce
+      options:
+        - value: Bought
+        - value: BoughtTheItems
+        - value: TotalSpent
+        - value: NumberOfOrders
+        - value: ShoppingCartTotal
+        - value: ShoppingCartSubtotal
+        - value: ShoppingCartIsEmpty
+        - value: ShoppingCartContainsItems
+    - group: Custom Fields
+      options:
+        - value: customFieldDynamic
+    - group: System Fields
+      options:
+        - value: LastUserInput
+        - value: LastUserInputType
+  secondRowOptions:
+    - value: Is
+    - value: IsNot
+    - value: HasAnyValue
+    - value: GreaterThan
+    - value: LessThan
+    - value: GreaterThanOrEqualTo
+    - value: LessThanOrEqualTo
+    - value: Contains
+    - value: DoesNotContain
+    - value: StartsWith
+    - value: EndsWith
+    - value: Interval
+    - value: NotInterval
+  thirdRowInputType: dynamic
+
+AddCustomFieldButtonAndDialog:
+  type: button
+  label: add new
+  action:
+    type: dialog
+    title: Add New Custom Field
+    fields:
+      - name: name
+        type: input
+        label: Name
+        placeholder: input custom field name
+      - name: type
+        type: select
+        label: Type
+        options:
+          - text
+          - number
+          - date
+          - date and time
+          - true | false
+      - name: description
+        type: input
+        label: Description
+        placeholder: input description
+    infoText: 'Use custom fields to save users data like email, phone number ...'
+
+AiModelOptions:
+  - GPT-4.1 mini
+  - GPT-4.1 nano
+  - GPT-4.1
+  - GPT-4o mini
+  - GPT-4o
+  - o1-mini
+  - o1
+  - o1-pro
+  - o3-mini
+  - GPT-4
+  - GPT-4 Turbo
+  - GPT-3.5 Turbo 16K
+
+FlowSidebarNode_AddButtonDialog:
+  label: add button
+  fields:
+    - name: buttonName
+      type: input
+      label: Button Name
+    - name: action
+      type: select
+      label: When this button is pressed
+      options:
+        - Send Message
+        - Open Website
+        - Call Number
+        - Perform Action
+        - Start Another Flow
+        - Start Another Step
+        - Start External Step
+
+FlowSidebarNode_Card:
+  fields:
+    - name: image
+      <<: *commonImageUploader # Menggunakan alias dari definitions_common.yaml
+    - name: title
+      type: input
+      label: Title (required)
+      required: true
+    - name: subtitle
+      type: input
+      label: Subtitle
+    - name: addButton
+      <<: *flowSidebarNodeAddButtonDialogRef # Menggunakan alias dari definitions_common.yaml
+
+
+
+**Catatan Penting:**
+
+1.  **Referensi Antar File**:
+    *   Saya telah menggunakan `componentRef`, `contentRef`, `optionsRef`, `configRef`, `mainRef`, `pageContentRef`, dan `addButtonRef` untuk menunjukkan di mana satu bagian konfigurasi merujuk ke definisi yang ada di file lain (atau dalam file yang sama jika merupakan top-level key). Anda perlu memastikan sistem pemrosesan YAML Anda dapat menyelesaikan referensi ini. Jika tidak, Anda mungkin perlu menggabungkannya secara manual saat memuat atau menggunakan sistem `!include` jika didukung oleh parser YAML Anda (meskipun `!include` tidak standar YAML murni dan mungkin tidak diinginkan untuk RAG).
+    *   Alias YAML (`&namaAlias` dan `*namaAlias`) akan bekerja selama file-file ini digabungkan atau diproses oleh sistem yang memahami alias di seluruh dokumen yang digabungkan. Untuk RAG, jika setiap file diindeks secara terpisah, model mungkin perlu diberitahu bagaimana alias ini terhubung, atau alias harus didefinisikan dalam setiap file yang menggunakannya (yang akan meningkatkan redundansi). Saya telah mempertahankan alias di `definitions_common.yaml` dan menggunakannya di file lain dengan asumsi ada mekanisme untuk resolusi ini. Jika tidak, Anda perlu menyalin definisi alias ke setiap file yang menggunakannya.
+2.  **Konsistensi**: Pastikan nama referensi (`componentRef: SomeName`) cocok persis dengan kunci top-level (`SomeName: ...`) di file yang sesuai.
+3.  **Duplikasi Key `sections`**: Dalam `appConfig.sidebar.menu` untuk "Kanban Boards", terdapat dua kunci `sections` pada level yang sama. Ini tidak valid dalam YAML. Saya membiarkannya seperti di input asli Anda, tetapi ini mungkin perlu diperbaiki (misalnya, salah satunya adalah sub-bagian dari yang lain atau memiliki nama yang berbeda).
+4.  **Nilai yang Hilang**: Di `appConfig.sidebar.upgrade`, `trialEndsInDays` tidak memiliki nilai. Ini juga saya biarkan apa adanya.
+5.  **Komentar dalam YAML**: Saya menambahkan beberapa komentar seperti `# if custom` yang ada di input Anda. Ini bukan sintaks YAML yang valid untuk tipe data, jadi parser akan mengabaikannya atau mungkin error tergantung implementasinya. Saya membiarkannya untuk menjaga kesetiaan pada input.

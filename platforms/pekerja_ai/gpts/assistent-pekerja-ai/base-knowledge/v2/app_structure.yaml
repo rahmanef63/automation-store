@@ -1,0 +1,2011 @@
+appConfig:
+  layout: main_dashboard
+  header:
+    userProfile:
+      name: user-name
+      avatar: user-icon
+      menu:
+        myProfile:
+          title: My Account
+          name: User Name
+          plan: ''
+          status: Active
+          contacts: ''
+          inbox: ''
+          notifications: 0
+          actions:
+            - label: Get ID
+              action: getId
+            - label: Manage
+              action: manage
+            - label: Leave Account
+              action: leaveAccount
+        loginAccounts:
+          title: Login Account
+          providers:
+            - facebook
+            - google
+            - email
+    settings:
+      componentRef: SettingsConnectedPlatforms # Referensi ke definisi di feature_specific_configs.yaml
+    signOut:
+      button:
+        label: Sign Out
+        action: signOut
+  sidebar:
+    menu:
+      - title: Chat
+        soon: true
+      - title: Kanban Boards
+        main:
+          sections:
+            - type: item
+              label: pipelines
+            - type: button
+              label: Add
+              action: addPipeline
+          sections: # Duplikat key 'sections', mungkin seharusnya nested atau berbeda
+            - table:
+                columns:
+                  - key: name
+                    label: Name
+                  - key: contact
+                    label: Contact
+                rowActions:
+                  - label: Rename
+                    action: rename
+                  - label: Duplicate
+                    action: duplicate
+                  - label: Delete
+                    action: delete
+        route: 'https://client.pekerja.ai/en/boards?'
+      - title: Dashboard
+        main:
+          sections:
+            - title: Metrics
+              items:
+                - Total Contacts
+                - New Contacts
+                - Average response time (Minutes)
+                - Average first response time by admins (Minutes)
+                - Average response time by admins (Minutes)
+                - Average duration of a conversation (Minutes)
+                - Admins
+                - Messages received by the bot
+                - Messages sent by Human/bot
+                - Conversations moved to human/bot
+                - Unique conversations by admins
+                - Messages sent by admins
+                - All contacts by channel
+                - New contacts by channel
+                - New Contacts by Source
+                - Assigned conversations by admins
+                - Assigned conversations
+                - Follow Up conversations
+                - Archived conversations
+                - Blocked conversations
+                - All contacts by country
+                - New contacts by country
+        route: 'https://client.pekerja.ai/en/dashboard?'
+      - title: Contacts Customer
+        main:
+          sections:
+            - title: Contact Management
+              items:
+                - Contact
+              addButton:
+                label: Add
+                action:
+                  type: dialog
+                  title: Create New Contact
+                  fields:
+                    - name: phone
+                      label: Phone
+                      type: input
+                      inputType: tel
+                    - name: email
+                      label: Email (Optional)
+                      type: input
+                      inputType: email
+                    - name: firstName
+                      label: First Name (Optional)
+                      type: input
+                    - name: lastName
+                      label: Last Name (Optional)
+                      type: input
+                    - name: gender
+                      label: Gender
+                      type: select
+                      options:
+                        - male
+                        - female
+                        - other
+            - searchEnabled: true
+              filterButton:
+                label: Filter
+                action:
+                  type: dialog
+                  title: Filter Contacts
+                  contentRef: BtnForFilterOrCondition # Referensi ke definisi di ui_components_dialogs.yaml
+              actionsButton:
+                label: Actions
+                menuItems:
+                  - label: Assign Conversation to an Admin
+                    action: assignConversation
+                  - label: Add Tag
+                    action: addTag
+                  - label: Set Custom Field
+                    action: setCustomField
+                  - label: Delete Contact
+                    action: deleteContact
+                  - label: Export Data
+                    action: exportData
+                  - label: Import Contacts
+                    action: importContacts
+                  - label: More Options
+                    submenu:
+                      - label: Remove Tag
+                        action: removeTag
+                      - label: Clear Custom Field
+                        action: clearCustomField
+                      - label: Transfer Conversation to Human
+                        action: transferToHuman
+                      - label: Transfer Conversation to bot
+                        action: transferToBot
+                      - label: Archive
+                        action: archive
+                      - label: Subscribe to receive broadcasts
+                        action: subscribeBroadcasts
+                      - label: Unsubscribe from all broadcast
+                        action: unsubscribeBroadcasts
+            - table:
+                columns:
+                  - key: name
+                    label: Name
+                  - key: source
+                    label: Source
+                  - key: assignedTo
+                    label: Assigned to
+                    type: dropdown
+                    optionsSource: agents
+                  - key: lastSeen
+                    label: Last Seen
+                  - key: date
+                    label: Date
+      - title: Broadcasts
+        main:
+          header: Reach all your customers quickly
+          paragraph: >-
+            Send bulk messages to your contact list to announce deals, new
+            products, and other news.
+          sendButton:
+            label: Send
+            action:
+              type: dialog
+              title: Select Channel for Broadcast
+              sections:
+                - title: Omnichannel
+                  continueButton:
+                    label: Continue
+                    action:
+                      type: form
+                      title: Omnichannel Broadcast
+                      fields:
+                        - name: flowToSend
+                          label: Flow to send
+                          type: select
+                          dataSource: existingFlows
+                          defaultValue: existing flow
+                        - name: sendTime
+                          label: When to send this message?
+                          type: radio
+                          options:
+                            - value: now
+                              label: Now
+                            - value: schedule
+                              label: Schedule for later (All simultaneously)
+                        - name: targeting
+                          label: Targeting (optional)
+                          type: group
+                          logicSelector:
+                            type: select
+                            options:
+                              - any
+                              - all
+                          conditionsRef: BtnForFilterOrCondition # Referensi
+        route: /broadcasts
+      - title: Connected Platforms
+        mainRef: SettingsConnectedPlatforms # Referensi
+        route: /platforms
+      - title: Pekerja Ai
+        main:
+          sections:
+            - title: Assistants
+              itemType: list
+            - type: button
+              label: Add Assistant
+              action:
+                type: dialog
+                title: Add New Assistant
+                fields:
+                  - name: name
+                    label: Name
+                    type: input
+            - type: button
+              label: AI Triggers
+              action:
+                type: route
+                path: /chatgpt-triggers
+        route: /pekerja-ai
+      - title: Pekerja Bot
+        main:
+          tabs:
+            - title: Connected
+              contentRef: SettingsConnectedPlatforms # Referensi
+            - title: Instagram Comment to DM
+              contentRef: InstagramCommentToDMConfig # Referensi
+            - title: Instagram DM to DM
+              content:
+                userMessageSection:
+                  title: User Message
+                  fields:
+                    - <<: *commonTextInputPlaceholder # Menggunakan alias dari definitions_common.yaml
+                  addMoreButton: true
+                botResponseSection:
+                  title: Bot Response
+                  options:
+                    - type: textarea
+                      label: Text Message
+                      placeholder: type a message
+                    - type: select
+                      label: Flow
+                      <<: *commonFlowSelector # Menggunakan alias
+            - title: Instagram Auto Reply Story
+              content:
+                addButton:
+                  label: Add
+                  action:
+                    type: dialog
+                    title: Add Instagram Story Auto Reply
+                    sections:
+                      - title: Track story on
+                        fields:
+                          - name: trackStoryTarget
+                            type: select
+                            label: Track story on
+                            options:
+                              - value: all_stories
+                                label: All Stories
+                              - value: specific_stories
+                                label: Specific Stories
+                            requires: storySelector
+                      - title: Reply With
+                        fields:
+                          - name: storyReplyType
+                            type: selectWithContent
+                            label: Reply With
+                            options:
+                              - value: text
+                                label: Text
+                                content: *commonTextInputPlaceholder # Menggunakan alias
+                              - value: flow
+                                label: Flow
+                                content: *commonFlowSelector # Menggunakan alias
+                      - title: Reply to
+                        fields:
+                          - name: storyReplyCondition
+                            type: selectWithContent
+                            label: Reply to
+                            options:
+                              - value: all_user_replies
+                                label: All user replies
+                              - value: user_reply_equal_keyword
+                                label: 'User reply equal to keyword:'
+                                content:
+                                  type: input
+                                  placeholder: type a message
+                              - value: user_reply_include_keyword
+                                label: 'User reply that include keyword:'
+                                content:
+                                  type: input
+                                  placeholder: type a message
+            - title: Facebook Comment to Chat
+              contentRef: InstagramCommentToDMConfig # Referensi
+        route: /pekerja-bot
+      - title: Pekerja Human
+        main:
+          sections:
+            - title: Admin
+              description: >-
+                Bekerja sama dengan mudah bersama tim Anda, tetapkan peran, dan
+                kelola akun dengan lebih praktis untuk meningkatkan
+                produktivitas.
+              manageButton:
+                label: manage
+                action:
+                  type: route
+                  path: 'https://client.pekerja.ai/en/admins'
+                pageContent:
+                  title: Admins
+                  addButton:
+                    label: add
+                    action:
+                      type: dialog
+                      title: Add New Admin
+                      fields:
+                        - name: permissions
+                          type: checkboxGroup
+                          label: Permissions
+                          options:
+                            - Super Admin
+                            - Analytics
+                            - Flows
+                            - Contacts / Inbox
+                            - View email and phone of contacts
+                            - Broadcasts
+                            - Ecommerce
+                  table:
+                    columns:
+                      - key: contacts
+                        label: contacts
+                      - key: analytics
+                        label: Analytics
+                      - key: flows
+                        label: Flows
+                      - key: settings
+                        label: Settings
+                      - key: notifications
+                        label: Notifications
+                    rowActions:
+                      - edit
+                      - delete
+            - title: Inbox Teams
+              description: >-
+                Permudah pengelolaan percakapan di kotak masuk dengan
+                mengelompokkan anggota tim berdasarkan keahlian, departemen,
+                atau level dukungan untuk kerja sama yang lebih lancar.
+              manageButton:
+                label: manage
+                action:
+                  type: route
+                  path: 'https://client.pekerja.ai/en/teams'
+                pageContent:
+                  title: Inbox Teams
+                  addButton:
+                    label: add
+                    action:
+                      type: dialog
+                      title: Add New Team
+                      fields:
+                        - name: name
+                          label: Name
+                          type: input
+                          placeholder: type name
+                        - name: teamMembers
+                          label: Team Members
+                          type: multiSelect
+                          dataSource: bots
+                  table:
+                    columns:
+                      - key: name
+                        label: Name
+                        subContent:
+                          teamMembersList: true
+                          addButton:
+                            label: add
+                            action:
+                              type: dialog
+                              title: Add Team Members
+                              fields:
+                                - name: selectTeamMembers
+                                  label: Select Team Members
+                                  type: multiSelect
+                                  dataSource: bots
+                          deleteButton: true
+                      - key: teamMembersCount
+                        label: Team Members
+                      - key: actions
+                        label: Action
+                        actions:
+                          - add
+                          - rename
+                          - delete
+        route: /pekerja-human
+      - title: Flows
+        main:
+          tabs:
+            - title: Flows
+              sections:
+                - title: Flows
+                  addButton:
+                    label: add
+                    action:
+                      type: dialog
+                      title: Add New Flow
+                      fields:
+                        - name: flowName
+                          label: Flow Name
+                          type: input
+                          placeholder: type flow name
+                - title: File Management
+                  fileManagement:
+                    - label: New Folder
+                      action: createNewFolder
+                    - label: Trash
+                      action: viewTrash
+                    - type: folderList
+                      actions:
+                        - rename
+                        - delete
+              table:
+                columns:
+                  - key: select
+                    type: checkbox
+                  - key: name
+                    label: Name
+                  - key: status
+                    label: Status
+                    type: toggle
+                  - key: inbox
+                    label: Inbox
+                    type: toggle
+                  - key: modified
+                    label: Modified
+                    type: date
+                rowActions:
+                  - rename
+                  - duplicate
+                  - copy to another account
+                  - preview
+                  - get link
+                  - view analytics
+                  - move to folder
+                  - delete
+              flowEditorPage:
+                header:
+                  breadcrumb: true
+                  undoButton: true
+                  redoButton: true
+                  publishButton: true
+                  actionButton:
+                    label: Actions
+                    menuItems:
+                      - Rename
+                      - Duplicate
+                      - Get Draft Link
+                      - Get Published Link
+                      - Copy to another account
+                      - Get JSON for Messenger Ads
+                      - Get Payload for Messenger Ads
+                      - View Analytics
+                      - Flow Versions
+                      - Delete
+                      - Revert to Published
+                mainCanvas:
+                  nodeCanvas: true
+                  nodeCollection:
+                    - type: SendMessage
+                      label: Send Message
+                      is_node: true
+                      sidebarConfig:
+                        nodeLabelInput: true
+                        messageTypeSelector:
+                          type: select
+                          options:
+                            - omnichannel
+                            - Webchat
+                        quickReplyConfig:
+                          buttonLabelInput: true
+                          actionSelector:
+                            type: select
+                            options:
+                              - Send Message
+                              - Perform Action
+                              - Start Another Flow
+                              - Start Another Step
+                              - Start External Step
+                        addContentButton:
+                          label: + Add Content
+                          menuItems:
+                            - label: Text
+                              active: true
+                              config:
+                                textInput: true
+                                addButtonRef: FlowSidebarNode_AddButtonDialog # Referensi
+                            - label: Image
+                              active: true
+                              config:
+                                uploader: true
+                            - label: Card
+                              active: true
+                              configRef: FlowSidebarNode_Card # Referensi
+                            - label: Carousel
+                              active: true
+                              configRef: FlowSidebarNode_Card # Referensi
+                            - label: Get User Data
+                              active: true
+                              config:
+                                messageInput: true
+                                editButtonDialog:
+                                  replyTypeDropdown:
+                                    type: select
+                                    options:
+                                      - Number
+                                      - Text
+                                      - Email
+                                      - Phone
+                                      - Image
+                                      - File
+                                      - Link
+                                      - Location
+                                      - Date
+                                      - Date and Time
+                                      - Multiple choice
+                                      - QR Code Reader (Viber)
+                                  saveResponseToCustomField: *commonSaveToCustomFieldConfig # Menggunakan alias
+                                  retryMessageInput:
+                                    type: textarea
+                                    placeholder: >-
+                                      What you've entered is not a valid email.
+                                      Please try again
+                                  skipButtonLabelInput:
+                                    type: input
+                                    placeholder: skip
+                                  autoSkipCheckbox:
+                                    type: checkbox
+                                    label: Auto Skip after
+                                    timeInput: true
+                                    failedAttemptsInput:
+                                      type: number
+                                      defaultValue: 3
+                                additionalNodes:
+                                  - Data was saved
+                            - label: Video
+                              active: true
+                              config:
+                                uploader: true
+                            - label: GIF
+                              active: true
+                              config:
+                                giphyPoweredDialog: true
+                            - label: Typing
+                              active: true
+                              config:
+                                durationInput: true
+                            - label: File
+                              type: dropdown
+                              options:
+                                - label: Audio
+                                  active: true
+                                  config:
+                                    uploader: true
+                                - label: Other
+                                  active: true
+                                  config:
+                                    uploader: true
+                            - label: Actions
+                              type: dropdown
+                              optionsRef: FlowSidebarActions_ActionDropdownOptions # Referensi ke flow_actions_options.yaml
+                    - type: StartFlow
+                      label: Start Flow
+                      is_node: true
+                      sidebarConfig:
+                        flowSelector: true
+                    - type: ActionsNode
+                      label: Actions
+                      is_node: true
+                      configRef: FlowSidebarActions_ActionDropdownOptions # Referensi
+                    - type: Condition
+                      label: Condition
+                      is_node: true
+                      sidebarConfig:
+                        followingCondition:
+                          type: select
+                          label: Following Condition Logic
+                          options:
+                            - any
+                            - all
+                        button:
+                          label: +Condition
+                          componentRef: BtnForFilterOrCondition # Referensi
+                          additionalNode:
+                            outputs: true
+                        The user Doesnt match all these condition:
+                          label: User Doesn't Match
+                          output: true
+                    - type: SendEmail
+                      label: Send Email
+                      is_node: true
+                      sidebarConfig:
+                        fields:
+                          - name: emailTopic
+                            label: Email Topic
+                            type: select
+                            placeholder: type email topic
+                          - name: emailFrom
+                            label: Email from
+                            type: input
+                            placeholder: "{{email}}"
+                          - name: emailTo
+                            label: Email to
+                            type: input
+                            placeholder: "{{email}}"
+                          - name: emailSubject
+                            label: Email subject
+                            type: input
+                            placeholder: subject
+                          - name: Preheader
+                            label: Preheader
+                            type: input
+                            placeholder: preheader
+                          - name: headline
+                            type: input
+                            placeholder: enter your headline
+                          - name: image
+                            <<: *commonImageUploader # Menggunakan alias
+                          - name: text
+                            type: input
+                            placeholder: enter your text
+                          - componentRef: FlowSidebarNode_AddButtonDialog # Referensi
+                          - name: code
+                            label : Code
+                            type: input
+                            placeholder: |
+                              You received this email from {{page_name}}. If you would like to unsubscribe, <<click here>>
+                          - name: addContent
+                            label: +Add Content
+                            action: addEmailContentBlock
+                            contentBlocks:
+                              - type: headlineBlock
+                                fields:
+                                  - name: headline
+                                    type: input
+                                    placeholder: enter your headline
+                              - type: imageBlock
+                                fields:
+                                  - name: image
+                                    <<: *commonImageUploader # Menggunakan alias
+                              - type: textBlock
+                                fields:
+                                  - name: text
+                                    type: input
+                                    placeholder: enter your text
+                              - type: buttonBlock
+                                fields:
+                                  - componentRef: FlowSidebarNode_AddButtonDialog # Referensi
+                              - type: codeBlock
+                                fields:
+                                  - name: code
+                                    label : Code
+                                    type: input
+                                    placeholder: |
+                                      You received this email from {{page_name}}. If you would like to unsubscribe, <<click here>>
+                    - type: SplitTraffic
+                      label: Split Traffic
+                      is_node: true
+                    - type: Wait
+                      label: Wait
+                      is_node: true
+                    - type: LandingPage
+                      label: Landing Page
+                      is_node: true
+                button:
+                  position: right center
+                  label : preview
+            - title: Tags
+              sections:
+                - title: Tags
+                  addButton:
+                    label: add
+                    action:
+                      type: dialog
+                      title: Add New Tag
+                      fields:
+                        - name: tagName
+                          label: Tag Name
+                          type: input
+                          placeholder: type tag name
+                - title: File Management
+                  fileManagement:
+                    - label: New Folder
+                      action: createNewFolder
+                    - type: folderList
+                      actions:
+                        - rename
+                        - delete
+              table:
+                columns:
+                  - key: select
+                    type: checkbox
+                  - key: name
+                    label: Name
+                  - key: contactsDate
+                    label: Contacts
+                    type: date
+                rowActions:
+                  - rename
+                  - view analytics
+                  - move to folder
+                  - get ID
+                  - delete
+            - title: Custom Fields
+              containers:
+                - title: Custom Fields
+                  sections:
+                    - title: Custom Fields
+                      addButtonRef: AddCustomFieldButtonAndDialog # Referensi
+                    - title: File Management
+                      fileManagement:
+                        - label: New Folder
+                          action: createNewFolder
+                        - type: folderList
+                          actions:
+                            - rename
+                            - delete
+                  table:
+                    columns:
+                      - key: select
+                        type: checkbox
+                      - key: name
+                        label: Name
+                      - key: type
+                        label: Type
+                      - key: inbox
+                        label: Inbox
+                        type: toggle
+                    rowActions:
+                      - rename
+                      - view analytics
+                      - move to folder
+                      - get ID
+                      - delete
+                - title: Account Fields
+                  section:
+                    title: Account Fields
+                    addButton:
+                      label: add
+                      action:
+                        type: dialog
+                        title: Add New Account Field
+                        fields:
+                          - name: name
+                            label: Name
+                            type: input
+                            placeholder: type account field name
+                          - name: type
+                            label: Type
+                            type: select
+                            options:
+                              - text
+                              - number
+                              - date
+                              - date and time
+                              - true | false
+                              - long text
+                          - name: value
+                            label: Value
+                            type: input
+                            placeholder: Prompt (optional)
+                          - name: description
+                            label: Description
+                            type: input
+                            placeholder: optional
+                  table:
+                    columns:
+                      - key: select
+                        type: checkbox
+                      - key: name
+                        label: Name
+                      - key: type
+                        label: Type
+                      - key: value
+                        label: Value
+                    rowActions:
+                      - rename
+                      - view analytics
+                      - move to folder
+                      - get ID
+                      - delete
+            - title: Error Logs
+              section:
+                title: Error Logs
+              table:
+                columns:
+                  - key: select
+                    type: checkbox
+                  - key: type
+                    label: Type
+                  - key: description
+                    label: Description
+                  - key: contact
+                    label: Contact
+                  - key: date
+                    label: Date
+                rowActions:
+                  - get ID
+                  - delete
+            - title: Ai Triggers
+              section:
+                title: Ai Triggers
+                addButton:
+                  label: add
+                  action:
+                    type: dialog
+                    title: Add New AI Trigger
+                    fields:
+                      - name: name
+                        label: Name
+                        type: input
+                        placeholder: type ai trigger name
+                      - name: description
+                        label: What does this trigger do?
+                        type: textarea
+                        example: allow the user to book an appointment
+                      - name: dataToCollect
+                        label: What data to collect?
+                        type: keyValueList
+                        addButtonLabel: add new
+                        keyPlaceholder: Prompt (optional)
+                        valuePlaceholder: Custom Field Name
+                      - name: triggeredFlow
+                        label: What flow is triggered
+                        <<: *commonFlowSelector # Menggunakan alias
+                      - name: outputMessage
+                        label: What is the output message? (Optional)
+                        type: input
+                    example:
+                      name: bl_1_perkenalan
+                      description: >-
+                        Jalankan saat pelanggan telah menyebutkan nama mereka
+                        dan ingin melakukan booking.
+                      dataToCollect:
+                        - status_booking_penawaran: bl_status_booking
+                        - nama_pelanggan: bl_nama_pelanggan
+                      triggeredFlow: Booking - Alur Utama
+                      outputMessage: (Optional)
+              table:
+                columns:
+                  - key: collapsible
+                    type: icon
+                  - key: name
+                    label: Name
+                rowActions:
+                  - edit
+                  - duplicate
+                  - delete
+            - title: Ai Parameters
+              section:
+                title: Ai Parameters
+                addButton:
+                  label: add
+                  action:
+                    type: dialog
+                    title: Add New AI Parameter
+                    fields:
+                      - name: name
+                        label: Name
+                        type: input
+                        placeholder: input Ai parameter name
+                configuration:
+                  whenThisHappens:
+                    label: 'When this happens:'
+                    triggerOptions:
+                      type: select
+                      label: Trigger Event
+                      groups:
+                        - label: Tags
+                          options:
+                            - Tag applied
+                            - Tag removed
+                        - label: Custom Fields
+                          options:
+                            - Custom field value changed
+                        - label: Date/Time based trigger
+                          options:
+                            - Conversation transferred to human
+                            - Conversation transferred to bot
+                            - New contact
+                            - Contact unsubscribed from broadcasts
+                            - Archived
+                            - Follow Up
+                            - Conversation assigned
+                            - Conversation unassigned
+                        - label: Drip campaigns (Sequences)
+                          options:
+                            - Subscribed to drip campaign
+                            - Unsubscribed from drip campaign
+                        - label: Entry Points Links
+                          options:
+                            - Contact referred a new contact
+                            - Contact referred existing contact
+                  actionOption:
+                    label: 'Action:'
+                    type: select
+                    options:
+                      - Start Another Flow
+                      - Start External Step
+                      - Add Tag
+                      - Remove Tag
+                      - Set Custom Field
+                      - Clear Custom Field
+                      - Notify Admins
+                      - Transfer Conversation to Human
+              fileManagement:
+                - label: New Folder
+                  action: createNewFolder
+                - type: folderList
+                  actions:
+                    - rename
+                    - delete
+              table:
+                columns:
+                  - key: name
+                    label: Name
+                  - key: active
+                    label: Active
+                    type: toggle
+                rowActions:
+                  - rename
+                  - move to folder
+                  - delete
+        route: /flows
+      - title: Tools
+        main:
+          contentCreatorTools:
+            title: Content Creator Tools
+            description: >-
+              Otomatisasi Facebook & Instagram Kamu hingga FYP dengan Fitur Auto
+              Commenct to DM, DM to DM, Story to DM dan lainnya.
+            configRef: InstagramCommentToDMConfig # Referensi
+          tools:
+            - name: Drip Campaigns
+              description: >-
+                Kirim pesan terus menerus ke pelangganmu dengan priode waktu
+                yang kamu inginkan.
+              route: 'https://client.pekerja.ai/en/sequences?'
+              pageContent:
+                section:
+                  title: Drip Campaigns
+                  addButton:
+                    label: add
+                    action:
+                      type: dialog
+                      title: Add New Drip Campaign
+                      fields:
+                        - name: campaignName
+                          label: Name
+                          type: input
+                  messageConfig:
+                    sendFlowSelector:
+                      label: Send
+                      <<: *commonFlowSelector # Menggunakan alias
+                    sendAfterTimer:
+                      label: After
+                      type: timeDurationInput
+                    addMessageButton:
+                      label: + message
+                      action: addDripMessage
+                fileManagement:
+                  - label: New Folder
+                    action: createNewFolder
+                  - label: Trash
+                    action: viewTrash
+                  - type: folderList
+                    actions:
+                      - rename
+                      - delete
+                table:
+                  columns:
+                    - key: select
+                      type: checkbox
+                    - key: name
+                      label: Name
+                    - key: messagesCount
+                      label: Messages
+                  rowActions:
+                    - rename
+                    - move to folder
+                    - delete
+            - name: Shortcut Links
+              description: >-
+                Buat link sebagai titik awal percakapan di semua platform media
+                sosialmu.
+              route: 'https://client.pekerja.ai/en/sequences?'
+              pageContent:
+                section:
+                  title: Magic Link
+                  addButton:
+                    label: add
+                    action:
+                      type: dialog
+                      title: Add Magic Link
+                      fields:
+                        - name: name
+                          label: Name
+                          type: input
+                        - name: url
+                          label: URL
+                          type: input
+                          inputType: url
+                table:
+                  columns:
+                    - key: select
+                      type: checkbox
+                    - key: fixedLink
+                      label: Fixed Link
+                    - key: dynamicLink
+                      label: Dynamic Link
+                  rowActions:
+                    - edit
+                    - get link
+                    - get QR code
+                    - delete
+            - name: Entry Point Links
+              description: >-
+                Buat link sebagai titik awal percakapan di semua platform media
+                sosialmu dan tracking semacam referral.
+              route: 'https://client.pekerja.ai/en/sequences?'
+              pageContent:
+                section:
+                  addButton:
+                    label: add
+                    action:
+                      type: dialog
+                      title: Add Entry Point Link
+                      fields:
+                        - name: name
+                          label: Name
+                          type: input
+                        - name: botResponseFlow
+                          label: Bot Response (Flows)
+                          <<: *commonFlowSelector # Menggunakan alias
+                        - name: savePayloadToCustomField
+                          label: Save Payload to a Custom Field (Optional)
+                          type: select
+                          dataSource: customFields
+                table:
+                  columns:
+                    - key: select
+                      type: checkbox
+                    - key: name
+                      label: Name
+                    - key: botResponse
+                      label: Bot Response
+                  rowActions:
+                    - get link
+                    - View analytics
+            - name: Short Links & QR Code
+              description: Buat short links dan QR Code.
+              route: 'https://client.pekerja.ai/en/tools-qr-code'
+              pageContent:
+                section:
+                  fields:
+                    - name: imageSize
+                      label: Image Size
+                      type: number
+                    - name: flow
+                      label: Flow
+                      <<: *commonFlowSelector # Menggunakan alias
+                  generateButton:
+                    label: Generate
+                    action: generateQrCode
+                  resultPreview:
+                    qrPreview: true
+                    downloadButton: true
+            - name: Google Spreadsheets
+              componentRef: GoogleSpreadsheetsToolPage # Referensi
+            - name: Google Calendar
+              description: >-
+                Buat janjian secara otomatis dan simpan ke google celender untuk
+                pengingat.
+              route: 'https://client.pekerja.ai/en/calendars'
+              pageContent:
+                tabs:
+                  - title: Calendars
+                    section:
+                      title: Calendars
+                      addButton:
+                        label: add
+                        action:
+                          type: dialog
+                          title: Add New Calendar
+                          fields:
+                            - name: calendarName
+                              label: Name
+                              type: input
+                    table:
+                      columns:
+                        - key: name
+                          label: Name
+                        - key: active
+                          label: Active
+                          type: toggle
+                      rowActions:
+                        - edit
+                        - delete
+                  - title: Appointments
+                    subTabs:
+                      - Next
+                      - Past
+                    table:
+                      columns:
+                        - key: name
+                          label: Name
+                        - key: date
+                          label: Date
+                        - key: status
+                          label: Status
+                        - key: calendar
+                          label: Calendar
+                      searchEnabled: true
+                  - title: External Calendars
+                    description: External calendar
+                    table:
+                      columns:
+                        - key: email
+                          label: Email
+                        - key: calendarId
+                          label: Calendar ID
+                        - key: date
+                          label: Date
+                      rowActions:
+                        - edit
+                        - delete
+                    connectGoogleCalendarButton:
+                      label: Connect google calender
+                      action: redirectGoogleSignIn
+            - name: Google Speech to Text
+              description: Ubah voice note chat kamu menjadi teks.
+              route: 'https://client.pekerja.ai/en/settings#integrations'
+              pageContentRef: GoogleSpeechToTextConnect # Referensi
+            - name: Branch Maps
+              description: >-
+                Buat pelanggan kamu mudah menemukan lokasi cabang bisnis
+                terdekatmu.
+              route: 'https://client.pekerja.ai/en/settings#integrations'
+              pageContent:
+                tabs:
+                  - title: Categories
+                    section:
+                      title: Categories
+                      addButton:
+                        label: add
+                        action:
+                          type: dialog
+                          title: Add New Category
+                          fields:
+                            - name: categoryName
+                              label: Name
+                              type: input
+                            - name: image
+                              label: Image (optional)
+                              type: uploader
+                            - name: rank
+                              label: Rank
+                              type: number
+                              defaultValue: 10
+                    table:
+                      columns:
+                        - key: name
+                          label: Name
+                        - key: visible
+                          label: Visible
+                          type: toggle
+                placesNearMeSection:
+                  title: Places Near Me
+                  description: >-
+                    Let your customers easily find your business location near
+                    them.
+                  addButton:
+                    label: add
+                    action:
+                      type: dialog
+                      title: Add Place
+                      fields:
+                        - name: name
+                          label: Name
+                          type: input
+                        - name: latitude
+                          label: Latitude
+                          type: input
+                        - name: longitude
+                          label: Longitude
+                          type: input
+                table: {}
+            - name: Ecommerce
+              description: >-
+                Buat toko onlinemu didalam chat, tersedia fitur kupon, diskon dan mulai transaksi di dalam chat.
+              route: 'https://client.pekerja.ai/en/products'
+              pageContent:
+                tabs:
+                  - title: Products
+                    section:
+                      title: Products
+                      addButton:
+                        label: add
+                        action:
+                          type: newPage
+                          path: /products/new
+                          title: Add New Product
+                          pageContent:
+                            sections:
+                              - title: Basic Information
+                                fields:
+                                  - name: Name
+                                    label: Name
+                                    type: input
+                                  - name: shortDescription
+                                    label: Short Description
+                                    type: input
+                                  - name: longDescription
+                                    label: Long Description
+                                    type: textarea
+                              - title: Pricing
+                                fields:
+                                  - name: price
+                                    label: Price $
+                                    type: input
+                                  - name: taxes
+                                    label: Taxes (0-100%)
+                                    type: input
+                                  - name: discount
+                                    label: Discount (0-100%)
+                                    type: input
+                              - title: Images
+                                fields:
+                                  - name: productImages
+                                    label: Product Images
+                                    type: imageManager
+                              - title: Inventory
+                                fields:
+                                  - name: sku
+                                    label: SKU / Content ID (optional)
+                                    type: input
+                                  - name: inventoryPolicy
+                                    label: Inventory policy
+                                    type: select
+                                    options:
+                                      - value: dont_track
+                                        label: Don't track inventory
+                                      - value: track
+                                        label: Track this product inventory
+                              - title: Variants
+                                fields:
+                                  - name: variants
+                                    type: variantSidebar
+                              - title: More Options
+                                sections:
+                                  - title: Add-ons
+                                    description: >-
+                                      Add products that clients can buy as an add-on. You can also give free products here. For example, a restaurant may give free drinks options here. You must create a product before you use it as add-on.
+                                    fields:
+                                      - name: addons
+                                        type: addonSidebar
+                                  - title: Tags
+                                    fields:
+                                      - name: productTags
+                                        type: input
+                                        label: Tags (searchable)
+                                        placeholder: type and press the enter key
+                                  - title: Other Settings
+                                    fields:
+                                      - name: vendor
+                                        label: Vendor
+                                        type: select
+                                        dataSource: vendors
+                                      - name: rank
+                                        label: Rank
+                                        type: number
+                                      - name: category
+                                        label: Category
+                                        type: select
+                                        dataSource: categories
+                                      - name: subcategory
+                                        label: Subcategory
+                                        type: select
+                                        dataSource: subcategories
+                                      - name: isSearchable
+                                        type: checkbox
+                                        label: This product is searchable inside the bot
+                                      - name: allowSpecialRequest
+                                        type: checkbox
+                                        label: Allow the user to request a special request (attach notes)
+                                      - name: isAddonOnly
+                                        type: checkbox
+                                        label: Use this product only as an addon for others products
+                    table:
+                      columns:
+                        - key: select
+                          type: checkbox
+                        - key: name
+                          label: Name
+                        - key: price
+                          label: Price
+                        - key: inventory
+                          label: Inventory
+                        - key: SKU
+                          label: SKU
+                        - key: category
+                          label: Category
+                        - key: actions
+                          type: actionCell
+                          actions:
+                            - edit
+                            - delete
+                            - get link
+                  - title: Orders
+                    section:
+                      title: Orders
+                      addButton:
+                        label: Add
+                        action: createOrderDialog
+                      table:
+                        columns:
+                          - key: name
+                            label: Name
+                          - key: total
+                            label: Total
+                          - key: status
+                            label: Status
+                          - key: date
+                            label: Date
+                          - key: rating
+                            label: Rating
+                  - title: Coupons
+                    section:
+                      title: Coupons
+                      addButton:
+                        label: Add
+                        action: createCouponDialog
+                      table:
+                        columns:
+                          - key: name
+                            label: Name
+                          - key: discount
+                            label: Discount
+                          - key: end
+                            label: End
+                          - key: active
+                            label: Active
+                            type: toggle
+                  - title: Vendors
+                    section:
+                      title: Vendors
+                      addButton:
+                        label: Add
+                        action: createVendorDialog
+                      table:
+                        columns:
+                        - key: select
+                          type: checkbox
+                        - key: name
+                          label: Name
+                        - key: totalProducts
+                          label: Total Products
+                        - key: active
+                          label: Active
+                          type: toggle
+                  - title: Categories
+                    section:
+                      title: Categories
+                      addButton:
+                        label: Add
+                        action: createCategoryDialog
+                      table:
+                        columns:
+                        - key: name
+                          label: Name
+                        - key: visible
+                          label: Visible
+                          type: toggle
+                  - title: Settings
+                    section:
+                      title: Settings
+                      tabs:
+                        - title: General
+                          fields:
+                            - key: orderingIsAvailable
+                              label: Ordering is Available
+                              type: toggle
+                              description: Use this field to not allow clients to place orders without changing your Opening hours. Opening hours also control your availability.
+                            - key: webShopProductView
+                              label: Web shop product view
+                              type: select
+                              options:
+                                - List
+                                - List Without Image
+                                - Card
+                                - Card with square image
+                                - Image
+                                - Image (square)
+                              description: Control the way products are displayed on your web shop.
+                            - key: openHours
+                              label: Open hours
+                              type: select
+                              options:
+                                - value: customInput
+                                  label: Custom Input
+                                - value: alwaysOpen
+                                  label: always open
+                              description: The time intervals that your customers can place an order.
+                            - key: searchProducts
+                              label: Search Products
+                              type: toggle
+                              description: Allow customers to send messages to find products.
+                            - key: facebookPixel
+                              label: Facebook Pixel
+                              type: text
+                              description: Track conversion with FB pixel and measure the results of your ads. The following events are tracked ADD_TO_CART, INITIATE_CHECKOUT, PURCHASE, VIEW_CONTENT
+                            - key: buttonsInProducts
+                              label: Buttons in Products
+                              type: select
+                              options:
+                                - Add to Cart
+                                - Add to Cart + Share
+                                - Add to Cart + Share + Similar
+                                - Add to Cart + Share + Save
+                                - Add to Cart + Similar
+                                - Add to Cart + Similar + Save
+                                - Add to Cart + Save
+                                - Share
+                                - Similar
+                                - Save
+                                - Share + Similar
+                                - Share + Save
+                                - Similar + Save
+                                - Share + Similar + Save
+                              description: This setting controls what buttons are shown for products inside your bot.
+                            - key: imageSizeOfProducts
+                              label: Image size of Products
+                              type: select
+                              options:
+                                - big (square)
+                                - medium (rectangle)
+                              description: This setting controls the size of the image of products inside your bot.
+                            - key: allowToRateOrders
+                              label: Allow to rate orders
+                              type: toggle
+                              description: Allow customers to rate an order and write a review if they are not satisfied with the order. Only bot admins can see the reviews.
+                            - key: sendNotificationWhenChangeCartStatus
+                              label: Send notification when change cart status
+                              type: toggle
+                              description: The customer will receive notifications whenever you change the order status. You can't disable notification for order cancelation and for order conclusion.
+                        - title: Payments
+                          fields:
+                            - key: paymentMethods
+                              label: Payment methods
+                              type: multiSelect
+                              description: The payment methods that are enabled in the checkout page. The first payment method in the list will be the selected payment method in the checkout page.
+                              options:
+                                - Cash on Delivery
+                                - Bank Transfer
+                                - Credit Card
+                            - key: currency
+                              label: Currency
+                              type: select
+                              description: This is the currency that you set the prices for products. The customers will be charged in this currency.
+                              options:
+                                - Indonesian Rupiah
+                                - US Dollar
+                                - Euro
+                                - Other
+                            - key: currencyPosition
+                              label: Currency position
+                              type: select
+                              description: This option allows you to control the currency position.
+                              options:
+                                - Left
+                                - Right
+                                - Left with space
+                                - Right with space
+                            - key: symbolOfMoney
+                              label: Symbol of money
+                              type: text
+                              description: The symbol of money is shown ahead of prices. If you want a space between the symbol and prices, add a space at the end of the symbol.
+                            - key: serviceFees
+                              label: Other Fees / Services Fees
+                              type: number
+                              description: Other fees related to the sale.
+                        - title: Shipping
+                          fields:
+                            - key: shippingType
+                              type: select
+                              label: Shipping type
+                              options: []
+                              description: This option allows you to control how the customer will get their order.
+                            - key: storeAddress
+                              type: text
+                              label: Store address
+                              description: This address is shown to the customer in the checkout page if you allow pick up in the store.
+                            - key: shippingCountries
+                              label: Shipping countries
+                              type: multiSelect
+                              options:
+                                - Indonesia
+                                - USA
+                              description: The countries that you ship an order.
+                            - key: defaultShippingCountry
+                              type: select
+                              label: Default Shipping country
+                              defaultValue: Indonesia
+                              options:
+                                - Indonesia
+                                - USA
+                              description: The country that will be selected by default in the checkout page
+                            - key: deliveryCost
+                              type: number
+                              label: Delivery cost
+                              defaultValue: 0.00
+                              description: A flat rate cost to deliver the order to the customer address.
+                              setCostPerLocationButton:
+                                label: Set cost per location
+                                action:
+                                  type: route
+                                  path: /shipping/cost-per-location
+                                  pageContent:
+                                    infoText: Contact the support team to learn more.
+                                    fileUploadButton:
+                                      label: select file
+                                      type: uploader
+                        - title: Checkout
+                          fields:
+                            - key: checkoutPage
+                              type: select
+                              label: Checkout
+                              options:
+                                - Default checkout page
+                                - Custom External checkout page
+                                - Flow
+                                - Visit the external product page
+                              defaultValue: Default checkout page
+                              description: >
+                                This setting control where your customers will finish their orders.
+                                If you want the user to complete the order outside of your bot like on your website, Amazon,..
+                                don't use our default checkout page.
+                            - key: minimumOrderValue
+                              type: number
+                              label: Minimum order value
+                              defaultValue: 0.00
+                              description: >
+                                The minimum value of the order that a customer can place.
+                                This condition is checked when all discounts are applied.
+                            - key: requireBuyerName
+                              type: toggle
+                              label: Require buyer name
+                              defaultValue: true
+                              description: The buyer Name will be collected during the checkout.
+                            - key: requireEmail
+                              type: toggle
+                              label: Require email address
+                              defaultValue: true
+                              description: The buyer Email will be collected during the checkout.
+                            - key: requirePhone
+                              type: toggle
+                              label: Require phone number
+                              defaultValue: false
+                              description: The buyer Phone will be collected during the checkout.
+                            - key: requireState
+                              type: toggle
+                              label: Require state/province
+                              defaultValue: true
+                              description: The buyer State will be collected during the checkout.
+                            - key: requireZip
+                              type: toggle
+                              label: Require zip code
+                              defaultValue: true
+                              description: The buyer ZIP Code will be collected during the checkout.
+                  - title: Analytic
+                    redirect: true
+                    route: https://client.pekerja.ai/en/dashboard-shop
+            - name: Quiz
+              description: >-
+                Buat kuis dan survei di dalam chat dan dapatkan hasilnya secara akurat.
+              route: 'https://client.pekerja.ai/en/questionnaires'
+              pageContent:
+                section:
+                  title: Questionnaires
+                  addButton:
+                    label: Add
+                    action:
+                      type: route
+                      path: /questionnaires/new
+                      pageContent:
+                        title: Add New Questionnaire
+                        fields:
+                          - key: name
+                            type: input
+                            label: Questionnaire Name
+                            required: true
+                          - key: triggerFlow
+                            type: select
+                            label: Trigger the flow by completing the questionnaire
+                            dataSource: existingFlows
+                          - key: givePoints
+                            type: checkbox
+                            label: Give points for each question answered.
+                          - key: retryMessages
+                            type: checkbox
+                            label: Customize retry messages in case of reply failure.
+                          - key: saveToCustom
+                            type: checkbox
+                            label: Save data to custom fields.
+                            defaultValue: true
+                          - key: questions
+                            type: questionSidebar
+                            label: Questions
+                            questionFields:
+                              - key: questionText
+                                type: text
+                                label: Question
+                              - key: responseType
+                                type: select
+                                label: Response Type
+                                options:
+                                  - Text
+                                  - Number
+                                  - email
+                                  - phone
+                                  - multiple choice
+                                  - date
+                                  - date and time
+                                  - image
+                                  - file
+                                  - location
+                                  - website link
+                              - key: customFieldTarget
+                                type: select
+                                label: Save response to a custom field
+                                dataSource: existingCustomFields
+                        actions:
+                          - label: Save Questionnaire
+                            action: saveQuestionnaire
+                          - label: Cancel
+                            action: cancelQuestionnaireCreation
+                  table:
+                    columns:
+                      - key: name
+                        type: text
+                        label: Name
+                      - key: applicants
+                        type: number
+                        label: Applicants
+            - name: Polling
+              description: >-
+                Salin flow dan konten lainnya dengan cepat ke akun lain.
+              route: ''
+              pageContent:
+                tabs:
+                  - title: Poll Manager
+                    section:
+                      title: Poll Manager
+                      addButton:
+                        label: Add
+                        action:
+                          type: route
+                          path: /polls/new
+                          pageContent:
+                            title: Create New Poll
+                            fields:
+                              - key: name
+                                type: text
+                                label: Name
+                                required: true
+                              - key: startDate
+                                type: datetime
+                                label: Start Date
+                              - key: endDate
+                                type: datetime
+                                label: End Date
+                              - key: image
+                                type: file
+                                label: Image
+                              - key: candidates
+                                type: candidateSidebar
+                                label: Candidates or Options
+                                candidateFields:
+                                  - key: name
+                                    type: text
+                                    label: Name
+                                  - key: description
+                                    type: textarea
+                                    label: Description
+                                  - key: image
+                                    type: file
+                                    label: Image
+                              - key: flowAfterVote
+                                type: select
+                                label: Flow to be sent after the user vote
+                                dataSource: existingFlows
+                    table:
+                      columns:
+                        - key: name
+                          type: text
+                          label: Name
+                        - key: startDate
+                          type: date
+                          label: Start Date
+                        - key: endDate
+                          type: date
+                          label: End Date
+                        - key: votes
+                          type: number
+                          label: Votes
+            - name: Template
+              description: >-
+                Salin flow dan konten lainnya dengan cepat ke akun lain.
+              route: ''
+              pageContent:
+                section:
+                  title: Templates
+                  addButton:
+                    label: Add
+                    action:
+                      type: route
+                      path: /templates/new
+                      pageContent:
+                        title: Create New Template
+                        fields:
+                          - key: name
+                            type: text
+                            label: Template Name
+                            required: true
+                          - key: image
+                            type: file
+                            label: Image
+                          - key: createFolderOnInstall
+                            type: toggle
+                            label: Create a folder on the installed account and install resources.
+                            defaultValue: true
+                          - key: contents
+                            type: templateContentSelector
+                            label: Template Contents
+                            contentSections:
+                              - key: settings
+                                label: Settings
+                                selectAll: true
+                                items:
+                                  - key: general
+                                    label: General
+                                  - key: persistentMenu
+                                    label: Persistent Menu
+                              - key: flows
+                                label: Flows
+                                selectAll: true
+                                itemsDataSource: existingFlows
+                                itemActions: [view, edit]
+                              - key: automatedResponses
+                                label: Automated Responses
+                                selectAll: true
+                                itemsDataSource: automatedResponses
+                          - title: Permissions
+                            fields:
+                              - key: autoUpdate
+                                type: checkbox
+                                label: Auto-update installed templates
+                              - key: allowDelete
+                                type: checkbox
+                                label: Permission to delete installed templates
+                          - title: More Information
+                            fields:
+                              - key: publisherName
+                                type: text
+                                label: Publisher name
+                                placeholder: Unknown
+                              - key: description
+                                type: textarea
+                                label: Description
+                                placeholder: optional
+                              - key: youtubeVideoId
+                                type: text
+                                label: Youtube Video ID
+                                placeholder: Optional
+                              - key: testLink
+                                type: text
+                                label: Test Link
+                                placeholder: Optional
+                table:
+                  columns:
+                    - key: name
+                      label: Name
+                    - key: instalas
+                      label: Installations
+                      type: number
+                      defaultValue: 0
+                  rowActions:
+                    - get link
+                    - view analytic
+                    - delete
+            - name: Facebook Messenger List
+              description: >-
+                Bangun daftar database facebook messenger untuk dilakukan drip campaigns.
+              route: 'https://client.pekerja.ai/en/otn'
+              pageContent:
+                section:
+                  title: Messenger List
+                  addButton:
+                    label: Add
+                    action:
+                      type: dialog
+                      title: Add New Messenger List
+                      fields:
+                        - key: name
+                          type: text
+                          label: Name
+                          required: true
+                table:
+                  columns:
+                    - key: name
+                      type: text
+                      label: Name
+                    - key: contacts
+                      type: number
+                      label: Contacts
+            - name: Facebook Ads
+              description: >-
+                Konekkan facebook ads.
+              route: ''
+              pageContent:
+                soon: true
+            - name: Facebook Auto Lead Ads
+              description: >-
+                Tingkatkan jualanmu dengan dengan mengkualifikasi leads yang prospek Facebook atau Instagram di Whatsapp.
+              route: ''
+              pageContent:
+                soon: true
+            - name: Facebook Conversion Tracking (Pixel)
+              description: >-
+                Tracking conversion dari facebook ads kamu.
+              route: ''
+              pageContent:
+                soon: true
+            - name: Testing Chat
+              description: >-
+                Prompt & Flows System? saatnya lihat hasilnya disini.
+              route: ''
+              pageContent:
+                section:
+                  title: Web Chat Generator
+                  fields:
+                    - key: website
+                      type: text
+                      label: Website Link
+                      required: true
+                    - key: chatbot
+                      type: select
+                      label: Web Chatbot
+                      optionsRef: chatbotOptions
+                  addButton:
+                    label: Add New WebChat Config
+                    action:
+                      type: route
+                      path: /webchat-configs/new
+                      pageContent:
+                        title: Create New WebChat Configuration
+                        fields:
+                          - key: name
+                            type: text
+                            label: Name
+                            required: true
+                          - key: welcomeMessage
+                            type: select  # if custom (note: this is a comment, not valid YAML syntax for type)
+                            label: Welcome Message
+                            optionsRef: welcomeMessages
+                          - key: authorizedWebsites
+                            type: stringList
+                            label: Authorized websites
+                            itemLabel: Website
+                          - key: conversationStarters
+                            type: stringList
+                            label: Conversation Starters
+                            itemLabel: Prompt
+                          - key: persistentMenu
+                            type: menuItemSidebar
+                            label: Persistent Menu
+                            itemLabel: Menu Item
+                          - key: template
+                            type: select
+                            label: Template
+                            optionsRef: webchatTemplates
+                          - key: brandColor
+                            type: color
+                            label: Brand Color
+                          - key: hideHeader
+                            type: checkbox
+                            label: Hide the webchat header.
+                          - key: showLogoAsPersona
+                            type: checkbox
+                            label: Show logo as persona.
+                          - key: hideComposer
+                            type: checkbox
+                            label: Hide the message composer.
+                          - key: customCss
+                            type: code
+                            language: css
+                            label: Customize webchat with CSS
+                  table:
+                    columns:
+                      - key: name
+                        type: text
+                        label: Name
+                      - key: modified
+                        type: date
+                        label: Modified
+                      - key: active
+                        type: toggle
+                        label: Active
+                    rowActions:
+                      - edit
+                      - delete
+            - name: Upload Images Free
+              description: >-
+                Upload gambar kamu di sini tanpa harus bayar alias gratis.
+              route: ''
+              pageContent:
+                section:
+                  title: Images
+                  addButton:
+                    label: Add Image
+                    action:
+                      type: dialog
+                      title: Upload Image
+                      fields:
+                        - name: imageFile
+                          type: uploader
+                          label: Select Image
+                table:
+                  columns:
+                    - key: name
+                      type: text
+                      label: Name
+            - name: API
+              description: >-
+                Konekkan pekerja.ai dengan system kamu agar Bot Ai dapat melakukan hal yang lebih keren.
+              route: ''
+              pageContent: {}
+            - name: Webhooks
+              description: >-
+                Kirimkan data ke system kamu agar bisa berdiskusi dua arah.
+              route: 'https://client.pekerja.ai/en/webhooks'
+              pageContent:
+                tabs:
+                  - title: Webhooks
+                    section:
+                      title: Webhooks
+                      addButton:
+                        label: Add
+                        action:
+                          type: dialog
+                          title: Add New Webhook
+                          fields:
+                            - key: triggers
+                              type: multiSelect
+                              label: When this happens
+                              optionsRef: webhookTriggers
+                              required: true
+                            - key: url
+                              type: textarea # type url (note: comment, not valid YAML)
+                              label: Notify this URL
+                              required: true
+                      table:
+                        columns:
+                          - key: name
+                            type: text
+                            label: Name
+                          - key: status
+                            type: toggle
+                            label: Status
+      - title: Ai Academy
+        icon: ai-academy
+        route: /academy
+      - title: Discord Agency
+        icon: discord-agency
+        route: /discord
+      - title: Affiliate
+        icon: affiliate
+        route: /affiliate
+    upgrade:
+      label: Upgrade Paket
+      route: /upgrade
+      trialEndsInDays: # Missing value
+  footer:
+    text: © 2025 Pekerja.ai

@@ -1,0 +1,235 @@
+# Configurations for larger, specific features or pages
+# Note: This file might reference aliases from definitions_common.yaml
+# and component definitions from ui_components_dialogs.yaml
+
+SettingsConnectedPlatforms:
+  general:
+    defaultReply: Default Reply
+    targetCountry: unknown
+    defaultLanguage: Indonesian
+    accountTimezone: ''
+    brandColor: Brand Color
+    developmentMode:
+      type: toggle
+      defaultValue: false
+    deleteAccountButton:
+      label: Delete Account
+  channels:
+    - name: Facebook Messenger
+      button:
+        label: Connect
+    - name: WhatsApp
+      button:
+        label: Connect
+    - name: Instagram
+      account: ''
+      button:
+        label: Disconnect
+      storyMentionReply:
+        type: dropdown
+        defaultValue: None
+        options:
+          - None
+      persistentMenuButton:
+        label: Edit
+      conversationStartersButton:
+        label: Edit
+      refreshPermissionsButton:
+        label: Reconnect
+    - name: Web Chat
+      button:
+        label: Connect
+    - name: Telegram
+      button:
+        label: Connect
+    - name: Email
+      button:
+        label: Connect
+  integrations:
+    - name: Facebook
+      facebookConversionTracking:
+        button:
+          label: Connect
+    - name: OpenAI ChatGPT
+      automatedResponses:
+        type: toggle
+        defaultValue: false
+      automaticVoiceResponse:
+        type: toggle
+        defaultValue: false
+      agentsButton:
+        label: Manage
+      assistantsButton:
+        label: Manage
+      aiTriggersButton:
+        label: Manage
+    - name: xAl
+      button:
+        label: Connect
+    - name: Google Sheets
+      button:
+        label: Connect
+    - name: Google Speech to Text
+      componentRef: GoogleSpeechToTextConnect # Referensi ke ui_components_dialogs.yaml
+
+InstagramCommentToDMConfig:
+  title: Instagram Comment Automations
+  flowUI: true
+  addButton:
+    label: add
+    action:
+      type: dialog
+      title: Add Instagram Comment Automation
+      sections:
+        - title: Track comment on
+          fields:
+            - name: trackTarget
+              type: select
+              label: Track comment on
+              options:
+                - value: all_posts
+                  label: All Posts
+                - value: specific_posts
+                  label: Specific Posts
+              requires: postSelector
+        - title: Private reply to comment
+          fields:
+            - name: privateReplyType
+              type: selectWithContent
+              label: Private reply to comment
+              options:
+                - value: text
+                  label: Text
+                  content: *commonTextInputPlaceholder # Menggunakan alias
+                - value: flow
+                  label: Flow
+                  content: *commonFlowSelector # Menggunakan alias
+                - value: none
+                  label: None
+        - title: Public reply to comment
+          fields:
+            - name: publicReplyType
+              type: selectWithContent
+              label: Public reply to comment
+              options:
+                - value: text
+                  label: Text
+                  content: *commonTextInputPlaceholder # Menggunakan alias
+                - value: flow
+                  label: Flow
+                  content: *commonFlowSelector # Menggunakan alias
+                - value: none
+                  label: None
+        - title: Reply to
+          fields:
+            - name: replyConditionType
+              type: selectWithContent
+              label: Reply to
+              options:
+                - value: all_comments
+                  label: All comments
+                - value: comment_equal_to
+                  label: 'Comment equal to:'
+                  content:
+                    type: input
+                    placeholder: type a message
+                - value: comment_contains
+                  label: 'Comment that contains:'
+                  content:
+                    type: input
+                    placeholder: type a message
+        - title: More Options
+          fields:
+            - name: excludeKeywords
+              label: Exclude comments with these keywords (Optional)
+              type: input
+              placeholder: type a message
+            - name: hideCommentsWithKeywords
+              label: Hide comments with these keywords
+              type: radio
+              options:
+                - 'yes'
+                - 'no'
+            - name: onlyReplyToNewContacts
+              label: Only reply to new contacts
+              type: radio
+              options:
+                - 'yes'
+                - 'no'
+            - name: replyOncePerUserPerPost
+              label: Reply only once to each user in one post
+              type: radio
+              options:
+                - 'yes'
+                - 'no'
+            - name: replyToUsersAlreadyCommented
+              label: Reply to users who have already commented in others posts
+              type: radio
+              options:
+                - 'yes'
+                - 'no'
+            - name: dontReplyToReplies
+              label: Don't reply to replies to comments
+              type: radio
+              options:
+                - 'yes'
+                - 'no'
+        - title: Reply After
+          fields:
+            - name: replyDelayType
+              type: selectWithContent
+              label: Reply After
+              options:
+                - value: immediately
+                  label: Immediately
+                - value: seconds
+                  label: Seconds
+                  content:
+                    type: number
+                - value: minutes
+                  label: Minutes
+                  content:
+                    type: number
+                - value: hours
+                  label: Hours
+                  content:
+                    type: number
+                - value: random_within_time
+                  label: Random within (time)
+                  content:
+                    type: timeInput
+
+GoogleSpreadsheetsToolPage:
+  title: Google Spreadsheets
+  description: Rekap data secara realtime kedalam google spread sheetsmu.
+  route: 'https://client.pekerja.ai/en/spreadsheets'
+  note: >-
+    tools ini hanya bisa di akses jika sudah connect di menuu integration ->
+    google sheet
+  content:
+    header:
+      title: Spreadsheet
+      addButton:
+        label: add
+        action:
+          type: dialog
+          title: Add New Spreadsheet
+          fields:
+            - name: sheetName
+              label: Sheet Name
+              type: input
+            - name: spreadsheetLink
+              label: Spreadsheet Link
+              type: input
+              placeholder: https://docs.google.com/...
+    table:
+      columns:
+        - key: name
+          label: Name
+        - key: link
+          label: Link
+      rowActions:
+        - label: Edit
+          action: edit
+        - label: Delete
+          action: delete
