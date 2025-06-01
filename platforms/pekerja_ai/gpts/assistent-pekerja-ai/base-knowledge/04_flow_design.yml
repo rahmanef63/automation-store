@@ -41,7 +41,8 @@ FlowDesign_Core:
     s:
       - t: "Pilih -> Settings"
       - t: "Pilih -> Default Reply Dropdown"
-      - t: "Pilih -> Flows"
+      - t: "Pilih -> Default Reply"
+      - t: di sidebar menu "Pilih -> Flows"
       - t: "Pilih -> Add"
       - t: Beri nama alur Anda
       - t: "Pilih -> Continue"
@@ -73,9 +74,9 @@ FlowDesign_Core:
       - t: Hubungkan blok-blok Flow (node) sesuai alur logika yang diinginkan menggunakan garis konektor.
       - t: Tambahkan blok konten atau tindakan baru sesuai kebutuhan untuk membangun alur yang lebih kompleks.
       - t: Simpan dan publikasikan Flow Anda. Anda dapat mengujinya secara manual melalui menu obrolan atau preview.
-  DasarDasarFlowBuilderDragDrop:
+  DasarDasarFlowSidebarDragDrop:
     u: https://www.youtube.com/live/UKJGOqTxp7k?si=2o_F6pPLkhjFuZHu
-    r: Memperkenalkan konsep drag-and-drop Flow Builder untuk merakit alur interaksi AI.
+    r: Memperkenalkan konsep drag-and-drop Flow Sidebar untuk merakit alur interaksi AI.
     s:
       - t: Buka menu Flow di sidebar Dashboard.
       - t: "Klik New Flow, beri nama sesuai use case (misal \"CS Toko Kamera\")."
@@ -150,7 +151,7 @@ FlowTriggers_AutomatedExecution:
     s:
       - t: Mengatur AI Trigger:
         sub:
-          - t: "Masuk ke menu 'Pekerja AI' (atau 'AI Tools'), lalu klik tab 'AI Trigger'."
+          - t: "Masuk ke menu 'Flow' (atau 'AI Tools'), lalu klik tab 'AI Trigger'."
           - t: "Tambahkan AI Trigger baru. Beri nama yang deskriptif (misalnya, 'Cek Harga', 'Tanya Stok')."
           - t: "[What does this trigger do?] Tentukan deskripsi atau contoh frasa agar AI mengenali niat ini (misalnya, saat AI mendeteksi niat bertanya harga)."
           - t: "[What data to collect?] Anda dapat menambahkan field untuk menyimpan data yang diekstrak oleh AI dari pesan (misalnya, nama produk dari pertanyaan harga). Klik tombol [Add New] untuk menambahkan field ekstraksi."
@@ -196,7 +197,7 @@ UseCase_Examples_Detailed_Walkthroughs:
     u: https://www.youtube.com/live/IBRyfbV1-Vw?si=DvVl_XI18JAtcp6f
     r: Contoh implementasi dua jalur flow berbeda untuk sales dan customer support.
     s:
-      - t: "Buat Custom Field (User Field) di Flow Builder, misalnya dengan nama `user_intent` atau `knowledge_segment`."
+      - t: "Buat Custom Field (User Field) di Flow Sidebar, misalnya dengan nama `user_intent` atau `knowledge_segment`."
       - t: Di awal flow utama Anda (atau setelah input awal pengguna), gunakan AI (misal, card OpenAI dengan prompt untuk klasifikasi niat) atau serangkaian pertanyaan untuk menentukan niat pengguna (Sales atau Support). Simpan hasil klasifikasi ini ke Custom Field `user_intent` (misal, nilainya 'sales' atau 'support').
       - t: Tambahkan card 'Condition'.
         sub:
@@ -266,7 +267,7 @@ UseCase_Examples_Detailed_Walkthroughs:
               - t: "Aksi: 'Start another flow' -> Pilih flow utama booking ('default reply' atau flow booking khusus)."
               - t: Simpan aturan.
           - t: Pastikan semua aturan/parameter ini aktif.
-      - t: Desain Alur Flow Booking di Flow Builder
+      - t: Desain Alur Flow Booking di Flow Sidebar
         sub:
           - t: "Titik Awal Flow (Starting Step):"
             sub:

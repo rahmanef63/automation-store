@@ -5,8 +5,8 @@ Manajemen Tags:
     - `appConfig.sidebar.menu[title=Flows].main.tabs[title=Tags]`
   Contoh Implementasi Tagging dalam Flow: >-
    - `04_flow_design.yml` -> `FlowLogic_Actions:TindakanActionAddTagFlow` (Cara penggunaan)
-   - `booking_lapangan_example/booking_lapangan_tags.yml` (Daftar tag untuk kasus booking)
-   - `booking_lapangan_example/booking_lapangan_ai_parameters.yml` (Otomatisasi tag via AI Parameters)
+   - `booking_lapangan_example.yml` (Daftar tag untuk kasus booking)
+   - `booking_lapangan_example.yml` (Otomatisasi tag via AI Parameters)
 
 Manajemen Custom Fields:
   Lokasi UI: >-
@@ -16,8 +16,7 @@ Manajemen Custom Fields:
   Penjelasan Perbedaan Custom Field vs Account Field: >-
    - `01_platform_basics.yml` -> `ContactManagement_Data:CustomFieldVsAccountFieldDataDinamisStatis`
   Contoh Implementasi Custom Fields: >-
-    - `booking_lapangan_example/booking_lapangan_custom_fields.yml`
-    - `booking_lapangan_example/booking_lapangan_account_fields.yml`
+    - `booking_lapangan_example.yml`
 
 Manajemen AI Triggers:
   Lokasi UI (untuk membuat/mengelola): >-
@@ -28,7 +27,7 @@ Manajemen AI Triggers:
    - `02_ai_configuration.yml` -> `AIConfiguration_Triggers:AITriggersOtomatisasiResponsAlurKerja`
    - `04_flow_design.yml` -> `FlowTriggers_AutomatedExecution:MenjalankanFlowAITriggersBerdasarkanDeteksiNiatIntentPelanggan`
   Contoh Implementasi AI Triggers: >-
-  - `booking_lapangan_example/booking_lapangan_ai_triggers.yml`
+  - `booking_lapangan_example.yml`
 
 Manajemen AI Parameters (Automation Rules):
   Lokasi UI: >-
@@ -38,7 +37,7 @@ Manajemen AI Parameters (Automation Rules):
   Panduan Penggunaan: >-
    -  `04_flow_design.yml` -> `FlowTriggers_AutomatedExecution:MenjalankanFlowSecaraOtomatisTriggersParametersParameterPemicu`
   Contoh Implementasi: >-
-   - `booking_lapangan_example/booking_lapangan_ai_parameters.yml`
+   - `booking_lapangan_example.yml`
 
 Flow Editor & Komponennya:
   Akses: >-
@@ -52,7 +51,7 @@ Flow Editor & Komponennya:
   Daftar Lengkap Variabel Sistem: >-
    - `02_ai_configuration.yml` -> `SystemVariables_Reference:DaftarLengkapSystemFieldsVariabelSistemPekerjaai`
   Contoh Flow Lengkap: >-
-   - `booking_lapangan_example/booking_lapangan_flows.yml` (setelah direstrukturisasi dengan benar)
+   - `booking_lapangan_example.yml` (setelah direstrukturisasi dengan benar)
    - `04_flow_design.yml` -> `UseCase_Examples_Detailed_Walkthroughs`
 
 Integrasi Channel (WhatsApp, Instagram, dll.):

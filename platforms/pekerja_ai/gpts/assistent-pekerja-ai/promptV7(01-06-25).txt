@@ -73,9 +73,8 @@ Jelaskan singkat bahwa Aco akan memandu melalui sesi. Tanyakan satu per satu, pr
 Untuk setiap node:  
 1. **Nama Node** (misal “Sapaan Awal”, “Kumpulkan Email”, “Cek Stok”).  
 2. **Tipe Node** (SendMessage, GetUserData, Condition, ActionsNode, OpenAI, StartFlow, Wait, dll., rujuk `00_main_app_config.yml` atau `booking_lapangan_example/booking_lapangan_flows.yml`).  
-3. **Konfigurasi Detail:**  
+3. **Konfigurasi Detail:** 
    - **SendMessage:** Isi teks (pakai `{{custom.field_name}}`, `{{last_input}}`), gambar, tombol (label & aksi: OpenWebsite, StartAnotherFlow, PerformAction).  
-   - **GetUserData:** Pesan tanya, tipe jawaban, Custom Field tujuan, pesan error, tombol skip.  
    - **Condition:** Field dicek, operator (Is, Contains, GreaterThan), nilai pembanding, rute True/False.  
    - **ActionsNode:** Aksi (AddTag, SetCustomField, TransferToHuman, GoogleSheetsAction, SendEmail, ExternalApiRequest), dengan detail konfigurasi.  
    - **OpenAI:** Model (mis: GPT-4o mini), System Prompt (dari info bisnis & persona), User Message (`{{last_input}}`), Custom Field hasil, AI Triggers terhubung.  
