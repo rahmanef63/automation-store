@@ -1,0 +1,379 @@
+# file: 02_ai_configuration.yml
+# generated: 2025-05-12
+# top_keys: AIConfiguration_PromptsModels, AIConfiguration_Triggers, SystemVariables_Reference, FlowLogic_Conditions, FlowLogic_Actions
+
+AIConfiguration_PromptsModels:
+  CaraMenambahkanMengkonfigurasiPromptBaruPekerjaAI:
+    u: pekerja_ai_doc_tambah_prompt
+    r: Prompt berfungsi sebagai otak Pekerja AI. Panduan ini menjelaskan langkah-langkah menambahkan dan mengkonfigurasi Prompt baru, termasuk pengaturan nama, instruksi, file pendukung, dan temperature. Juga...
+    s:
+      - t: Klik menu flows -> Custom field tab -> account field ->
+      - t: Tips: Sebelum mengisi data-data prompt, disarankan menggunakan AI Builder agar pembuatan prompt lebih efektif dan efisien.
+      - t: Pada form Prompt, isi sesuai kebutuhan, terutama di bagian Instructions.
+      - t: Name: Tidak usah diganti (biarkan default) untuk memudahkan pengelolaan.
+      - t: Instructions: Isi dengan prompt yang kamu inginkan.
+      - t: Files: (Opsional) Lampirkan file pendukung (Word, Excel, PDF) yang berisi informasi tambahan untuk prompt.
+      - t: Temperature: Isi dengan nilai 0.50 (atau sesuai kebutuhan untuk mengatur variasi respons).
+      - t: Jika semua sudah diisi, klik tombol Save untuk menyimpan Prompt.
+      - t: AI Triggers: Fitur ini memungkinkan pemanggilan Flow, penyimpanan data, dan pembuatan jawaban spesifik dengan trigger tertentu menggunakan AI. (Contoh: Jika ada yang menanyakan produk, maka jalankan Flow "Produk"). Lihat panduan Ai Triggers untuk cara membuatnya.
+      - t: (Lihat juga bagian 'Buat Prompt dengan Mudah Menggunakan AI Builder' untuk cara membuat prompt secara otomatis.)
+  PromptEfektifSesuaiBisnisAIBuilder:
+    u: pekerja_ai_doc_ai_builder_prompt
+    r: Panduan langkah demi langkah untuk membuat prompt yang efektif dan sesuai dengan bisnismu menggunakan fitur AI Builder di halaman Prompt.
+    s:
+      - t: Klik tombol AI Builder di bagian bawah halaman Prompt.
+      - t: Isi form AI Builder sesuai bisnis kamu:
+        sub:
+          - t: "Nama Bisnis: Masukkan nama bisnismu. (Wajib)"
+          - t: "Panggilan Pelanggan: Sebutan untuk pelanggan, misal \"Sahabat\", \"Juragan\", dll. (Opsional)"
+          - t: "Nama Pekerja AI: Nama untuk AI kamu agar terdengar lebih manusiawi. (Opsional)"
+          - t: "Jabatan Pekerja AI: Jika memberi nama pada pekerja AI, sebaiknya isi jabatannya juga. (Opsional)"
+          - t: "Gaya Bicara: Tentukan gaya bicara unik AI kamu sesuai target market. (Opsional)"
+          - t: "Detail Bisnis: Detail tambahan (jenis produk/layanan, dll) untuk dimasukkan. (Opsional)"
+          - t: "Website Bisnis: (Opsional) Masukkan URL websitemu – AI Builder akan mengambil teks dari website sebagai bahan pembuatan prompt."
+      - t: Setelah mengisi form Prompt Builder, klik Generate Prompt untuk mendapatkan hasil prompt terbaik.
+        sub:
+          - t: "Extracted Website: (Otomatis) Hasil teks yang diambil dari website kamu. (Tidak perlu diisi secara manual)"
+          - t: "Hasil Prompt: Prompt final yang dihasilkan. Silakan copy prompt ini dan sesuaikan jika perlu."
+      - t: Fitur AI Testing untuk mengetes prompt yang telah dibuat:
+        sub:
+          - t: "Live Chat: Mulai test chat dengan pekerja AI. Paste hasil prompt ke kolom Test Prompt terlebih dulu."
+          - t: "Test Prompt: Paste prompt hasil AI Builder dan klik Submit."
+      - t: Jika prompt yang dihasilkan sudah cocok dengan bisnismu, copy seluruh prompt tersebut dan paste ke kolom Instructions di Prompt (menggantikan isi sebelumnya).
+  BonusFramework5LangkahPromptChatGPTHasilAkurat99:
+    u: pekerja_ai_doc_framework_prompt
+    r: Lima langkah framework untuk membuat prompt ChatGPT yang menghasilkan respons akurat, mencakup Peran, Konteks, Contoh, Gaya, dan Format.
+    s:
+      - t: "Peran (Role): Berikan ChatGPT peran yang ingin kamu gunakan, seperti profesi atau individu tertentu."
+      - t: "Konteks (Context): Jelaskan kepada ChatGPT mengapa kamu menginginkan respons tersebut dan apa yang akan kamu lakukan dengan jawabannya."
+      - t: "Contoh (Examples): Berikan ChatGPT satu atau lebih contoh dari tipe respons yang kamu inginkan."
+      - t: "Gaya (Style): Tentukan nada, suara, atau gaya penulisan yang kamu ingin ChatGPT gunakan dalam responsnya."
+      - t: "Format (Format): Beri tahu ChatGPT format respons yang diharapkan (misal: bullet points, paragraf) dan batas jumlah kata yang diinginkan."
+      - t: "Contoh Hasil:"
+        sub:
+          - t: "Peran: \"Kamu adalah seorang ahli strategi pemasaran LinkedIn berpengalaman.\""
+          - t: "Konteks: \"Saya adalah pemilik agensi pemasaran digital yang ingin mempromosikan manfaat merekrut asisten virtual.\""
+          - t: "Contoh Prompt Lengkap: \"Dalam 80 kata atau kurang, tulis sebuah posting LinkedIn dalam 4 poin yang menyoroti penghematan biaya, peningkatan efisiensi, dan kemampuan untuk mendelegasikan tugas. Gunakan nada profesional namun ramah. Batasi postingan hingga maksimal 200 kata.\""
+# Note: There's a duplicate AIConfiguration_PromptsModels key. Assuming it's a continuation.
+# AIConfiguration_PromptsModels: # This was a duplicate key
+  PemilihanModelAIGPTTeknikPenulisanSystemPromptEfektif:
+    u: https://www.youtube.com/live/UKJGOqTxp7k?si=2o_F6pPLkhjFuZHu
+    r: Detail cara memilih model GPT dan menyusun system prompt yang efektif.
+    s:
+      - t: Di card 'OpenAI' (atau sejenisnya) dalam Flow Anda, klik dropdown 'Model' → pilih model yang tersedia (misal, GPT-4o-mini jika menggunakan token gratis Pekerja AI).
+      - t: Untuk model lain atau jika menggunakan API key pribadi, pastikan API key sudah terhubung di 'Connected Platforms' -> 'Integration'.
+      - t: Buka card 'Starting Step' atau 'Default Reply' (atau card 'OpenAI' jika prompt diatur per-node) untuk menulis/mengedit 'System Prompt'.
+      - t: "Contoh System Prompt: \"Kamu adalah Aiman, customer service dari Toko Kamera XYZ. Tugasmu adalah membantu pelanggan dengan sopan, singkat, dan padat. Selalu berikan informasi yang akurat.\""
+      - t: Cantumkan nama AI, nama bisnis, peran/jabatan AI, dan gaya bahasa yang diinginkan.
+      - t: Gunakan fitur 'Preview' di card atau Flow untuk menguji output AI berdasarkan prompt Anda.
+      - t: Jika output terlalu kaku atau tidak sesuai, iterasi pada prompt Anda. Pertimbangkan untuk menambahkan instruksi agar terdengar lebih manusiawi atau gunakan 'Split Traffic' untuk variasi respons.
+  MengeditSystemPromptUtamaAIKamuAdalah…:
+    u: https://www.youtube.com/live/pohCJefEdxY?si=2JdBCsE7BFw-foV-
+    r: Cara mengubah system prompt untuk menyesuaikan peran dan gaya AI.
+    s:
+      - t: Buka menu 'Flow' lalu klik flow yang ingin diedit (biasanya flow utama atau 'Default Reply').
+      - t: Pilih card 'Starting Step', 'Default Reply', atau card 'OpenAI' tempat System Prompt utama diatur.
+      - t: Klik ikon edit atau langsung modifikasi teks di field 'System Prompt'.
+      - t: Ganti teks “Kamu adalah …” sesuai dengan peran yang diinginkan (misalnya, Sales, Customer Support, Technical Assistant).
+      - t: Sertakan deskripsi singkat tentang bisnis Anda dan tone komunikasi yang diharapkan dari AI.
+      - t: Klik 'Save' pada card, kemudian 'Publish' ulang flow agar perubahan aktif.
+  MendefinisikanPeranAIValuePropositionSystemPrompt:
+    u: https://www.youtube.com/live/pohCJefEdxY?si=2JdBCsE7BFw-foV-
+    r: Menegaskan nilai proposisi AI Pekerja AI sebagai layanan semanusia mungkin.
+    s:
+      - t: "Dalam System Prompt, definisikan dengan jelas tugas utama AI: misal, \"Kamu adalah customer service yang bertugas membantu menjawab pertanyaan pelanggan\" atau \"Kamu adalah asisten penjualan yang bertugas memandu pelanggan menemukan produk yang tepat.\""
+      - t: Sebutkan nama AI (misal, Aiman) dan nama bisnis Anda (misal, Pekerja AI) agar AI konsisten memperkenalkan diri.
+      - t: "Tuliskan instruksi mengenai gaya komunikasi: \"Berbicaralah dengan sopan, ramah, singkat, padat, dan berusahalah terdengar semanusia mungkin.\""
+      - t: "Sertakan contoh singkat respons yang baik untuk skenario umum jika perlu, atau batasan (misal, \"Jangan memberikan opini pribadi tentang politik.\")."
+      - t: Simpan prompt dan lakukan pengujian intensif untuk memastikan respons AI selaras dengan value proposition yang Anda inginkan.
+  TipsResponsAITerdengarLebihNaturalSemanusiaMungkin:
+    u: https://www.youtube.com/live/pohCJefEdxY?si=2JdBCsE7BFw-foV-
+    r: Tips dan trik membuat AI terkesan natural dan mengurangi kesan bot.
+    s:
+      - t: Hindari bahasa yang terlalu kaku atau formal. Ganti “Saya akan membantu Anda dengan pertanyaan Anda” menjadi “Tentu, boleh saya bantu dengan pertanyaannya?” atau “Ada yang bisa saya bantu?”
+      - t: Gunakan fitur 'Wait Action' atau 'Split Traffic' dengan jeda singkat (misal, 1-3 detik) sebelum AI merespons, untuk mensimulasikan waktu berpikir manusia.
+      - t: Variasikan sapaan dan penutup. Gunakan `{{first_name}}` jika tersedia (misal, “Halo Kak {{first_name}}!”). Gunakan penutup yang ramah.
+      - t: Gunakan emotikon secara bijak dan minimalkan (lihat guide terpisah), atau hindari sama sekali jika ingin kesan sangat profesional.
+      - t: Lakukan beberapa kali iterasi pengujian (preview/chat langsung) dan perbaiki prompt atau alur flow sampai respons terasa alami dan sesuai.
+  StrategiMengurangiMenghilangkanEmotikonResponsAI:
+    u: https://www.youtube.com/live/pohCJefEdxY?si=2JdBCsE7BFw-foV-
+    r: Cara mengurangi penggunaan emotikon agar percakapan tidak terkesan bot.
+    s:
+      - t: Periksa System Prompt di 'Default Reply' atau card 'OpenAI'. Hapus instruksi eksplisit yang menyuruh AI menggunakan emotikon.
+      - t: Jika Anda menulis respons statis di card 'Send Message', pastikan teks tersebut hanya berisi plain text tanpa emotikon, kecuali memang disengaja.
+      - t: "Jika AI tetap menghasilkan emotikon yang tidak diinginkan, tambahkan instruksi negatif pada System Prompt, contoh: \"Jangan gunakan emotikon dalam responsmu.\""
+      - t: Test chat setelah perubahan. Jika masih ada emotikon, periksa apakah ada bagian lain dari flow atau template pesan yang mungkin menyisipkannya.
+      - t: Terapkan perubahan ini ke semua flow atau prompt yang relevan untuk konsistensi.
+  MenghindariRisikoFrontingTunggalMemisahkanKnowledgeAIPerFungsi:
+    u: https://www.youtube.com/live/IBRyfbV1-Vw?si=DvVl_XI18JAtcp6f
+    r: Menjelaskan kelemahan membuat satu prompt mencakup semua knowledge sekaligus.
+    s:
+      - t: Hindari membuat satu System Prompt yang sangat panjang dan mencoba mencakup semua peran (sales, customer service, IT support) sekaligus. Ini bisa membuat AI bingung atau kurang fokus.
+      - t: Buat System Prompt yang terpisah dan lebih spesifik untuk setiap fungsi utama. Misal, satu prompt untuk 'Sales AI', satu untuk 'Support AI'.
+      - t: Gunakan card 'Condition' di awal flow atau pada titik percabangan untuk menentukan konteks percakapan (misal, berdasarkan input user atau tag).
+      - t: Arahkan flow ke card 'OpenAI' atau sub-flow yang menggunakan System Prompt yang sesuai dengan konteks tersebut.
+      - t: Review dan uji setiap System Prompt secara terpisah untuk memastikan fokus dan akurasi knowledge-nya.
+      - t: Test alur secara keseluruhan dengan skenario yang berbeda untuk memastikan AI menggunakan prompt yang tepat (misal, chat tentang pembelian vs. chat tentang keluhan teknis).
+  MemahamiPerbedaanAntaraPekerjaAIAITriggerDinamisVsPekerjaBotKeywordExactMatch:
+    u: https://www.youtube.com/live/IBRyfbV1-Vw?si=DvVl_XI18JAtcp6f
+    r: Menjelaskan perbedaan antara AI Trigger (instruksi dinamis) dan Pekerja Bot (keyword exact match).
+    s:
+      - t: Gunakan 'AI Trigger' (melalui menu AI Trigger atau integrasi OpenAI dalam flow) ketika Anda membutuhkan pemahaman konteks, niat, atau ekstraksi data dinamis dari pesan pengguna (misal, memahami pertanyaan tentang 'harga produk X' meskipun kalimatnya bervariasi).
+      - t: Gunakan 'Pekerja Bot' (atau 'Keywords') untuk pemicu sederhana berdasarkan kata kunci yang spesifik dan cocok persis (exact match) atau mengandung kata tertentu (contains). Ini lebih cocok untuk perintah langsung atau FAQ dengan frasa tetap.
+      - t: "Contoh pengujian: Untuk 'AI Trigger', pengguna bisa mengetik \"berapa harga kamera tipe A?\" atau \"info harga dong untuk kamera A\". Untuk 'Pekerja Bot' dengan keyword 'harga kamera A', pengguna harus mengetik frasa tersebut lebih presisi."
+      - t: Evaluasi kecepatan respons dan fleksibilitas masing-masing. Pekerja Bot biasanya lebih cepat untuk keyword match, tapi AI Trigger lebih fleksibel.
+      - t: Sesuaikan penggunaan berdasarkan kompleksitas interaksi yang ingin Anda tangani dan kemampuan platform Anda.
+
+AIConfiguration_Triggers:
+  AITriggersOtomatisasiResponsAlurKerja:
+    u: pekerja_ai_doc_ai_triggers_creation
+    r: Fitur AI Triggers membantu memanggil Flow, memperbarui data (fields), atau membalas pengguna dengan pesan spesifik berdasarkan triggers/pemicu tertentu menggunakan AI. Panduan ini menjelaskan cara membuat AI...
+    s:
+      - t: Klik menu Pekerja AI, lalu buka file Prompt tempat kamu ingin menambahkan trigger.
+      - t: Klik tombol Triggers di bagian bawah halaman Prompt.
+      - t: Klik Add untuk menambahkan trigger baru.
+      - t: Isi form trigger sesuai kebutuhan, lalu simpan dengan klik Continue:
+        sub:
+          - t: "Name: Nama file trigger (beri nama yang mudah membedakan dengan trigger lain). (Wajib)"
+          - t: "What does this trigger do?: Perintah/deskripsi pemicu ini (apa yang akan dilakukan AI ketika trigger terpenuhi). (Wajib)"
+          - t: "What data to collect?: (Opsional) Tambahkan jika ingin menyimpan data tertentu dari pengguna ketika trigger ini berjalan."
+          - t: "What flow is triggered?: (Opsional) Pilih jika ingin menjalankan Flow tertentu ketika trigger terpenuhi."
+          - t: "What is the output message?: (Opsional) Tentukan pesan output spesifik yang dikirim ketika trigger ini terpenuhi."
+      - t: Klik Continue untuk menyimpan trigger.
+      - t: Agar trigger AI yang telah dibuat bisa berjalan, tambahkan trigger tersebut ke halaman Prompt (di form AI Triggers pada Prompt terkait), lalu klik Save.
+
+SystemVariables_Reference:
+  DaftarLengkapSystemFieldsVariabelSistemPekerjaai:
+    u: pekerja_ai_doc_system_fields
+    r: Referensi lengkap mengenai berbagai system fields (field sistem) bawaan di Pekerja.ai yang dapat digunakan dalam prompt, pesan, atau logika flow untuk memperkaya interaksi AI dengan data yang sudah dimiliki...
+    s:
+      - t: Contacts Fields:
+        sub:
+          - t: "{{first_name}} - Nama depan kontak pengguna."
+          - t: "{{last_name}} - Nama belakang kontak."
+          - t: "{{full_name}} - Nama lengkap kontak."
+          - t: "{{email}} - Alamat email kontak."
+          - t: "{{phone}} - Nomor telepon kontak."
+          - t: "{{user_country}} - Negara pengguna."
+          - t: "{{user_state}} - Provinsi pengguna."
+          - t: "{{user_city}} - Kota pengguna."
+          - t: "{{inbox_link}} - Tautan ke kotak masuk (inbox) percakapan pengguna."
+          - t: "{{gender}} - Jenis kelamin pengguna (jika tersedia dari profil)."
+          - t: "{{locale}} - Kode bahasa pengguna. Contoh: en_US."
+          - t: "{{locale2}} - Kode bahasa (simplified). Contoh: en."
+          - t: "{{ig_user_name}} - Username Instagram pengguna."
+          - t: "{{ig_followers}} - Jumlah follower Instagram pengguna."
+          - t: "{{ig_verified}} - Status verifikasi Instagram (true/false)."
+          - t: "{{ig_follow_business}} - Apakah pengguna mengikuti akun bisnis Anda (Instagram)."
+          - t: "{{ig_business_follow_user}} - Apakah akun bisnis Anda mengikuti pengguna tersebut."
+          - t: "{{profile_pic}} - URL foto profil pengguna (jika ada)."
+          - t: "{{timezone}} - Selisih zona waktu pengguna. Contoh: +7."
+          - t: "{{timezone_name}} - Nama zona waktu. Contoh: America/New_York."
+          - t: "{{user_id}} – ID kontak pengguna (unique internal). Gunakan ID ini untuk keperluan API."
+          - t: "{{subscribed_date}} - Tanggal saat kontak dibuat/pertama kali subscribe."
+          - t: "{{fb_chat_link}} - Tautan langsung ke inbox Facebook kontak tersebut."
+          - t: "{{me}} - Tautan untuk pengguna melihat & menghapus data pribadinya (untuk kepatuhan GDPR)."
+          - t: "{{user_code}} - Kode unik pengguna."
+          - t: "{{last_btt_title}} - Judul blok terakhir yang dilewati."
+          - t: "{{last_interaction}} - Waktu interaksi terakhir dengan pengguna."
+          - t: "{{last_order}} - Detail order terakhir (jika e-commerce)."
+          - t: "{{last_seen}} - Waktu terakhir pengguna terlihat online/aktif."
+          - t: "{{last_input}} – Isi input terakhir yang dikirim pengguna (bisa teks, gambar, dsb)."
+          - t: "{{last_input_type}} - Jenis input terakhir (text, image, video, audio, file, voice)."
+          - t: "{{consecutive_failed_reply}} - Jumlah kegagalan reply berturut-turut."
+          - t: "{{last_ref}} - Ref terakhir (tautan entry point terakhir yang diklik pengguna)."
+          - t: "{{last_ad}} - ID iklan Facebook terakhir yang membawa pengguna ke bot."
+          - t: "{{user_channel}} – Channel utama pengguna (misal: \"whatsapp\", \"instagram\")."
+          - t: "{{user_hash}} - Hash unik pengguna."
+          - t: "{{user_tags}} - Daftar semua tag yang diterapkan pada kontak (dipisahkan koma)."
+          - t: "{{user_external_id}} - ID pengguna eksternal (contoh: ID Viber)."
+          - t: "{{user_source}} - Sumber asal kontak (Ads, FB/IG comment, Direct, Imported, API, Inbound Message, Unknown, dll)."
+          - t: "{{assigned_admin_name}} - Nama admin yang saat ini ditugaskan ke kontak (jika ada)."
+          - t: "{{assigned_admin_email}} - Email admin yang ditugaskan."
+          - t: "{{assigned_admin_id}} - ID admin yang ditugaskan."
+          - t: "{{current_user_time}} - Waktu lokal saat ini untuk pengguna."
+          - t: "{{chat_history}} - Riwayat 50 pesan terakhir antara pengguna dan bisnis."
+          - t: "{{chat_history_large}} - Riwayat 200 pesan terakhir."
+          - t: "{{chat_history_details}} – Riwayat 50 pesan terakhir (termasuk info pengirim tiap pesan)."
+          - t: "{{chat_history_details_large}} – Riwayat 200 pesan terakhir dengan detail pengirim."
+          - t: "{{user_notes}} - Catatan-catatan yang ditambahkan ke kontak pengguna."
+          - t: "{{last_user_note}} - Catatan terakhir yang ditambahkan ke pengguna."
+          - t: "{{webchat}} - Tautan yang memungkinkan pengguna melanjutkan chat di Web Chat (dari channel apapun)."
+          - t: "{{webchat_parent_url}} - URL halaman di mana webchat dimuat (sumber webchat)."
+      - t: Account Fields:
+        sub:
+          - t: "{{account_id}} - ID akun Pekerja.ai Anda."
+          - t: "{{account_name}} - Nama akun/bisnis Anda."
+          - t: "{{account_image}} - URL gambar profil akun."
+          - t: "{{api_key}} - API Key akun Anda (untuk keperluan integrasi API)."
+      - t: "Facebook/Instagram Auto Comment Fields:"
+        sub:
+          - t: "{{total_new_tagged}} - Jumlah pengguna baru (belum di kontak) yang ditandai dalam komentar (Facebook)."
+          - t: "{{total_tagged}} – Jumlah total pengguna yang ditandai dalam komentar."
+          - t: "{{last_fb_comment}} - Teks komentar Facebook terakhir dari pengguna."
+          - t: "{{last_post_id}} - ID postingan Facebook terakhir yang dikomentari pengguna."
+          - t: "{{last_comment_id}} - ID komentar terakhir yang dibuat pengguna."
+      - t: Instagram Story Reply Fields:
+        sub:
+          - t: "{{last_story_id}} – ID Instagram Story terakhir yang di-reply oleh pengguna."
+      - t: Facebook Messenger Fields:
+        sub:
+          - t: "{{page_user_name}} - Username halaman Facebook (Page) Anda."
+      - t: Viber Fields:
+        sub:
+          - t: "{{viber_bot_username}} - Username bot Viber Anda."
+      - t: Voice Call Fields:
+        sub:
+          - t: "{{last_call_recorded}} - Tautan rekaman panggilan terakhir (jika menggunakan fitur telepon/voice)."
+      - t: Location Fields:
+        sub:
+          - t: "{{last_latitude}} – Latitude lokasi terakhir yang dibagikan pengguna."
+          - t: "{{last_longitude}} - Longitude lokasi terakhir yang dibagikan pengguna."
+      - t: Pipelines Fields:
+        sub:
+          - t: "{{last_opportunity_id}} - ID opportunity (peluang) terakhir yang diperbarui atau dibuat."
+      - t: Booking Fields:
+        sub:
+          - t: "{{booking_date}} - Tanggal pemesanan (booking)."
+          - t: "{{booking_link}} - Tautan detail pemesanan."
+          - t: "{{booking_id}} - ID pemesanan."
+          - t: "{{booking_calendar}} - Kalender yang digunakan untuk pemesanan."
+      - t: "E-commerce Fields:"
+        sub:
+          - t: "{{cart_checkout_link}} - Tautan ke halaman checkout keranjang."
+          - t: "{{cart_last_item_name}} - Nama produk terakhir yang ditambahkan ke keranjang."
+          - t: "{{cart_last_item_quantity}} - Jumlah item terakhir di keranjang."
+          - t: "{{cart_num_items}} - Total jumlah item dalam keranjang."
+          - t: "{{cart_other_fees}} - Total biaya lain-lain (fee) di keranjang."
+          - t: "{{cart_shipping_cost}} - Biaya pengiriman keranjang."
+          - t: "{{cart_subtotal}} - Subtotal keranjang."
+          - t: "{{cart_total}} - Total keseluruhan keranjang."
+          - t: "{{cart_products}} - Daftar produk dalam keranjang (kemungkinan dalam format JSON)."
+          - t: "{{shop_link}} - Tautan ke toko (e-commerce shop)."
+          - t: "{{money_symbol}} - Simbol mata uang (misal: Rp, $, €)."
+          - t: "{{order_coupon_code}} - Kode kupon yang digunakan (jika ada)."
+          - t: "{{order_coupon_discount}} - Nilai diskon dari kupon."
+          - t: "{{order_date_account_timezone}} – Tanggal order sesuai zona waktu akun."
+          - t: "{{order_date_timestamp}} - Timestamp tanggal order."
+          - t: "{{order_date_utc}} - Tanggal order dalam format UTC."
+          - t: "{{order_discount}} - Total diskon order."
+          - t: "{{order_email}} - Email pemesan."
+          - t: "{{order_id}} - ID pesanan."
+          - t: "{{order_name}} - Nama pemesan."
+          - t: "{{order_payment_method}} - Metode pembayaran."
+          - t: "{{order_phone}} – Nomor telepon pemesan."
+          - t: "{{order_products}} - Daftar produk yang dipesan."
+          - t: "{{order_shipping_type}} – Jenis pengiriman yang dipilih."
+          - t: "{{order_shipping_address1}} - Alamat pengiriman baris 1."
+          - t: "{{order_shipping_address2}} - Alamat pengiriman baris 2."
+          - t: "{{order_shipping_city}} - Kota pengiriman."
+          - t: "{{order_shipping_cost}} - Biaya pengiriman."
+          - t: "{{order_shipping_state}} - Provinsi pengiriman."
+          - t: "{{order_shipping_zip}} - Kode pos pengiriman."
+          - t: "{{order_shipping_country}} - Negara pengiriman."
+          - t: "{{order_shipping}} - Informasi pengiriman lengkap (biasanya format JSON)."
+          - t: "{{order_status}} - Status pesanan (Paid, Pending, Shipped, dll)."
+          - t: "{{order_subtotal}} – Subtotal pesanan."
+          - t: "{{order_taxes}} - Total pajak pesanan."
+          - t: "{{order_total}} - Total akhir pesanan."
+          - t: "{{product_name}} - Nama produk (terkait trigger \"Produk Dipesan\" atau \"Ditambahkan ke Keranjang\")."
+          - t: "{{product_quantity}} - Jumlah produk (terkait trigger yang sama seperti di atas)."
+          - t: "{{product_id}} - ID produk (terkait trigger \"Pengguna Bertanya tentang Produk\", \"Produk Dipesan\", \"Produk Ditambahkan/Dihapus dari Keranjang\")."
+      - t: Kuesioner Fields:
+        sub:
+          - t: "{{last_points}} - Jumlah poin dari kuis/kuesioner terakhir yang diisi pengguna."
+      - t: Fields Lainnya:
+        sub:
+          - t: "{{last_step}} - ID step terakhir yang dijalankan (hanya berfungsi dalam flow yang sudah dipublikasikan)."
+          - t: "{{current_step}} - ID step yang sedang aktif dijalankan (dalam flow yang dipublikasikan)."
+          - t: "{{admin_name}} - Nama admin yang mengirim pesan atau mengoperasikan flow dari inbox (jika chat dialihkan ke admin)."
+          - t: "{{last_input_failure}} - Alasan kegagalan input terakhir (jika ada). Nilai mungkin: timeout (pengguna tidak menjawab tepat waktu), user_skipped (pengguna melewatkan input), invalid_input_attempts (terlalu banyak input tidak valid)."
+      - t: Semua field di atas bisa digunakan dengan sintaks {{field_name}} di prompt, pesan, atau logika flow. Pastikan penggunaan field sesuai konteks. Field-field ini membantu memperkaya interaksi AI dengan data yang sudah dimiliki sistem.
+
+FlowLogic_Conditions:
+  PengenalanPenggunaanCardConditionPercabanganFlow:
+    u: https://www.youtube.com/live/pohCJefEdxY?si=2JdBCsE7BFw-foV-
+    r: Menjelaskan fungsi card Condition untuk memisahkan jalur knowledge berdasar konteks user.
+    s:
+      - t: Di Flow Builder, tambahkan card baru dan pilih 'Condition'.
+      - t: Pada rule pertama di card Condition, pilih field yang akan dievaluasi (misal: Custom Field 'knowledge', Tag, User Input).
+      - t: Pilih operator (misal: 'equals', 'contains', 'is greater than').
+      - t: Masukkan nilai untuk perbandingan (misal: “sales”, “new_customer”).
+      - t: Hubungkan output 'True' (jika kondisi terpenuhi) ke flow atau langkah selanjutnya yang sesuai.
+      - t: Hubungkan output 'False' (jika kondisi tidak terpenuhi) ke flow atau langkah alternatif.
+      - t: Anda dapat menambahkan beberapa rule dalam satu card Condition atau menggunakan beberapa card Condition bertingkat untuk logika yang lebih kompleks.
+      - t: Publish flow dan test dengan mengubah nilai field yang relevan (misal, melalui chat atau custom field di profil kontak) untuk memastikan percabangan berfungsi.
+  MemahamiPentingnyaFungsiConditionMengarahkanFlow:
+    u: https://www.youtube.com/live/IBRyfbV1-Vw?si=DvVl_XI18JAtcp6f
+    r: Detail tentang pentingnya card Condition untuk mengarahkan flow sesuai kondisi user.
+    s:
+      - t: Tambahkan card 'Condition' di titik strategis dalam flow Anda, seringkali setelah input user atau setelah data tertentu di-set (misal, setelah Default Reply jika ingin memfilter dari awal).
+      - t: "Atur kondisi berdasarkan data yang relevan, contoh: `{{knowledge}} contains \"new_customer\"`."
+      - t: Hubungkan 'True branch' ke alur yang dirancang untuk kondisi tersebut (misal, alur untuk pengguna baru).
+      - t: Hubungkan 'False branch' ke alur default atau alur untuk kondisi lain (misal, alur untuk pengguna kembali).
+      - t: Gunakan beberapa card 'Condition' secara berurutan (bertingkat) untuk skenario yang memerlukan evaluasi multi-kondisi.
+      - t: Publish flow, lalu uji dengan berbagai skenario input untuk memastikan logika percabangan bekerja sesuai harapan (misal, chat dari kontak baru vs. kontak lama).
+  ImplementasiPraktisCardConditionFlowBuilder:
+    u: https://www.youtube.com/live/IBRyfbV1-Vw?si=DvVl_XI18JAtcp6f
+    r: Langkah menambahkan dan mengonfigurasi card Condition di Flow Builder.
+    s:
+      - t: Dalam Flow editor, klik untuk menambahkan node baru, lalu pilih 'Condition'.
+      - t: "Konfigurasi Rule 1: Pilih field (misal, Custom Field 'knowledge'), operator (misal, 'equals'), dan nilai (misal, 'support')."
+      - t: Hubungkan output 'True' dari Rule 1 ke card balasan atau langkah spesifik untuk 'support'.
+      - t: Hubungkan output 'False' dari Rule 1 ke card lain atau Condition berikutnya jika ada logika lebih lanjut.
+      - t: Jika perlu, tambahkan branch tambahan (AND/OR logic, atau rule baru) untuk fungsi lain dalam card Condition yang sama atau dengan menambahkan card Condition baru.
+      - t: Publish flow dan lakukan pengujian end-to-end untuk memastikan semua jalur kondisi berfungsi.
+
+FlowLogic_Actions:
+  WaitActionMenundaEksekusiFlow:
+    u: https://youtu.be/EdSHZxjSbps
+    r: Cara menggunakan Wait Action fitur Wait Action ini super powerful karena memungkinkan kamu menyetel jeda dalam automasi chat jadi setiap Acin atau blok yang terhubung dengan wait action bakal dikirim...
+    s:
+      - t: Buka Flow Editor (buat Flow baru atau edit yang sudah ada).
+      - t: "Tambahkan langkah sebelum jeda (misal: 'Send Message' -> 'pesan pertama')."
+      - t: "Tambahkan tombol pada 'pesan pertama' jika jeda dipicu oleh tombol (misal: 'Delay 5 detik')."
+      - t: Dari output 'pesan pertama' atau tombolnya, tambahkan node baru dan pilih 'Wait'.
+      - t: Klik blok 'Wait' yang baru ditambahkan.
+      - t: Atur durasi waktu tunggu (misal: 5 seconds, 5 minutes, 1 hours, 1 days).
+      - t: "Tambahkan langkah setelah jeda (misal: 'Send Message' -> 'pesan kedua')."
+      - t: Hubungkan node output dari blok 'Wait' ke input blok 'pesan kedua'.
+      - t: Klik 'Publish' untuk menyimpan Flow.
+      - t: Klik 'Preview' untuk menguji alur dengan jeda waktu.
+  SplitTrafficABTestingPembagianAlurAcak:
+    u: https://youtu.be/DxHbgK2PpI0
+    r: Cara menggunakan split traffic tool fitur ini super keren karena memungkinkan kamu memilih dan menjalankan actions secara acak dari daftar opsi yang tersedia, cocok banget buat AB testing atau membagi alur...
+    s:
+      - t: Buat Flow baru atau edit yang sudah ada.
+      - t: Tambahkan langkah awal (misal 'Send Message').
+      - t: Dari output langkah awal, tambahkan node baru dan pilih 'Split Traffic'.
+      - t: Secara default, traffic terbagi 50%/50% antara Path A dan Path B. Anda bisa menggeser slider untuk mengubah persentase atau menambah path baru.
+      - t: "Tambahkan langkah selanjutnya (misal: 'Send Message A') untuk Path A dari 'Split Traffic'."
+      - t: "Tambahkan langkah selanjutnya (misal: 'Send Message B') untuk Path B dari 'Split Traffic'."
+      - t: "Hubungkan output Path A dari 'Split Traffic' ke input 'Send Message A'."
+      - t: "Hubungkan output Path B dari 'Split Traffic' ke input 'Send Message B'."
+      - t: Lanjutkan membangun alur untuk masing-masing cabang (path).
+      - t: Klik 'Publish'.
+      - t: Klik 'Preview' atau uji beberapa kali untuk melihat bagaimana traffic dibagi secara acak sesuai persentase.
+  MengaturSapaanDinamisBerdasarkanCustomFieldPengguna:
+    u: https://www.youtube.com/live/IBRyfbV1-Vw?si=DvVl_XI18JAtcp6f
+    r: Menjelaskan aturan sapaan user berdasarkan demografi dan bagaimana mengaturnya di flow.
+    s:
+      - t: "Pastikan Anda memiliki Custom Field untuk data yang relevan (misal, `nama_panggilan`, `ethnicity`, `gender`)."
+      - t: Tambahkan card 'Condition' dalam flow Anda.
+      - t: "Rule 1: Jika Custom Field `nama_panggilan` kosong (atau belum diisi), lanjutkan ke action yang men-set sapaan default (misal, 'Set Custom Field' `sapaan_final` = “Kak”)."
+      - t: "Rule 2 (dalam Condition yang sama atau Condition bertingkat): Jika `ethnicity == Chinese` AND `gender == male`, lanjutkan ke action yang men-set `sapaan_final` = “Koko”."
+      - t: Tambahkan rules lain sesuai kebutuhan.
+      - t: "Setelah semua kondisi, hubungkan ke card 'Send Message' yang menggunakan `{{sapaan_final}} {{first_name}}`."
+      - t: Simpan setiap rule, hubungkan ke card yang mengirim sapaan.
+      - t: Test dengan mengubah nilai custom field di preview atau melalui chat.
+  TindakanActionAddTagFlow:
+    u: placeholder_for_add_tag_action_video_if_exists # Assuming this is a placeholder
+    r: Menjelaskan cara menggunakan action 'Add Tag' untuk mengkategorikan atau menandai kontak berdasarkan interaksi mereka dalam flow.
+    s:
+      - t: Dalam Flow editor, setelah langkah tertentu (misalnya, setelah pengguna memilih opsi tertentu atau setelah kondisi terpenuhi), tambahkan node baru.
+      - t: Pilih tipe node 'Action'.
+      - t: Di dalam konfigurasi Action, pilih 'Add Tag'.
+      - t: "Ketik nama tag yang ingin ditambahkan (misal: 'zodiac_aries', 'interest_product_A'). Anda bisa menambahkan tag baru jika belum ada."
+      - t: Anda juga bisa menggunakan action 'Remove Tag' untuk menghapus tag.
+      - t: Hubungkan node Action ini dalam alur flow Anda.
+      - t: Klik 'Publish'. Kontak yang melewati action ini akan ditambahkan tag tersebut, yang bisa digunakan untuk segmentasi atau kondisi di flow lain.

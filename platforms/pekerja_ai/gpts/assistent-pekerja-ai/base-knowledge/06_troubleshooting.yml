@@ -1,0 +1,13 @@
+# file: 06_troubleshooting.yml
+# generated: 2025-05-12
+# top_keys: Troubleshooting_Support
+
+Troubleshooting_Support:
+  MengidentifikasiMasalahFungsiFlowTidakBerjalanErrorLogs:
+    u: pekerja_ai_doc_troubleshooting_error_logs
+    r: Panduan cara mengidentifikasi masalah jika suatu fungsi atau flow tidak berjalan sebagaimana mestinya, dengan memeriksa Error Logs di dashboard Pekerja.ai dan menganalisa pesan error.
+    s:
+      - t: "Buka Flows > Error Logs pada dashboard Pekerja.ai."
+      - t: Periksa apakah ada log error terkait flow atau aksi yang bermasalah. Error log akan menunjukkan di langkah mana kegagalan terjadi dan alasannya.
+      - t: "Analisa masalah berdasarkan pesan error yang muncul, lalu perbaiki sesuai petunjuk. Misalnya: jika error menunjukkan \"Invalid API Key\", periksa kembali API key di integrasi; jika \"Field not found\", pastikan nama field sudah benar."
+      - t: "Tips: Jika kamu bingung membaca error logs atau tidak menemukan solusi, jangan ragu untuk berdiskusi di komunitas (grup pengguna) atau hubungi creator support Pekerja.ai untuk bantuan lebih lanjut."

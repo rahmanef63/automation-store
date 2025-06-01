@@ -1,0 +1,353 @@
+# file: 01_platform_basics.yml
+# generated: 2025-05-12
+# top_keys: GettingStarted_PlatformOverview, PlatformFeatures_CoreModules, AccountManagement_Settings, ContactManagement_Data, ChatManagement_InterfaceTools, TeamManagement_Collaboration, UI_UX_Customization, PlatformTools_Utilities, Subscription_Support
+
+GettingStarted_PlatformOverview:
+  PerkenalanDuaDomainPekerjaAIAgencyVsContentCreator:
+    u: https://youtu.be/UKJGOqTxp7k?t=1547
+    r: Memperkenalkan dua domain utama Pekerja AI: untuk bisnis (agency) dan untuk content creator.
+    s:
+      - t: Di halaman utama Pekerja AI, klik tombol “Coba Gratis 7”.
+      - t: "Jika belum terdaftar, pilihan pendaftaran: Google, Facebook, atau email."
+      - t: "Setelah login, akan muncul tiga opsi besar: Agency, Klien, Affiliate."
+      - t: Pilih Agency jika Anda ingin membangun dan kelola solusi AI untuk klien bisnis.
+      - t: Pilih Klien jika Anda pemilik bisnis langsung—akan diarahkan ke WhatsApp untuk join waiting list.
+      - t: Pilih Affiliate jika Anda ingin sekaligus membuat dan menjual solusi AI.
+      - t: jika sudah memilih Agency, silahkan isi nama Bisnis Anda dan nomor WhatsApp aktif.
+      - t: Klik “Coba Gratis 7” di hero section halaman utama, tunggu aja paling lambat 2 menit.
+  ProsesInisialisasiAkunBaru:
+    u: https://youtu.be/UKJGOqTxp7k?t=2163
+    r: Menjelaskan langkah-langkah inisialisasi akun baru.
+    s:
+      - t: setelah masuk ke tampilan dashboard kamu klick logo perkerja AI di pojok kanan atas, dan pili settings
+      - t: "Info: Untuk visualisasi, akan ditampilkan ASCII sidebar dari file './ascii-example-menu.txt' baris 104-133."
+      - t: di tab General di sini, default replay paling atas Pastikan tulisannya default replay juga.
+      - t: "Info: Untuk visualisasi, akan ditampilkan ASCII sidebar dari file './ascii-example-menu.txt' baris 137-166."
+      - t: fungsinya adalah agar knowledge dari AI kamu berdasarkan dari flow default replay
+      - t: Jadi kalau kamu ubah ketika ada yang chat baik itu diInstagram di Facebook atau di mana pun channel yang kamu koneksikan itu pasti tidak ada balasan karena secara flow-nya tidak ada yang aktif karena bukan defult replay
+      - t: setelah itu pergi ke tab integration bisa di setting atau menu Connected platform
+      - t: Pilih OpenAi ChatGPT. secara default sudah terhubung ke OpenAI ChatGPT
+      - t: untuk automated responses dan automatic voice response bisa di matikan terlebih dahulu.
+      - t: selamat, kamu sudah selesai membuat akun, selamat merajut
+  PerkenalanDefaultReplayCaraMerajutPertamaKali:
+    u: https://youtu.be/UKJGOqTxp7k?t=2341
+    r: perkenalan default replay (cara merajut pertama kali)
+    s:
+      - t: Pilih menu Flows yang ada di sidebar dashboard
+      - t: "Info: Untuk visualisasi, akan ditampilkan diagram ASCII sidebar dari file 'ascii-example-menu.txt', baris 5–34."
+      - t: Pilih Default Reply
+      - t: "Info: Untuk visualisasi, akan ditampilkan diagram ASCII flow builder dari file 'ascii-example-flow.txt', baris 3–35."
+  NavigasiDashboardAwalMengikutiPanduanStepByStepInteraktif:
+    u: https://www.youtube.com/live/UKJGOqTxp7k?si=2o_F6pPLkhjFuZHu
+    r: Overview tampilan dashboard dan modul panduan interaktif untuk memudahkan setup AI.
+    s:
+      - t: Di sidebar Dashboard, klik menu Panduan atau tombol Mulai yang muncul di atas grafik.
+      - t: "Lihat langkah pertama: \"Kenali Bisnis & Promosi\"—klik Detail untuk baca instruksi lengkap."
+      - t: "Langkah kedua: \"Hubungkan Platform\"—akan dijelaskan cara integrate channel (IG, WA, Telegram, Email)."
+      - t: "Langkah ketiga: \"Selesai & Analisis\"—panduan meninjau performa AI di grafik dan log chat."
+      - t: Setiap langkah punya opsi Preview untuk coba langsung tanpa publish.
+      - t: Ikuti setiap urutan langkah, jangan lompat, agar flow AI berjalan sesuai kebutuhan.
+
+PlatformFeatures_CoreModules:
+  MemantauMenganalisisPerformaBotDashboard:
+    u: pekerja_ai_doc_dashboard
+    r: Dashboard adalah pusat kontrol untuk memantau data interaksi, menganalisis performa bot, dan mengelola strategi secara real-time. Menyajikan statistik seperti jumlah percakapan, metrik kepuasan, dll.
+    s:
+      - t: Dashboard berfungsi sebagai pusat kontrol untuk memantau data interaksi dan menganalisis performa bot.
+      - t: "Di Dashboard, Anda dapat melihat statistik seperti:"
+        sub:
+          - t: Jumlah percakapan
+          - t: Pesan masuk/keluar
+          - t: Tingkat respons bot
+          - t: Metrik kepuasan, dsb.
+      - t: Gunakan data di dashboard untuk mengetahui efektivitas AI dan melakukan optimasi.
+  MengelolaDataPelangganContactsCustomer:
+    u: pekerja_ai_doc_contacts_customer
+    r: Contacts Customer adalah daftar kontak pelanggan yang tersimpan dengan rapi, berfungsi untuk mengelola data pelanggan secara otomatis, memudahkan follow-up dan analisis.
+    s:
+      - t: Setiap kali pengguna berinteraksi dengan bot di channel apapun, datanya (nama, username, kontak, dll) akan muncul di Contacts.
+      - t: Anda bisa melihat detail kontak.
+      - t: Anda bisa menambahkan catatan ke kontak.
+      - t: Anda bisa melakukan segmentasi (misal dengan tag) untuk keperluan broadcast dan analitik.
+  MengirimPesanMassalBroadcastsPelanggan:
+    u: pekerja_ai_doc_broadcasts
+    r: Fitur Broadcasts memungkinkan pengiriman pesan siaran (promosi, pengumuman, dll) ke list kontak yang ditentukan melalui channel terhubung, dengan mematuhi aturan platform.
+    s:
+      - t: Fitur Broadcasts memungkinkan Anda mengirim pesan siaran ke list kontak yang ditentukan.
+      - t: Pengiriman dilakukan melalui channel yang terhubung (WhatsApp, Telegram, Email, dll).
+      - t: Pengiriman mematuhi aturan platform sehingga mengurangi risiko spam atau blokir.
+      - t: "(Catatan: Untuk WhatsApp, broadcast hanya dapat dilakukan melalui akun WhatsApp Business API resmi dan wajib mengikuti kebijakan (termasuk template pesan disetujui Facebook serta koneksi ke metode pembayaran di Meta Business Manager).)"
+  RingkasanFiturOtomatisasiAlurPercakapanFlows:
+    u: pekerja_ai_doc_flows_overview
+    r: Flows memungkinkan otomatisasi alur percakapan agar AI dapat merespons sesuai skenario bisnis, mulai dari menjawab pertanyaan, menyimpan data, menjalankan integrasi, hingga mengirim notifikasi email.
+    s:
+      - t: Flows adalah fitur untuk otomatisasi alur percakapan.
+      - t: Memungkinkan AI merespons sesuai skenario bisnis.
+      - t: "Fungsi mencakup: menjawab pertanyaan umum, menyimpan data, menjalankan integrasi, mengirim notifikasi email."
+      - t: "(Contoh flow umum: menyimpan data ke Google Sheets, menganalisis gambar dengan AI, mengirim email. Penjelasan singkat masing-masing ada di bagian terpisah.)"
+
+AccountManagement_Settings:
+  MenggantiNamaAkunPekerjaAIAnda:
+    u: https://youtu.be/wAdqEu7Ba9c
+    r: Video ini menunjukkan langkah-langkah untuk mengubah nama akun Pekerja AI Anda.
+    s:
+      - t: Akses pengaturan bot Anda. di pojok kanan atas dan klick menu settings.
+      - t: "Di dalam menu pengaturan, klik opsi 'Rename Account' (Ganti Nama Akun)."
+      - t: Masukkan nama akun baru yang Anda inginkan.
+      - t: Klik 'Continue' atau 'Simpan' untuk mengonfirmasi perubahan nama.
+  MenambahkanPenggunaAgenAdminAkunMengaturIzinAkses:
+    u: https://youtu.be/kOT676kRe1I
+    r: Video ini menjelaskan cara menambahkan pengguna lain (agen atau admin) ke akun Pekerja AI Anda dan mengatur tingkat izin mereka.
+    s:
+      - t: Buka menu pengaturan (Settings) akun Anda.
+      - t: Klik pada tab 'Admin'.
+      - t: "Klik tombol 'Kelola' (Manage) atau 'Tambah Admin' (Add Admin)."
+      - t: Klik 'Tambah' (Add) untuk mulai menambahkan admin baru.
+      - t: "Pilih tingkat izin (permission level) yang sesuai untuk admin baru:"
+        sub:
+          - t: "Super Admin: Memberikan akses penuh ke seluruh fitur akun."
+          - t: "Izin Spesifik: Pilih izin ini jika Anda ingin admin hanya mengelola bagian tertentu (misalnya, hanya chat atau flow)."
+          - t: "Agent (Agen): Pilih izin ini jika Anda ingin admin hanya dapat mengelola percakapan yang ditugaskan kepadanya."
+  DevelopmentModePengujianBotTerisolasi:
+    u: https://youtu.be/loiWLNHucTc
+    r: Video ini menjelaskan fungsi Development Mode (Mode Pengembangan), sebuah fitur yang memungkinkan Anda menguji dan membangun bot secara terisolasi tanpa memengaruhi pengguna lain.
+    s:
+      - t: Akses pengaturan bot Anda. di pojok kanan atas dan klick menu settings.
+      - t: Cari opsi 'Development Mode'.
+      - t: Untuk mengaktifkan, geser tombol toggle ke posisi aktif.
+      - t: Klik simpan.
+      - t: Untuk menonaktifkan (agar bot merespons semua pengguna), geser kembali tombol toggle ke posisi nonaktif dan simpan.
+  IntegrasiAPIKeyOpenAIGratisPekerjaAIMilikSendiri:
+    u: https://www.youtube.com/live/UKJGOqTxp7k?si=2o_F6pPLkhjFuZHu
+    r: Cara mengaktifkan API key OpenAI gratis yang disediakan Pekerja AI atau mengganti dengan milik sendiri.
+    s:
+      - t: "Di sidebar, pilih Connected Platforms → Integration."
+      - t: Klik opsi OpenAI ChatGPT, kemudian toggle ON untuk koneksi default.
+      - t: Jika ingin model premium, klik Disconnect di bagian token default.
+      - t: Copy–paste API key Anda dari dashboard OpenAI.
+      - t: "Klik Save; sekarang Anda bisa pilih model GPT-4 Turbo, GPT-4o-mini, dsb."
+      - t: Tes koneksi dengan klik tombol Test API di samping.
+
+ContactManagement_Data:
+  MengimporDaftarKontakPekerjaAIMenggunakanFileCSV:
+    u: https://youtu.be/FUPB4Qbf76w
+    r: Halo di video ini saya akan menunjukkan cara mengimpor kontak di pekerja eai dengan mudah pertama masuk ke bagian kontak lalu klik impor di sini pilih file csv yang ingin diimpor pastikan formatnya sudah...
+    s:
+      - t: Siapkan data kontak Anda dalam format file CSV.
+      - t: Pastikan kolom-kolom di CSV sesuai dengan field yang ada di Pekerja AI (Nama, Telepon, Email, dll.).
+      - t: "Masuk ke menu -> Contacts Customer."
+      - t: "Klik tombol -> Actions -> Import Contacts."
+      - t: Klik -> Upload CSV File atau seret file CSV ke area yang ditentukan.
+      - t: Pilih file CSV Anda.
+      - t: "Lakukan 'Mapping Kolom': Cocokkan setiap kolom dari file CSV Anda ke 'Contact Field' yang sesuai di Pekerja AI."
+      - t: "Scroll ke bawah untuk melihat opsi tambahan:"
+        sub:
+          - t: "'Contact Source': Pilih sumber kontak jika relevan (WhatsApp, Telegram, dll.)."
+          - t: "'Assign Tags': Tambahkan tag ke semua kontak yang diimpor."
+          - t: "'Add to Custom Fields': Map kolom CSV ke custom field jika perlu."
+      - t: Periksa kembali semua mapping dan pengaturan.
+      - t: "Klik -> Lanjutkan/Continue."
+      - t: Tunggu hingga proses impor selesai. Kontak akan muncul di daftar Kontak.
+  MengeksporDataKontakPekerjaAI:
+    u: https://youtu.be/iHzz7sC5xd4
+    r: pilih menu kontak customers kemudian pilih kontak yang ingin dieksport kamu juga dapat memilih semua kontak klik akiens lalu pilih sor data klik ekspor sekali lagi lalu pilih salah satu opsi dapatkan...
+    s:
+      - t: "Masuk ke menu -> Contacts Customer."
+      - t: Pilih kontak yang ingin diekspor datanya.(juga bisa pilih semua kontak).
+      - t: Klik tombol 'Actions'.
+      - t: Pilih opsi 'Export Data'.
+      - t: Pilih tombol 'Export'.
+      - t: "Pilih salah satu opsi ekspor: 'Get Link' (untuk mendapatkan tautan unduh) atau 'Download' (untuk langsung mengunduh file)."
+      - t: Jika memilih 'Download', Anda akan mendapatkan file Excel berisi data kontak yang dipilih.
+  MenggantiNamaKontakMengelolaCustomFieldDetailKontak:
+    u: https://youtu.be/IIRWcgbVP8s
+    r: Video ini menjelaskan cara mengubah nama tampilan kontak dan mengelola informasi tambahan menggunakan custom fields (bidang khusus) di dalam tampilan inbox atau detail kontak.
+    s:
+      - t: Buka percakapan dengan kontak yang ingin Anda edit.
+      - t: Klik pada nama kontak di bagian atas atau samping jendela obrolan untuk membuka detail kontak. Pilih 'informasi lebih lanjut' jika diperlukan.
+      - t: "Mengubah Nama: Cari opsi 'ubah nama' (edit name) dan klik. Masukkan nama baru lalu simpan."
+      - t: "Mengatur Informasi Kontak: Di halaman detail kontak, Anda dapat menambahkan atau mengubah informasi lain seperti alamat email dan nomor telepon."
+      - t: "Mengatur Custom Fields:"
+        sub:
+          - t: Cari bagian 'Custom Fields' (Bidang Khusus).
+          - t: Isi nilai untuk custom fields yang sudah ada.
+          - t: Jika perlu, tambahkan custom field baru melalui pengaturan kontak atau langsung dari profil kontak (tergantung platform).
+  MenambahkanCatatanNotesKontakTampilanInboxChat:
+    u: https://youtu.be/XOyvUPy9Dc0
+    r: fitur ini menunjukkan cara menambahkan catatan atau informasi penting tentang kontak langsung di dalam tampilan chat atau inbox.
+    s:
+      - t: Buka percakapan dengan kontak yang ingin Anda tambahkan catatannya.
+      - t: Cari bagian profil atau detail kontak di samping jendela obrolan.
+      - t: Temukan area atau tombol untuk menambahkan 'Notes' (Catatan).
+      - t: Klik untuk menambahkan catatan baru, ketik informasi yang relevan, dan simpan.
+  CustomFieldVsAccountFieldDataDinamisStatis:
+    u: https://www.youtube.com/live/IBRyfbV1-Vw?si=DvVl_XI18JAtcp6f
+    r: Perbedaan custom field vs account field untuk menyimpan data chat dinamis vs statis.
+    s:
+      - t: "Buka Flow Builder → tab Custom Fields."
+      - t: "Klik Add Custom Field, beri nama `knowledge` (atau sesuai kebutuhan)."
+      - t: Tandai sebagai 'per user chat' (User Field) untuk data dinamis tiap interaksi.
+      - t: "Gunakan variabel `{{knowledge}}` di card Condition dan pesan."
+      - t: Untuk data statis (seperti daftar produk, informasi bisnis tetap), gunakan Account Field.
+
+ChatManagement_InterfaceTools:
+  FiturChatTerpusatMengelolaPercakapanMultiChannel:
+    u: pekerja_ai_doc_chat_feature
+    r: Fitur Chat membantu mengontrol dan membalas semua percakapan dari berbagai channel dalam satu halaman, termasuk WhatsApp, Facebook, Instagram, dll. Memungkinkan admin membalas tanpa berpindah platform.
+    s:
+      - t: "Fitur Chat mengumpulkan percakapan dari berbagai channel (WhatsApp, Facebook, Instagram, dll.) dalam satu halaman."
+      - t: Admin dapat membalas pesan tanpa berpindah platform.
+      - t: "Melalui halaman Chat, Anda dapat: memonitor percakapan real-time, membalas pesan pengguna, menyerahkan percakapan ke Pekerja AI atau tim human, dan melihat context chat (riwayat pesan)."
+  BalasanTersimpanSavedRepliesChat:
+    u: https://youtu.be/uOKfBm30e80
+    r: Video ini menunjukkan cara membuat dan menggunakan fitur Saved Replies (Balasan Tersimpan) untuk mempercepat respons dalam obrolan.
+    s:
+      - t: "Membuat Saved Reply:"
+        sub:
+          - t: Di dalam jendela obrolan (Inbox), cari tombol atau ikon untuk 'Saved Replies' (seringkali dilambangkan dengan ikon pesan atau petir).
+          - t: Klik opsi untuk membuat balasan baru.
+          - t: "Masukkan 'Shortcut' (pintasan) – kata kunci singkat yang akan Anda ketik untuk memanggil balasan ini (misal, '/alamat')."
+          - t: Ketik isi pesan balasan yang ingin Anda simpan.
+          - t: Klik 'Save' (Simpan).
+      - t: "Menggunakan Saved Reply:"
+        sub:
+          - t: "Di kolom pengetikan pesan dalam obrolan, ketik '/' diikuti dengan shortcut yang telah Anda buat (misal, '/alamat')."
+          - t: Daftar balasan tersimpan yang cocok akan muncul. Pilih balasan yang diinginkan.
+          - t: Pesan akan otomatis dimasukkan ke kolom pengetikan, siap untuk dikirim atau diedit sedikit jika perlu.
+  MelihatRiwayatTindakanActionsOtomatisDieksekusiChat:
+    u: https://youtu.be/1ISPlW1qeqI
+    r: Video ini menjelaskan cara melihat riwayat tindakan (actions) otomatis yang telah dijalankan oleh sistem untuk kontak tertentu dalam obrolan.
+    s:
+      - t: Buka percakapan dengan kontak yang ingin Anda periksa riwayat tindakannya.
+      - t: "Di antarmuka chat/inbox, cari opsi atau checkbox berlabel 'View Executed Actions' (Lihat Tindakan yang Dieksekusi) atau serupa. Lokasinya mungkin di panel detail kontak atau di menu pengaturan tampilan chat."
+      - t: Centang atau aktifkan opsi tersebut.
+      - t: "Setelah diaktifkan, riwayat tindakan otomatis (seperti 'Tag Added', 'Flow Started', 'Custom Field Updated') yang telah dijalankan untuk kontak tersebut akan ditampilkan dalam alur percakapan atau di panel terpisah."
+  MenonaktifkanMengaktifkanResponsOtomatisBotAIKontakTertentu:
+    u: https://youtu.be/iVt21jcTaBM
+    r: Video ini menjelaskan cara menonaktifkan sementara atau mengaktifkan kembali respons otomatis dari bot AI untuk kontak pelanggan tertentu langsung dari jendela obrolan.
+    s:
+      - t: "Menonaktifkan Bot untuk Kontak Spesifik:"
+        sub:
+          - t: Buka menu obrolan (Chat/Inbox).
+          - t: Pilih percakapan dengan pelanggan yang botnya ingin Anda matikan sementara.
+          - t: Cari tombol atau indikator status bot (seringkali berwarna biru atau memiliki ikon bot, mungkin di dekat nama kontak atau di header chat).
+          - t: Klik tombol/indikator tersebut untuk menonaktifkan bot. Jika berhasil, indikator akan berubah (misal, warna menghilang atau ikon berubah). Bot AI tidak akan merespons kontak ini sampai diaktifkan kembali.
+      - t: "Mengaktifkan Kembali Bot untuk Kontak Spesifik:"
+        sub:
+          - t: Buka percakapan dengan pelanggan tersebut.
+          - t: Klik kembali tombol/indikator status bot yang sebelumnya Anda nonaktifkan.
+          - t: "Jika ikon bot atau indikator aktif kembali (misalnya, berubah warna menjadi biru), artinya bot AI kembali aktif untuk pelanggan tersebut."
+  MemfilterKontakTampilanChatInboxHumanBotAllChannelAssignment:
+    u: https://youtu.be/scyygWuGVWM
+    r: Video ini menjelaskan cara menggunakan filter di bagian obrolan (chat) untuk mengelola dan mencari kontak berdasarkan berbagai kriteria, termasuk folder percakapan (Human, Bot, All) dan filter lainnya.
+    s:
+      - t: Buka bagian Chat/Inbox di platform Anda.
+      - t: "Perhatikan opsi filter atau folder percakapan yang tersedia, biasanya di bagian atas atau samping daftar chat:"
+        sub:
+          - t: "'Human': Menampilkan chat yang sedang atau telah ditangani oleh agen manusia."
+          - t: "'Bot': Menampilkan chat yang sedang ditangani oleh bot."
+          - t: "'All Conversations' (Semua Percakapan): Menampilkan gabungan keduanya."
+      - t: Gunakan fitur pencarian (search bar) untuk mencari kontak berdasarkan nama atau kata kunci dalam pesan.
+      - t: "Gunakan opsi filter tambahan (seringkali ikon filter atau dropdown) untuk menyaring kontak berdasarkan:"
+        sub:
+          - t: "'Channel': Pilih channel spesifik (Messenger, Instagram, WhatsApp, dll.)."
+          - t: "'Assignment Status' (Status Penugasan): Filter berdasarkan apakah chat sudah ditugaskan ke admin tertentu, belum ditugaskan, atau ditugaskan ke Anda."
+          - t: Kriteria lain yang mungkin tersedia (seperti tag, status chat, tanggal terakhir interaksi).
+  FilterLanjutanKontakPelangganChatNegaraWaktuJenisPesan:
+    u: https://youtu.be/Xq5IfBJWc-0
+    r: Video ini menunjukkan cara menggunakan opsi filter lanjutan untuk mencari dan menyaring kontak pelanggan di menu chat berdasarkan kriteria spesifik.
+    s:
+      - t: Buka menu Chat/Inbox.
+      - t: Klik ikon atau menu filter (biasanya di pojok atas atau samping daftar chat).
+      - t: Pilih 'More Options' (Opsi Lainnya) atau cari bagian filter kustom/lanjutan.
+      - t: "Terapkan filter berdasarkan kriteria spesifik seperti:"
+        sub:
+          - t: Negara asal kontak (jika data ini tersedia).
+          - t: "Waktu pesan terakhir diterima (misal, dalam 24 jam terakhir, minggu lalu)."
+          - t: "Jenis pesan (misalnya, hanya menampilkan chat yang mengandung gambar atau file)."
+          - t: Pesan yang mengandung kata kunci tertentu (jika berbeda dari pencarian umum).
+      - t: Kombinasikan beberapa filter sesuai kebutuhan Anda untuk menemukan kontak atau percakapan yang relevan dengan lebih cepat.
+
+TeamManagement_Collaboration:
+  MengelolaTimAgenPekerjaHumanKolaborasiBot:
+    u: pekerja_ai_doc_pekerja_human
+    r: Fitur Pekerja Human memungkinkan manusia (admin/agent) bertugas mengatur, memantau, dan mengoptimalkan kinerja bot, serta berkolaborasi dalam mengelola bot. Terdiri dari sub-fitur Admin dan Inbox (Teams).
+    s:
+      - t: Klik menu Pekerja Human, lalu pilih entitas (misal tim atau agen) yang ingin kamu kelola.
+      - t: "Dalam Pekerja Human, terdapat dua sub-fitur utama:"
+        sub:
+          - t: "Admin: Mengelola anggota tim dan peran. Anda dapat menambahkan admin/agent baru, menetapkan peran (akses), dan mengelola akun secara praktis untuk meningkatkan produktivitas tim."
+          - t: "Inbox (Teams): Mengelola percakapan masuk secara tim. Anda bisa mengelompokkan anggota tim berdasarkan keahlian, departemen, atau level dukungan. Ini memudahkan distribusi chat dan kolaborasi yang lebih lancar dalam merespon pengguna."
+
+UI_UX_Customization: # Duplicate key, assuming continuation of the same section as in 05_tools_extensions.yml
+  TombolPemulaiPercakapanConversationStartersChannel: # Already defined above, keeping for completeness if content differs; if identical, could be merged.
+    u: https://youtu.be/x3HZoRIC3nc
+    r: Cara membuat conversation starters fitur ini bikin pengguna bisa langsung mulai chat dengan bisnis lewat daftar pertanyaan yang sering ditanyakan Jadi mereka enggak cuma lihat tombol get started yang biasa...
+    s:
+      - t: "Akses pengaturan channel yang ingin Anda kustomisasi (misal, Facebook Messenger, Web Chat). Ini bisa melalui menu Profil -> Settings -> Channel, atau langsung dari 'Connected Platforms'."
+      - t: Pilih channel yang relevan (contoh: Facebook Messenger).
+      - t: "Cari menu atau bagian yang disebut 'Conversation Starters', 'Get Started Button Payloads', atau 'Persistent Menu' (tergantung channel dan platform)."
+      - t: "Ketik pertanyaan atau label tombol yang ingin Anda tampilkan sebagai pemulai percakapan (misal, \"Tanya Produk\", \"Cek Status Pesanan\", \"Bicara dengan Agen\")."
+      - t: Untuk setiap pertanyaan/tombol, atur respons otomatis atau alur (Flow) yang akan dijalankan ketika tombol tersebut dipilih oleh pengguna.
+      - t: Anda biasanya bisa menambahkan beberapa Conversation Starters.
+      - t: Simpan pengaturan Anda. Perubahan akan terlihat saat pengguna memulai percakapan baru dengan bot Anda di channel tersebut.
+  KustomisasiPesanSelamatDatangWelcomeMessageWebchatChannelLain: # Already defined above
+    u: https://www.youtube.com/live/pohCJefEdxY?si=2JdBCsE7BFw-foV-
+    r: Menentukan pesan sambutan pertama saat user membuka chat di Webchat atau channel lain.
+    s:
+      - t: "Akses pengaturan channel spesifik, misalnya 'Webchat', melalui menu 'Connected Platforms' atau 'Settings' -> 'Channels'."
+      - t: Di pengaturan Webchat (atau channel lain yang mendukung), cari tab atau bagian 'Welcome Message' atau 'Greeting Text'.
+      - t: "Isi teks pesan sambutan yang ingin ditampilkan saat pengguna pertama kali membuka jendela chat. Contoh: “Selamat datang di Toko Kamera DOS! Ada yang bisa kami bantu?”"
+      - t: Anda mungkin bisa menambahkan link website atau tombol quick reply (jika fitur didukung) pada welcome message.
+      - t: Klik 'Save' atau 'Simpan Perubahan'.
+      - t: Buka website Anda (jika Webchat) atau mulai chat baru di channel tersebut untuk melihat apakah welcome message muncul sesuai konfigurasi.
+      - t: "Ulangi proses ini untuk channel lain (misal, WhatsApp, Instagram) jika mereka memiliki pengaturan Welcome Message/Greeting Text terpisah."
+
+PlatformTools_Utilities: # Duplicate key, assuming continuation
+  PemanfaatanToolQRCodeGeneratorImageGenerationEditor: # Already defined above
+    u: https://www.youtube.com/live/IBRyfbV1-Vw?si=DvVl_XI18JAtcp6f
+    r: Menunjukkan fitur generate QR code untuk share dan generate/edit image dalam platform.
+    s:
+      - t: "QR Code Generator:"
+        sub:
+          - t: "Di sidebar Dashboard, buka menu 'Tools' → 'QR Code Generator'."
+          - t: "Masukkan URL yang ingin dijadikan QR Code (misalnya, link ke flow chat Anda, halaman promosi, website)."
+          - t: Klik 'Generate' atau 'Buat QR'.
+          - t: Download gambar QR Code yang dihasilkan.
+          - t: Sisipkan QR Code ini di materi promosi Anda (online atau cetak) untuk memudahkan pengguna mengakses link tersebut.
+      - t: "Image Generation/Editor:"
+        sub:
+          - t: "Di sidebar Dashboard, buka menu 'Tools' → 'Image Generation' (atau nama serupa)."
+          - t: "Masukkan prompt teks yang mendeskripsikan gambar yang ingin Anda buat (contoh: \"Foto produk UMKM yang menarik dengan latar belakang cerah\")."
+          - t: Klik 'Generate'. Hasil gambar akan muncul.
+          - t: (Jika ada fitur editor) Anda mungkin bisa melakukan editing dasar pada gambar yang dihasilkan.
+          - t: Klik 'Download' untuk menyimpan gambar ke perangkat Anda.
+
+Subscription_Support:
+  MengatasiTrialHabisUpgradePaketKonfigurasiLanjutanAPI:
+    u: https://www.youtube.com/live/IBRyfbV1-Vw?si=DvVl_XI18JAtcp6f
+    r: Menjawab pertanyaan tentang kelanjutan setelah trial habis dan cara set parameter API lebih lanjut.
+    s:
+      - t: Jika masa trial Anda habis, Anda akan melihat notifikasi di Dashboard.
+      - t: Buka menu 'Pricing', 'Billing', atau klik banner/notifikasi mengenai trial habis.
+      - t: "Pilih paket berlangganan yang sesuai dengan kebutuhan Anda (misalnya, UKM, Enterprise, Eksklusif)."
+      - t: "Klik 'Beli Paket' atau 'Upgrade', lalu selesaikan proses pembayaran (misalnya, via invoice bank atau metode pembayaran lain yang tersedia)."
+      - t: "Setelah upgrade berhasil, jika Anda menggunakan API key OpenAI pribadi dan ingin mengatur parameter lanjutan:"
+        sub:
+          - t: "Kembali ke 'Connected Platforms' → 'Integration' → 'OpenAI'."
+          - t: Jika sebelumnya menggunakan token default, klik 'Disconnect' pada token default.
+          - t: Masukkan API key OpenAI pribadi Anda.
+          - t: Cari opsi untuk mengatur parameter API seperti 'temperature', 'max_tokens', 'top_p' di pengaturan integrasi OpenAI.
+          - t: "Atur parameter sesuai keinginan (misal, 'temperature' lebih rendah untuk respons lebih deterministik, lebih tinggi untuk lebih kreatif)."
+          - t: Klik 'Save'.
+          - t: Tes flow Anda untuk memastikan parameter API baru diterapkan dan AI berperilaku sesuai harapan.
+  ProsesTesKenaikanLevelAgensiPekerjaAILevel14:
+    u: https://www.youtube.com/live/IBRyfbV1-Vw?si=DvVl_XI18JAtcp6f
+    r: Menjelaskan mekanisme tes untuk naik level agency dari 1 sampai 4 dengan standar Pekerja AI.
+    s:
+      - t: Setelah AI atau solusi yang Anda bangun untuk klien berjalan dengan mulus dan memenuhi standar kualitas, perhatikan pengumuman mengenai tes kenaikan level agensi. Informasi ini biasanya dibagikan melalui channel komunikasi resmi Pekerja AI (misalnya, grup Discord, email).
+      - t: Ikuti petunjuk pendaftaran tes yang diberikan. Ini mungkin melibatkan pengiriman link ke flow Anda, screenshot alur chat, atau studi kasus.
+      - t: Anda mungkin diminta untuk mengerjakan kuis singkat atau menjawab pertanyaan yang menguji pemahaman Anda tentang platform, kemampuan membangun AI yang natural, dan keselarasan dengan nilai-nilai Pekerja AI.
+      - t: Tim Pekerja AI akan mereview submisi dan hasil tes Anda.
+      - t: Jika lulus tes untuk Level 1, Anda mungkin mendapatkan keuntungan tertentu, seperti akses ke daftar tunggu klien yang disediakan oleh Pekerja AI.
+      - t: Ulangi proses ini untuk naik ke level berikutnya (Level 2 hingga 4), dengan standar dan persyaratan yang mungkin meningkat di setiap level. Ikuti instruksi spesifik yang diberikan untuk setiap level tes.

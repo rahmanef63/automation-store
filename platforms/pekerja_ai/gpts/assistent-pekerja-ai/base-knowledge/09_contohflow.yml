@@ -1,0 +1,734 @@
+# Source: /flows/Booking_Lapangan/menu-flows/AI-Trigger/Booking Lapangan AI Triggers.yml
+    AI_Triggers:
+      bl_1_perkenalan:
+        description: Jalankan saat pelanggan telah menyebutkan nama mereka dan ingin melakukan booking. # "What does this trigger do?"
+        dataToCollect: # "What data to collect?"
+          status_booking_penawaran: bl_status_booking
+          nama_pelanggan: bl_nama_pelanggan
+        triggeredFlow: Booking - Alur Utama # "What flow is triggered"
+        outputMessage: (Optional) # "What is the output message?"
+      bl_2_penawaran:
+        description: Jalankan saat pelanggan ingin booking, set status ke "Penawaran", dan kumpulkan {{bl_waktu_mulai}}, {{bl_waktu_berakhir}}, {{bl_operasional_mulai}}, {{bl_operasional_berakhir}} sesuai formula setelah pelanggan mengonfirmasi jadwal.
+        dataToCollect:
+          status_booking_pengecekan: bl_status_booking
+          jam_operasional_mulai: bl_nama_pelanggan # Original value, potential typo. Should be bl_operasional_mulai?
+          jam_operasional_berakhir: bl_operasional_berakhir
+          waktu_mulai_jadwal_booking: bl_waktu_mulai
+          waktu_berakhir_jadwal_booking: bl_waktu_berakhir
+        bookOnCalendar: # "Book on calendar:"
+          waktu_operasional_mulai: none # Assuming 'none' is a placeholder string or means not applicable here
+        triggeredFlow: Booking - Cek Jadwal
+        outputMessage: (Optional)
+      bl_3_pengecekan:
+        description: Jalankan saat pelanggan telah mengonfirmasi jadwal (waktu, durasi, jumlah lapangan) dari "Penawaran", set status ke "Pengecekan", dan perbarui {{bl_waktu_mulai}}, {{bl_waktu_berakhir}}, {{bl_operasional_mulai}}, {{bl_operasional_berakhir}} sesuai formula jika terjadi perubahan jadwal.
+        dataToCollect:
+          status_booking_pembayaran: bl_status_booking
+        triggeredFlow: Booking - Alur Utama
+        outputMessage: (Optional)
+      bl_4_pembayaran:
+        description: Jalankan saat pelanggan telah mengonfirmasi ulang jadwal (waktu, durasi, jumlah lapangan) dari "Pengecekan", set status ke "Pembayaran", dan kumpulan {{bl_detail_pesanan}} sesuai formula dari jadwal pilihan pelanggan.
+        dataToCollect:
+          status_booking_penjadwalan: bl_status_booking
+          detail_pesanan: bl_detail_pesanan
+        triggeredFlow: Booking - Alur Utama
+        outputMessage: (Optional)
+      bl_5_penjadwalan:
+        description: Jalankan saat pelanggan telah mengatakan "sudah bayar" atau upload bukti transfer DP dari "Pembayaran", set status ke "Penjadwalan", dan kumpulkan {{bl_waktu_booking}} sesuai formula serta jadwalkan ke kalender "Booking Lapangan".
+        dataToCollect:
+          status_booking_penutupan: bl_status_booking
+          waktu_booking: bl_waktu_booking
+        bookOnCalendar:
+          Waktu_booking: none # Assuming 'none' is a placeholder or means not applicable here
+        triggeredFlow: Booking - Alur Utama
+        outputMessage: (Optional)
+      bl_6_penutupan:
+        description: Jalankan saat jadwal pelanggan telah di jadwalkan ke kalender "Booking Lapangan" dari "Penjadwalan", set status ke "Penutupan", dan berikan respon yang sesuai dengan status jadwalnya saat pelanggan memulai percakapan.
+        dataToCollect: None # Explicitly 'None'
+        triggeredFlow: None # Explicitly 'None'
+        outputMessage: (Optional)
+      # "Name: connect_user_to_human" - This looks like an incomplete trigger, or just a name.
+      # If it's meant to be a trigger, it needs more fields. For now, I'll assume it's a placeholder or comment.
+      # connect_user_to_human: {} # Placeholder if it's an actual trigger name
+
+    # Source: /flows/Booking_Lapangan/menu-flows/Ai-Parameters/Booking Lapangan AI Parameters.yml
+    AI_Parameters:
+      tag_penawaran:
+        trigger: # "When this happens:"
+          type: CustomFieldValueChanged # "Custom field value changed:"
+          customField: bl_status_booking # Field name
+          condition: Contains # "has Changed and contains:"
+          value: Penawaran
+        actions:
+          - type: RemoveTag
+            tags:
+              - perkenalan
+              - Pengecekan
+              - Penjadwalan
+              - Penutupan
+              - Pembayaran
+          - type: AddTag
+            tags:
+              - penawaran
+      tag_pengecekan:
+        trigger:
+          type: CustomFieldValueChanged
+          customField: bl_status_booking
+          condition: Contains
+          value: Pengecekan
+        actions:
+          - type: RemoveTag
+            tags:
+              - perkenalan
+              - penawaran
+              - Penjadwalan
+              - Penutupan
+              - Pembayaran
+          - type: AddTag
+            tags:
+              - Pengecekan
+      # Note: Original had "tag_penjadwalan" twice with different values.
+      # Assuming the second one with "Pengecekan" value was a typo and should be unique or merged.
+      # For now, I'll keep them separate if the values are distinct, or assume the last one is correct if names clash.
+      # Original line 34 "tag_penjadwalan" triggered by bl_status_booking Contains "Pengecekan" - this is same as tag_pengecekan.
+      # I'll assume this was a copy-paste error in the source and skip it, or it should be a different parameter name.
+      # Let's assume it's a distinct parameter if the name implies it, e.g., if it was "tag_pembayaran_via_pengecekan"
+      # Given the current structure, it seems like a duplicate rule for `tag_pengecekan`. I will omit the second `tag_penjadwalan` that points to "Pengecekan".
+
+      tag_pembayaran: # This was "Name: tag_pembayaran" in original at line 50
+        trigger:
+          type: CustomFieldValueChanged
+          customField: bl_status_booking
+          condition: Contains
+          value: Penjadwalan # Note: Triggers on "Penjadwalan" to set "Pembayaran" tags. Seems like it should be "Pembayaran" value here.
+                            # Keeping original logic but flagging as potentially counter-intuitive.
+                            # AI Param "tag_pembayaran" is triggered when bl_status_booking changes and contains "Penjadwalan".
+                            # Then it adds tag "Penjadwalan". This seems incorrect.
+                            # It should probably trigger on "Pembayaran" and add tag "Pembayaran".
+                            # Let's assume the intent was: when status is "Pembayaran", set tag "Pembayaran"
+        actions:
+          - type: RemoveTag
+            tags:
+              - perkenalan
+              - penawaran
+              - Pengecekan
+              - Penutupan
+              - Pembayaran # It removes "Pembayaran" and then adds it?
+          - type: AddTag
+            tags:
+              - Penjadwalan # Then it adds "Penjadwalan" tag. This is confusing.
+                           # I will assume the intention was:
+                           # Trigger on value "Pembayaran", remove other tags, add "Pembayaran" tag.
+                           # For now, I will reflect the original YAML's action part literally for tag "Penjadwalan"
+                           # and create a corrected assumption for a new "tag_pembayaran_corrected" for demonstration.
+
+      # Original logic from file:
+      tag_pembayaran_original_logic:
+        trigger:
+          type: CustomFieldValueChanged
+          customField: bl_status_booking
+          condition: Contains
+          value: Penjadwalan # Triggers when status is "Penjadwalan"
+        actions:
+          - type: RemoveTag
+            tags: [perkenalan, penawaran, Pengecekan, Penutupan, Pembayaran]
+          - type: AddTag
+            tags: [Penjadwalan] # Adds "Penjadwalan" tag
+
+      # Assumed corrected logic for a parameter named "tag_pembayaran"
+      tag_pembayaran_assumed_corrected:
+        trigger:
+          type: CustomFieldValueChanged
+          customField: bl_status_booking
+          condition: Contains
+          value: Pembayaran # Triggers when status is "Pembayaran"
+        actions:
+          - type: RemoveTag
+            tags: [perkenalan, penawaran, Pengecekan, Penjadwalan, Penutupan]
+          - type: AddTag
+            tags: [Pembayaran] # Adds "Pembayaran" tag
+
+
+      # Original line 66 "tag_penjadwalan" triggered by "Penutupan" value for bl_status_booking
+      tag_penutupan: # Renamed from tag_penjadwalan for clarity based on trigger value
+        trigger:
+          type: CustomFieldValueChanged
+          customField: bl_status_booking
+          condition: Contains
+          value: Penutupan
+        actions:
+          - type: RemoveTag
+            tags:
+              - perkenalan
+              - penawaran
+              - Pengecekan
+              - Penjadwalan
+              - Pembayaran
+          - type: AddTag
+            tags:
+              - Penutupan
+
+    # Source: /flows/Booking_Lapangan/menu-flows/Costum-Fields/account-field/Booking Lapangan Account Fields.yml
+    AccountFields:
+      bl_formula_booking:
+        type: Text # In main YAML, account field types are: text, number, date, date and time, true | false, long text
+        value: |
+          ### Konsep Dasar
+          • Waktu Booking: Slot waktu per jam yang dipesan (contoh: 1 jam = 1 slot, 2 jam = 2 slot berurutan).
+          • Durasi: Jumlah slot waktu (1 jam = 1 slot, 2 jam = 2 slot, dst.).
+          • Jumlah Lapangan: Banyaknya lapangan yang dipesan, masing-masing dengan slot waktu sesuai durasi.
+          • Format Output: Setiap lapangan memiliki daftar Waktu Booking sesuai durasi, dalam format YYYY-MM-DDTHH:00:00.
+
+          ### Formula Penentuan
+          1. Waktu Booking:
+              • Ambil waktu awal dari pelanggan (misal, "jam 11 siang" → 2025-03-11T11:00:00).
+              • Tambah 1 jam untuk setiap slot berikutnya sesuai durasi (misal, durasi 2 jam → slot 1: 11:00, slot 2: 12:00).
+          2. Durasi:
+              • Konversi durasi ke jumlah slot (1 jam = 1 slot, 2 jam = 2 slot, dst.).
+              • Jika tidak disebutkan, default = 1 slot (1 jam).
+          3. Jumlah Lapangan:
+              - Setiap lapangan mendapat slot waktu yang sama sesuai durasi.
+              • Jika tidak disebutkan, default = 1 lapangan.
+
+          ### Contoh Konversi (Isi Detail Pesanan)
+          • 1 jam, 1 lapangan, jam 11: Lapangan 1, Waktu 1 = 2025-03-11T11:00:00.
+          • 2 jam, 1 lapangan, jam 11: Lapangan 1, Waktu 1 = 2025-03-11T11:00:00 & Lapangan 1, Waktu 2 = 2025-03-11T12:00:00.
+          • 1 jam, 2 lapangan, jam 11: Lapangan 1, Waktu 1 = 2025-03-11T11:00:00 & Lapangan 2, Waktu 1 = 2025-03-11T11:00:00.
+          • 2 jam, 2 lapangan, jam 11: Lapangan 1, Waktu 1 = 2025-03-11T11:00:00 & Lapangan 2, Waktu 1 = 2025-03-11T11:00:00 - Lapangan 1, Waktu 2 = 2025-03-11T12:00:00 & Lapangan 2, Waktu 2 = 2025-03-11T12:00:00.
+
+          ### Intruksi
+          Ketika pelanggan menyebutkan informasi booking, ikuti langkah ini untuk ekstrak ke {{bl_detail_pesanan}}:
+          1. Ambil Waktu Awal
+              • Identifikasi waktu pertama (misal, "jam 11" → 11:00).
+              • Interpretasi:
+                  • "Besok" → +1 hari dari sekarang.
+                  • "Pagi" → 09:00 (default).
+                  • "Malam" → 18:00 (default).
+                  • Hanya jam: Jika belum lewat → hari ini, jika lewat → besok.
+          2. Ambil Durasi
+              • Cari "selama", "jam", "menit" (misal, "2 jam" → 2 slot).
+              • Default: 1 slot (1 jam) jika tidak disebutkan.
+          3. Ambil Jumlah Lapangan
+              • Cari "lapangan" + angka (misal, "2 lapangan" → 2).
+              • Default: 1 lapangan jika tidak disebutkan.
+          4. Buat Slot Waktu Booking
+              • Mulai dari waktu awal, tambah 1 jam per slot sesuai durasi.
+              • Setiap lapangan dapat slot waktu yang sama.
+          5. Simpan ke {{bl_detail_pesanan}}
+              • Format: [Lapangan X, Waktu Y] untuk setiap slot dan lapangan.
+              • Contoh:
+                  • 1 jam, 1 lapangan → Lapangan 1, Waktu 1 = YYYY-MM-DDTHH:00:00.
+                  • 2 jam, 2 lapangan → Lapangan 1, Waktu 1, Lapangan 2, Waktu 1, Lapangan 1, Waktu 2, Lapangan 2, Waktu 2.
+
+          ### Contoh Ekstraksi
+          Input: "Booking 2 lapangan besok jam 10 selama 2 jam."
+          • Waktu Awal: Besok, 10:00 → 2025-03-11T10:00:00.
+          • Durasi: 2 jam → 2 slot.
+          • Jumlah Lapangan: 2.
+          • {{bl_detail_pesanan}}:
+              • Lapangan 1, Waktu 1 = 2025-03-11T10:00:00
+              • Lapangan 2, Waktu 1 = 2025-03-11T10:00:00
+              • Lapangan 1, Waktu 2 = 2025-03-11T11:00:00
+              • Lapangan 2, Waktu 2 = 2025-03-11T11:00:00
+
+          Input: "Pesan lapangan jam 3 sore."
+          • Waktu Awal: 15:00 → 2025-03-10T15:00:00.
+          • Durasi: Default 1 jam → 1 slot.
+          • Jumlah Lapangan: Default 1.
+          • {{bl_detail_pesanan}}:
+              • Lapangan 1, Waktu 1 = 2025-03-10T15:00:00
+
+          ### Catatan
+          • Waktu: Mulai dari jam yang disebut, tambah 1 jam per slot.
+          • Durasi: 1 jam = 1 slot, 2 jam = 2 slot, dst.
+          • Lapangan: Tiap lapangan punya slot waktu sesuai durasi.
+      bl_gaya_komunikasi:
+        type: Text
+        value: |
+          *Nada:*
+          Ramah, santai, sopan, dan natural.
+
+          *Sapaan:*
+          Gunakan "kak" sebagai default, kecuali pelanggan meminta sapaan lain (Pak, Mas, Teteh, dll.).
+
+          *Respon:*
+          Simpel, jelas, ringkas seperti yang ada pada contoh dan fokus pada kebutuhan pelanggan.
+
+          *Hindari:*
+          Memberikan informasi berulang dan panjang serta yang tidak relevan atau membingungkan.
+      bl_parsing_waktu:
+        type: Text
+        value: |
+          # Formula Parsing Waktu Pelanggan
+
+          Memahami berbagai format waktu yang disebut pelanggan, berlandaskan {{current_time}}.
+
+          1. Deteksi Ekspresi Waktu
+            • Relatif Hari: "hari ini", "besok", "lusa", "Senin depan"
+            • Hari Tertentu: nama hari (Senin–Minggu)
+            • Tanggal Spesifik: "17 Maret", "29/03/2025"
+            • Waktu Spesifik: jam 08:00, "jam 3 sore", "setengah 10 malam"
+            • Gabungan Tanggal & Waktu: "Besok jam 10 pagi"
+
+          2. Konversi ke [waktu_mulai] (ISO)
+            • Tentukan tanggal dari konsep relatif/absolut (langkah mirip formula operasional).
+            • Ubah keterangan waktu:
+              - "pagi" → 09:00, "siang" → 13:00, "sore" → 16:00, "malam" → 19:00.
+              - "setengah X" → X-1:30 (e.g. setengah 10 → 09:30).
+              - Angka jam langsung → HH:00.
+            • Bentuk [waktu_mulai] = YYYY-MM-DDTHH:MM:00.
+
+          3. Cek Waktu Terlewat vs {{current_time}}
+            • Jika [waktu_mulai] < {{current_time}}:
+              - Format ulang [waktu_mulai] ke friendly text (contoh: "17 Maret jam 8 pagi").
+              - Tanggapi:
+                > "Maaf kak, [friendly_time] sudah lewat. Pilih setelah [friendly_time_next]."
+              - [friendly_time_next] = friendly dari ({{current_time}} + 1 jam).
+
+          4. Validasi Batas Durasi & Jumlah Lapangan
+            • [durasi_jam] * [jumlah_lapangan] ≤ 4 jam dan [durasi_jam] ≤ 2 jam.
+            • Jika melebihi → tolak dengan pesan:
+              - "Maaf kak, batas maksimum booking adalah 2 jam untuk 2 lapangan (total 4 jam)."
+
+          5. Format Friendly untuk Response
+            • Waktu → map HH:MM ke:
+              - 08:00 → "Jam 8 pagi", 13:00 → "Jam 1 siang", dst.
+            • Hari dan tanggal → map tanggal ke:
+              - Jika [tanggal] = {{current_time}} → "hari ini, DD MMM".
+              - Jika [tanggal] = {{current_time}} + 1 → "besok, DD MMM".
+              - Jika [tanggal] = {{current_time}} + 2 → "lusa, DD MMM".
+              - Jika dalam 7 hari ke depan → "<NamaHari>, DD MMM".
+              - Lainnya → "DD MMM YYYY".
+      bl_profil_bisnis:
+        type: Text
+        value: |
+          ### DM Sports Jakarta
+          Pusat Olahraga di Jakarta Selatan
+          Dikelola oleh Admin Fuad
+
+          ### Lokasi & Kontak
+          • Alamat: Jl. Taman Margasatwa Raya No.12
+          • Google Maps: https://g.co/kgs/WT1ujRn
+          • Telepon: 0877-7114-0XXX
+          • Website: www.dmsports.co.id
+          • Instagram: @fmsportjakarta
+          • Rekening Pembayaran: BCA 4635363XXX a.n. DM Sport Jakarta
+
+          ### Jam Operasional
+          • Buka Setiap Hari: Senin – Minggu, pukul 08:00 – 22:00 WIB
+          • Operasional Lapangan:
+            - Mulai: Jam 8 pagi
+            - Selesai: Jam 10 malam
+          • Batas Booking:
+            - Tidak tersedia sebelum jam 8 pagi atau setelah jam 10 malam
+            - Booking jam 10 malam hanya bisa untuk 1 jam (berakhir jam 11 malam)
+
+          ### Harga Sewa Lapangan
+          • Tarif: Rp75.000 per jam per lapangan
+          • Simulasi Harga:
+            - 1 lapangan selama 2 jam: Rp150.000
+            - 2 lapangan selama 2 jam: Rp300.000
+
+          ### Proses Booking
+          • Batasan Booking: Tidak bisa booking lebih dari 2 jam untuk 2 lapangan
+          • Kombinasi yang melebihi 4 jam untuk 1 lapangan
+          • Catatan: Sistem saat ini belum mendukung durasi melebihi batas tersebut. Kami sedang berupaya meningkatkan fleksibilitas ke depannya.
+          • Cek Waktu Booking:
+            - Sistem akan membandingkan waktu booking dengan waktu saat ini {{current_time}}
+            - Jika waktu yang diminta sudah lewat, pelanggan akan diminta memilih waktu yang lebih baru. Contoh: Jika hari ini Senin, 17 Maret pukul 12:00, dan pelanggan ingin booking Senin, 17 Maret jam 08:00, maka sistem akan memberikan respon:
+          "Maaf kak, 17 Maret jam 8 pagi sudah lewat. Pilih setelah 17 Maret jam 1 siang ya!"
+
+          ### Format Waktu yang Ramah
+          • Waktu Sehari-hari:
+            - 08:00 → Jam 8 pagi
+            - 13:00 → Jam 1 siang
+            - 16:00 → Jam 4 sore
+            - 19:00 → Jam 7 malam
+            - 21:30 → Setengah 10 malam
+          • Hari dan Tanggal:
+            - Selasa, 18 Maret 2025 → Selasa, 18 Maret
+            - Rabu, 19 Maret 2025 → Besok, 19 Maret
+            - Kamis, 20 Maret 2025 → Lusa, 20 Maret
+            - Sabtu, 29 Maret 2025 → Sabtu depan, 29 Maret
+          • Durasi:
+            - 1 jam → 1 jam
+            - 2 jam → 2 jam
+            - 3 jam → 3 jam
+            - 4 jam → 4 jam
+
+          ### Sapaan dalam Komunikasi
+          • Sapaan default: "Kak"
+          • Sapaan alternatif: Pelanggan dapat memilih sapaan seperti "Pak", "Mas", "Abang", "Teteh", "Bro", "Sis", "Bang", "Cing", dan lainnya
+          → Sapaan yang dipilih akan digunakan secara konsisten dalam komunikasi selanjutnya.
+
+    # Source: /flows/Booking_Lapangan/menu-flows/Costum-Fields/costum-field/Booking Lapangan Custom Fields.yml
+    CustomFields: # UserFields might be a better name to distinguish from AccountFields
+      bl_detail_pesanan:
+        type: text # In main YAML, custom field types are: text, number, date, date and time, true | false
+      bl_konversi_waktu:
+        type: text
+      bl_nama_pelanggan:
+        type: text
+      bl_operasional_berakhir:
+        type: date and time
+      bl_operasional_mulai:
+        type: date and time
+      bl_reply:
+        type: text
+      bl_respon_jadwal:
+        type: text
+      bl_status_booking:
+        type: text
+      bl_waktu_berakhir:
+        type: date and time
+      bl_waktu_booking:
+        type: date and time
+      bl_waktu_mula: # Typo for "mulai"? Consistent with bl_operasional_mulai / bl_waktu_mulai
+        type: date and time
+
+    # Source: /flows/Booking_Lapangan/menu-flows/Tags/Booking Lapangan Tags.yml
+    Tags:
+      - Pembayaran
+      - Penawaran
+      - Pengecekan
+      - Penjadwalan
+      - Penutupan
+      - Perkenalan
+
+    # Source: /flows/Booking_Lapangan/menu-tools/Google-Calender/Booking-lapangan-Calenders.yml
+    # This describes the configuration UI for a Google Calendar connection for appointments.
+    # It seems to map to the `appConfig.sidebar.menu[title=Tools].main.tools[name=Google Calendar].pageContent.tabs[title=Calendars].section.addButton.action.fields`
+    # or a similar dialog structure for configuring a specific calendar instance used for appointments.
+
+    GoogleCalendar_BookingLapangan_Config:
+      # This describes a specific instance or type of calendar setup named "Booking - lapangan"
+      # Rather than general menu structure, this seems to be the *values* for that setup.
+      # Let's assume this defines parameters for a specific calendar used in the "Booking Lapangan" flow.
+      calendarName: Booking - lapangan # from "name : Booking - lapangan"
+      appointmentSettings:
+        name: Booking Lapangan # from "what is your appointment: name:"
+        description: "include any information your invite should know about the appontment" # from "description:"
+        availability:
+          # "edit the time as needed" - This implies a UI for setting specific hours/days, not directly representable here as static data unless examples are given.
+          timezone: "use your time zone" # Placeholder
+        location:
+          type: in person # Example, could be phone call, online meeting
+          details: "input detail" # Placeholder
+        notifications:
+          confirmationPageMessage: "input message" # Placeholder
+          confirmationFlow: "select flow" # Placeholder, should be a Flow ID/Name
+          cancellationFlow: "select flow" # Placeholder
+          reminders:
+            - flowToSendCommand: Booking - Pengingat # "send booking -\"pengingat\""
+              timeBefore: "10 minutes"
+            # Example for additional reminder from "#--Add new--#"
+            # - flowToSendCommand: "select flow"
+            #   timeBefore: "number hours before"
+        restrictions:
+          appointmentDuration: "1 hour" # Could also be a number in minutes or an object {value: 1, unit: 'hour'}
+          bufferTimeAfter: "input number of time" # Placeholder, e.g., "15 minutes"
+          schedulingPolicy:
+            type: rollingDays # "Within rolling days in future"
+            rollingDays: 60 # "60 days"
+            # Other types: dateRange, specificDay, anyFutureDate
+          maxAppointmentsPerUser: "Unlimited" # or a number
+          minAppointmentsPerUser: 1
+          dailyLimit: "no" # boolean true/false, or number
+          allowGroupMeetings: "no" # boolean true/false
+          maxAttendeesPerSlot: 3 # "maximum per slot of time : 3"
+
+    # Source: /flows/Booking_Lapangan/menu-flows/Flows/Booking Lapangan Flows.yml
+    # Simplified and re-interpreted structure for "Booking - Alur Utama"
+    # Full conversion of all flows is extensive; this demonstrates the approach.
+
+    Flows:
+      Booking_Alur_Utama: # Name from line 144: name : &Booking-Alur-Utama
+        startingNode: Condition_1 # Label of the first node
+        nodes:
+          Condition_1: # From line 146: Condition : label : Condition#1
+            type: Condition
+            label: Condition#1
+            followingConditionLogic: all # Default, as "all of the following conditions" is used
+            conditions: # Each "Does the user match" is a rule in the condition
+              - rule: # [tag-is-perkenalan -> Olah Respon perkenalan]
+                  # This implies a condition: Tag IS perkenalan
+                  # Assuming BtnForFilterOrCondition structure:
+                  # firstRow: Tags, secondRow: Is, thirdRow: perkenalan
+                  # For simplicity, I'll represent the target node directly.
+                  targetNodeIfTrue: Olah_Respon_Perkenalan # Node to go if true
+                  # This structure needs refinement based on how conditions are actually defined.
+                  # The original is [tag-is-perkenalan -> Olah Respon perkenalan]
+                  # This might mean IF (Tag IS perkenalan) THEN GOTO Olah_Respon_Perkenalan
+                  # Or it's a set of distinct conditions leading to different branches.
+                  # The structure "Does the user match ... all of the following conditions : [tag-is-perkenalan -> Olah Respon perkenalan]"
+                  # followed by another "Does the user match..." implies separate, parallel conditions from the start,
+                  # or sequential evaluation. Given the "The user Doesn't Match all condition" at the end,
+                  # it's more likely a single Condition node with multiple IF-ELSE IF branches or a switch-case like logic.
+                  # For this example, I'll assume they are branches from ONE condition node.
+                  # A more accurate representation would require knowing how the platform handles multiple "Does the user match" blocks.
+                  # Let's assume each is a separate path evaluated.
+
+                  # Simplified:
+                  # If Tag IS "perkenalan" THEN GOTO Olah_Respon_Perkenalan
+                  # If Tag IS "penawaran" THEN GOTO Olah_Respon_Penawaran
+                  # ...
+                  # ELSE (The user Doesn't Match all condition) GOTO Actions_Set_Perkenalan_Tag
+                  # This is highly interpretive. The original YAML shorthand is ambiguous for standard flow graph.
+
+                  # Let's assume it's a multi-branch condition:
+                  # Path 1: (Tag IS perkenalan) -> Olah_Respon_Perkenalan
+                  # Path 2: (Tag IS penawaran) -> Olah_Respon_Penawaran
+                  # Path 3: (Tag IS pengecekan) -> Olah_Respon_Ketersediaan
+                  # Path 4: (Tag IS pembayaran) -> Olah_Respon_Pembayaran
+                  # Path 5: (Tag IS penjadwalan) -> Start_Flow_Penjadwalan
+                  # Default Path: Actions_Set_Perkenalan_Tag (this is the "The user Doesn't Match all condition" part, but its actions are listed after "Start Flow 1")
+                  # The structure is not a standard flow chart. I'll try to map what's explicitly next.
+                  # The original flow definition is very non-standard.
+                  # Let's map the "Olah Respon perkenalan" block:
+            outputs:
+              - { condition: "Tag IS perkenalan", nextNode: "Olah_Respon_Perkenalan" }
+              - { condition: "Tag IS penawaran", nextNode: "Olah_Respon_Penawaran" }
+              - { condition: "Tag IS pengecekan", nextNode: "Olah_Respon_Ketersediaan" }
+              - { condition: "Tag IS pembayaran", nextNode: "Olah_Respon_Pembayaran" }
+              - { condition: "Tag IS penjadwalan", nextNode: "Start_Flow_Penjadwalan" }
+              - { condition: "default", nextNode: "Actions_Set_Perkenalan_Initial" } # From line 163 (The user Doesn't Match...) leading to line 389
+
+
+          Olah_Respon_Perkenalan: # From line 165
+            type: ActionsNode # OpenAI is an action
+            label: Olah Respon perkenalan
+            actions:
+              - type: OpenAI # OpenAI.GenerateTextAdvanced (based on options)
+                config:
+                  modelSelector:
+                    model: gpt-4o-mini
+                  businessInfoPrompt: |
+                    ### Tujuan Prompt
+                    1. Cek apakah {{bl_nama_pelanggan}} sudah tersedia dan pelanggan ingin melakukan booking.
+                    2. Jika belum:
+                      • Tanyakan: "Boleh tahu nama Kakak siapa?" dan "Ada yang bisa saya bantu, kak? Atau ingin booking lapangan?".
+                      • Simpan jawaban ke {{bl_nama_pelanggan}}.
+                      • Set {{bl_status_booking}} = "Penawaran".
+                      • STOP (jangan lanjut booking atau cek jadwal).
+                    3. Jika sudah ada:
+                      • Lanjut ke skenario berikutnya (penawaran).
+
+                    ### Sumber Data & Cara Pakai (Custom Fields) – gunakan sebelum merespon 
+                    • {{bl_profil_bisnis}}: Detail brand (nama, lokasi dan kontak, jam operasional, harga sewa lapangan, sapaan dalam komunikasi).
+                    • {{current_time}}: Patokan waktu saat ini dalam menentukan nama hari, tanggal dan waktu.
+                    • {{bl_parsing_waktu}}: Format waktu yang disebut pelanggan, berlandaskan {{current_time}}.
+                    • {{chat_history}}: Konteks percakapan sebelumnya.
+                    • {{bl_status_booking}}: Penetapan status booking saat percakapan (set ke "Penawaran" setelah nama ada dan pelanggan ingin melakukan booking)
+                    • {{bl_gaya_komunikasi}}: Nada ramah, santai, profesional.
+                    ### Skenario Percakapan
+                    1. Pelanggan Pertama Kali Menyapa
+                      • Balas salam sesuai konteks:  
+                        - "Halo Kaka" → "Halo juga, kak"  
+                        - "Assalamualaikum" → "Waalaikumsalam, kak" (khusus salam agama islam) 
+                        - "Pagi min" → "Pagi juga, kak" 
+                        - "Malam min" → "Malam juga, kak" 
+                        - "Siang kak" → "Siang juga, kak"
+                      • Perkenalkan diri:  
+                        - "Kenalin, saya [nama admin] dari AI Sports Makassar."  
+                      • Tanyakan nama:  
+                        - "Boleh tau nama kakak siapa?"
+
+                    2. Nama Telah Diberi, Pelanggan Belum Sebut Booking  
+                      • "Ada yang bisa saya bantu, kak? Atau ingin booking lapangan?"
+
+                    3. Pelanggan Ingin Booking & Nama Belum Diketahui  
+                      • "Oke, kak. Untuk pesan lapangan, boleh tau nama kakak siapa dulu?"
+
+                    ### Fallback Data Tidak Lengkap
+                    Jika data yang dibutuhkan belum tersedia, sampaikan secara general:
+                    "Maaf, data yang dibutuhkan belum lengkap. Boleh lengkapi informasinya dulu ya, kak?"
+
+                    ### Alur Kerja Singkat
+                    "Baca custom fields → Tentukan skenario → Susun respons sesuai blok di atas → Kirim balasan"
+                  userMessage: "{{last_input}}"
+                  saveToCustomField:
+                    customField: bl_reply # This is a simple text field, not a *commonSaveToCustomFieldConfig object
+                  aiTriggers: # This refers to pre-defined AI Triggers
+                    - bl_1_perkenalan
+                  rememberConversation: true
+                  temperature: 0.4
+                  maxOutputTokens: 250
+            outputs:
+              success: Send_Message_Reply_Perkenalan # From line 219 success : [-> Send Message]
+
+          Send_Message_Reply_Perkenalan: # From line 393 (Send Message after all action blocks)
+            type: SendMessage
+            label: Send Reply Perkenalan
+            messages:
+              - text: '{{bl_reply}}'
+            # This node would then loop back or end.
+
+          Olah_Respon_Penawaran: # From line 221
+            type: ActionsNode
+            label: Olah Respon penawaran
+            actions:
+              - type: OpenAI
+                config:
+                  modelSelector: { model: gpt-4o-mini }
+                  businessInfoPrompt: |
+                    # ... (prompt content from line 227-280)
+                  userMessage: "{{last_input}}"
+                  saveToCustomField: { customField: bl_reply }
+                  aiTriggers: [bl_2_penawaran]
+                  rememberConversation: true
+                  temperature: 0.4
+                  maxOutputTokens: 250
+            outputs:
+              success: Send_Message_Reply_Penawaran
+
+          Send_Message_Reply_Penawaran:
+            type: SendMessage
+            label: Send Reply Penawaran
+            messages:
+              - text: '{{bl_reply}}'
+
+          Olah_Respon_Ketersediaan: # From line 288
+            type: ActionsNode
+            label: Olah Respon ketersediaan
+            actions:
+              - type: OpenAI
+                config:
+                  modelSelector: { model: gpt-4o-mini }
+                  businessInfoPrompt: |
+                    # ... (prompt content from line 294-333)
+                  userMessage: "Periksa ketersediaan jadwal berdasarkan permintaan pelanggan: {{bl_konversi_waktu}}, dan gunakan {{last_input}} sebagai referensi percakapan terakhir."
+                  saveToCustomField: { customField: bl_reply }
+                  aiTriggers: [bl_3_pengecekan]
+                  rememberConversation: true
+                  temperature: 0.4
+                  maxOutputTokens: 250
+            outputs:
+              success: Send_Message_Reply_Ketersediaan
+
+          Send_Message_Reply_Ketersediaan:
+            type: SendMessage
+            label: Send Reply Ketersediaan
+            messages:
+              - text: '{{bl_reply}}'
+
+          Olah_Respon_Pembayaran: # From line 341
+            type: ActionsNode
+            label: Olah Respon pembayaran
+            actions:
+              - type: OpenAI
+                config:
+                  modelSelector: { model: gpt-4o-mini }
+                  businessInfoPrompt: |
+                    # ... (prompt content from line 347-378)
+                  userMessage: "{{last_input}}"
+                  saveToCustomField: { customField: bl_reply }
+                  aiTriggers: [bl_4_pembayaran]
+                  rememberConversation: true
+                  temperature: 0.4
+                  maxOutputTokens: 250
+            outputs:
+              success: Send_Message_Reply_Pembayaran
+
+          Send_Message_Reply_Pembayaran:
+            type: SendMessage
+            label: Send Reply Pembayaran
+            messages:
+              - text: '{{bl_reply}}'
+
+          Start_Flow_Penjadwalan: # From line 385
+            type: StartFlow
+            label: Start Flow Penjadwalan
+            config:
+              flowToStart: Booking - penjadwalan # Name of the flow to start
+
+          Actions_Set_Perkenalan_Initial: # From line 389 (after "The user Doesn't Match all condition" from line 163)
+            type: ActionsNode
+            label: 'Action #1 Initial Setup'
+            actions:
+              - type: SetCustomField
+                config:
+                  customField: bl_status_booking
+                  operation: setTo
+                  value: perkenalan
+              - type: AddTag
+                config:
+                  tag: Perkenalan
+            outputs:
+              success: Send_Message_Reply_Initial # Connects to the generic reply message {{bl_reply}}
+
+          Send_Message_Reply_Initial: # From line 393 (generic reply)
+            type: SendMessage
+            messages:
+              - text: '{{bl_reply}}' # This implies bl_reply should be set by the preceding action or a default value.
+
+        # ... Other flows like "Booking - Penjadwalan", "Booking - Cek Jadwal", "Booking - Pengingat"
+        # would be defined similarly.
+        # The "Booking - Penjadwalan" flow example:
+        Booking_Penjadwalan:
+          startingNode: Condition_Penjadwalan_Waktu_Booking
+          nodes:
+            Condition_Penjadwalan_Waktu_Booking: # Line 4
+              type: Condition
+              label: Check bl_waktu_booking
+              conditions:
+                - rule: # IF bl_waktu_booking HAS ANY VALUE (implicit)
+                    # Define actual condition, e.g., CustomField 'bl_waktu_booking' 'HasAnyValue'
+                    # For this example, we assume the true path is taken if bl_waktu_booking is set.
+                    field: bl_waktu_booking
+                    operator: HasAnyValue # Assumed condition
+                  targetNodeIfTrue: Action_Appointment_Scheduling
+              outputs:
+                - { condition: "bl_waktu_booking HasAnyValue", nextNode: "Action_Appointment_Scheduling" } # True path
+                - { condition: "default", nextNode: "Send_Message_Cek_Dulu" } # False path (The user Doesn't match...)
+
+            Action_Appointment_Scheduling: # Line 5
+              type: ActionsNode
+              actions:
+                - type: AppointmentScheduling # Line 7
+                  config:
+                    calendar: Booking Lapangan
+                    dateCustomField: bl_waktu_booking
+                    # appointmentAction: "book an appointment" (implicit)
+                - type: RemoveTag # Line 13
+                  config: { tag: Penjaddwalan } # Typo in original: Penjaddwalan
+                - type: AddTag # Line 15
+                  config: { tag: Penutupan }
+              # No explicit next node, usually end or loop.
+
+            Send_Message_Cek_Dulu: # Line 18
+              type: SendMessage
+              messages:
+                - text: "Oke, kak {{bl_nama_pelanggan}}, saya cek dulu ya."
+              nextNodes: [OpenAI_Penjadwalan_Fallback]
+
+            OpenAI_Penjadwalan_Fallback: # Line 22
+              type: ActionsNode
+              actions:
+                - type: OpenAI
+                  config:
+                    modelSelector: { model: gpt-4o-mini }
+                    businessInfoPrompt: |
+                      # ... (prompt from lines 26-51)
+                    userMessage: '{{last_input}}'
+                    saveToCustomField: { customField: 'bl_reply' }
+                    aiTriggers: ['bl_5_penjadwalan']
+              nextNodes: [Send_Message_Penjadwalan_Detail_And_Reply]
+
+            Send_Message_Penjadwalan_Detail_And_Reply: # Line 58 & 74
+              type: SendMessage
+              messages:
+                - text: |
+                    DM Sports Makassar {{booking_calendar}}
+
+                    📅 Rincian Waktu :
+                    • Mulai : {{bl_waktu_mulai}}
+                    • Berakhir : {{bl_waktu_berakhir}}
+
+                    📌 Lokasi : https://go.gl/sdW1ww
+                    ✍️ Harap hadir tepat waktu
+                  buttons:
+                    - label: Lihat Jadwal
+                      action: OpenWebsite
+                      url: Link # Placeholder
+                      # messengerBrowserSize: "100%"
+                - typing: 3s
+                - text: '{{bl_reply}}'

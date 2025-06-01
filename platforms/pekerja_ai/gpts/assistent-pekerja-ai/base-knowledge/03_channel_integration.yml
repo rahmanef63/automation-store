@@ -1,0 +1,247 @@
+# file: 03_channel_integration.yml
+# generated: 2025-05-12
+# top_keys: ChannelIntegration_Setup
+
+ChannelIntegration_Setup:
+  RingkasanMenghubungkanPekerjaAIPlatformMediaSosialIntegrasiLainnyaMenuIntegrations:
+    u: pekerja_ai_doc_connected_platforms_overview
+    r: Penjelasan umum mengenai menu Integrations yang berfungsi untuk mengoneksikan Pekerja AI dengan Channels media sosial dan layanan pihak ketiga lainnya.
+    s:
+      - t: Akses menu Integrations untuk menghubungkan Pekerja AI.
+      - t: "Channels: Untuk menghubungkan ke platform sosial media (Facebook, Instagram, WhatsApp, Telegram, Email, Webchat)."
+      - t: "Integrations (lainnya): Untuk koneksi ke layanan pihak ketiga (Google Sheets, Google Calendar, API, dll)."
+  MenghubungkanBotAIFacebookMessenger:
+    u: pekerja_ai_doc_facebook_messenger_setup
+    r: Langkah-langkah menghubungkan bot AI ke channel Facebook Messenger untuk Bot Chat, Auto Chat, Comment, dan Tracking Ads, serta pengaturan khusus setelah terhubung.
+    s:
+      - t: Klik menu Connected Platforms, pilih Facebook Messenger, lalu klik Connect.
+      - t: Lanjutkan login dengan akun Facebook kamu (klik Lanjutkan Sebagai ...).
+      - t: Pilih salah satu Facebook Page (Fanspage) yang ingin dikoneksikan, lalu klik tombol Connect di page tersebut.
+      - t: Tunggu proses koneksi selesai.
+      - t: "TIPS: Cek apakah Facebook berhasil terkoneksi dengan melihat di daftar Connected Platforms. Jika tombol \"Connect\" sudah tidak muncul di sebelah Facebook Messenger, artinya koneksi berhasil."
+      - t: Setelah terhubung, kamu akan melihat beberapa pengaturan khusus Facebook Messenger:
+        sub:
+          - t: "Welcome Message: Pesan pertama yang diterima pengguna saat mulai chat dengan bot (ketika mereka klik \"Mulai\")."
+          - t: "Greeting: Pesan sambutan yang dilihat pengguna di layar pembuka (sebelum menekan \"Mulai\"). Ini muncul sekali untuk pengguna baru."
+          - t: "Conversation Starters: Daftar pertanyaan yang sering diajukan, ditampilkan sebagai opsi untuk memulai percakapan dengan bisnis Anda."
+          - t: "Persistent Menu: Menu tetap yang selalu tersedia di interface chat, berisi tindakan/menu utama bot untuk memudahkan navigasi pengguna."
+          - t: "Dynamic Persistent Menu: Menu persisten yang dapat diubah secara dinamis kapan saja untuk masing-masing pengguna."
+          - t: "Bot Profile: Pengaturan untuk mengatur nama dan foto profil khusus untuk bot Anda (terpisah dari halaman Facebook)."
+          - t: "Refresh Permissions: Opsi untuk menyegarkan izin. Gunakan jika bot Messenger tidak merespons atau ada error izin."
+          - t: "Messenger Disconnect: Putuskan koneksi akun Facebook kamu dari Pekerja AI."
+  MenghubungkanBotAIWhatsAppWhatsAppBusinessAPI:
+    u: pekerja_ai_doc_whatsapp_setup
+    r: Panduan menghubungkan bot ke WhatsApp, yang memerlukan akun WhatsApp Business API dan umumnya melibatkan penyedia resmi atau API key dari Meta. Integrasi ini mungkin memerlukan penautan metode pembayaran di...
+    s:
+      - t: "Note: WhatsApp bot integration umumnya membutuhkan penyedia resmi atau API key dari Meta. Pastikan akun WhatsApp Business kamu telah terdaftar pada provider atau Meta Business Manager."
+      - t: Klik menu Connected Platforms, pilih WhatsApp, lalu klik Connect.
+      - t: Ikuti instruksi untuk menghubungkan akun WhatsApp Business kamu (bisa melalui penyedia WhatsApp API).
+      - t: Tunggu hingga status koneksi menunjukkan berhasil.
+      - t: Khusus WhatsApp, integrasi harus melalui layanan resmi dan biasanya memerlukan menautkan metode pembayaran di Meta Business Manager.
+      - t: (Detail langkah integrasi WhatsApp dapat bervariasi tergantung penyedia API WhatsApp. Pastikan mengikuti panduan penyedia atau video tutorial yang disediakan.)
+  MenghubungkanBotAIInstagram:
+    u: pekerja_ai_doc_instagram_setup
+    r: Langkah-langkah menghubungkan bot AI ke channel Instagram untuk Bot Chat, Auto Chat, Comment, dan Tracking Ads. Memastikan akun Instagram adalah Business/Creator dan terhubung ke Facebook Page, serta...
+    s:
+      - t: "Pastikan akun Instagram adalah Instagram Business atau Creator, dan telah terhubung ke sebuah Facebook Page. (Ini syarat agar otomatisasi Instagram berfungsi.)"
+      - t: Pada akun Instagram bisnis Anda, aktifkan izin pesan:
+      - t: "Buka Settings (Pengaturan) Instagram, masuk ke Privacy > Messages and Story replies."
+      - t: "Pada Message Controls, pastikan opsi \"Allow Access to Messages\" diaktifkan (agar Pekerja AI dapat membaca DM)."
+      - t: Klik menu Connected Platforms, pilih Instagram, lalu klik Connect.
+      - t: Login dengan akun Facebook yang terhubung ke Instagram bisnis tersebut (klik Lanjutkan Sebagai ...).
+      - t: Pilih akun Instagram bisnis yang muncul untuk dikoneksikan, lalu klik tombol Connect.
+      - t: Tunggu proses koneksi hingga selesai.
+      - t: "TIPS: Cek di daftar Connected Platforms - jika tombol \"Connect\" pada Instagram sudah hilang, berarti Instagram berhasil terkoneksi."
+      - t: Setelah terhubung, tersedia beberapa fitur khusus Instagram:
+        sub:
+          - t: "Instagram Disconnect: Putuskan koneksi akun Instagram dari Pekerja AI."
+          - t: "Story Mention Reply: Bot akan otomatis membalas jika seseorang mention akun Instagram Anda di story mereka."
+          - t: "Persistent Menu: Menu tetap untuk membantu pengguna mengakses fitur bot dengan mudah di DM Instagram."
+          - t: "Conversation Starters: Pertanyaan awal untuk memulai percakapan di DM."
+          - t: "Refresh Permissions: Sambungkan ulang bot jika bot Instagram tidak merespons atau muncul error izin di log."
+  MenghubungkanBotAIWebChatbotWebsiteLandingPage:
+    u: pekerja_ai_doc_web_chatbot_setup
+    r: Panduan menghubungkan bot AI ke Web Chatbot, termasuk membuat webchat baru, mengatur domain resmi, dan opsi konfigurasi lanjutan seperti tampilan, perilaku, dan custom fields.
+    s:
+      - t: Klik menu Connected Platforms, pilih Web Chatbot, lalu klik Connect.
+      - t: Buat Webchat baru dengan mengisi form yang muncul.
+      - t: Tambahkan daftar domain atau subdomain di kolom Authorized Websites – web chatbot hanya akan muncul di situs yang terdaftar di sini.
+      - t: Form pengaturan Web Chatbot mencakup:
+        sub:
+          - t: "Name: Nama web chatbot (Wajib)."
+          - t: "Welcome Message: Pesan pembuka (Opsional)."
+          - t: "Authorized Websites: Daftar domain (Opsional)."
+          - t: "Conversation Starters: Pertanyaan pembuka (Opsional)."
+          - t: "Persistent Menu: Menu navigasi (Opsional)."
+      - t: "More Options:"
+        sub:
+          - t: "Template: Pilih template tampilan (Opsional)."
+          - t: "Brand Color: Pilih warna tema (Opsional)."
+          - t: "Customize webchat with CSS: Tambahkan CSS kustom (jika diperlukan) (Opsional)."
+      - t: "Beberapa Advanced Option (dengan nilai default):"
+        sub:
+          - t: "type: Tipe penyematan (floating / window / container). Default: floating."
+          - t: "element: (Jika type = container) Selector elemen HTML tempat menyematkan (contoh: #div1)."
+          - t: "headerTitle: Judul di header webchat. Default: Nama akun."
+          - t: "color: Kode warna tema. Default: #007BFF."
+          - t: "hideHeader: Sembunyikan header. Value: true/false. Default: false."
+          - t: "ref: ID ref/flow/step yang dikirim otomatis ketika pengguna klik ikon chat. (Misal: set ref = \"get_started_button\" untuk otomatis kirim alur Welcome.)"
+          - t: "showPersona: Tampilkan avatar persona. true/false. Default: false."
+          - t: "hideComposer: Sembunyikan kolom input. true/false. Default: false."
+          - t: "template: Pilihan template (contoh: template1/template2)."
+          - t: "position (right & bottom): Jarak posisi ikon chat. Default: right 20px, bottom 20px."
+          - t: "loadMessages: Muat riwayat chat. true/false. Default: true."
+          - t: "setCustomFields: Atur custom field ketika chat dimulai. Format:[{\"id\":\"email\",\"value\":\"user@gmail.com\"}, {\"id\":12345,\"value\":\"Value\"}]." # YAML needs careful quoting for JSON strings
+      - t: "Setelah membuat Web Chatbot, klik ikon : (tiga titik) pada daftar Webchat, lalu pilih Get Code untuk mendapatkan kode skrip."
+      - t: Pasang kode script tersebut di bagian <head> situs web atau landing page kamu. Setelah terpasang, chatbot akan muncul di website tersebut.
+  MenghubungkanBotAITelegram:
+    u: pekerja_ai_doc_telegram_setup
+    r: Langkah-langkah menghubungkan bot AI ke Telegram menggunakan Bot Token dari @BotFather, serta opsi koneksi akun Telegram Personal (Premium) sebagai agen manusia.
+    s:
+      - t: Langkah-langkah menghubungkan bot AI reguler:
+        sub:
+          - t: Klik menu Connected Platforms, pilih Telegram, lalu klik Connect.
+          - t: "Masukkan Bot Token Telegram kamu pada kolom yang muncul, lalu klik Continue. (Bot Token diperoleh dari @BotFather saat membuat bot Telegram.)"
+          - t: Tunggu proses koneksi selesai.
+          - t: "Tips: Cek di Connected Platforms – jika tombol \"Connect\" pada Telegram sudah hilang, artinya bot Telegram sudah terhubung."
+      - t: Setelah terhubung, tersedia pengaturan khusus Telegram:
+        sub:
+          - t: "Telegram Disconnect: Putuskan koneksi bot Telegram dari Pekerja AI."
+          - t: "Welcome Message: Pesan pertama yang diterima pengguna saat start bot (saat tekan /start)."
+          - t: "Persistent Menu: Menu tetap di bot Telegram untuk akses fitur dengan mudah."
+      - t: "Koneksi Telegram Personal (Opsional):"
+        sub:
+          - t: "Syarat: Akun Telegram tersebut harus berstatus Premium."
+          - t: Konfigurasi Bot di BotFather
+            sub:
+              - t: Buka Telegram, cari @BotFather dan mulai chat.
+              - t: Ketik perintah /mybots untuk melihat daftar bot, lalu pilih bot yang ingin dikonfigurasikan.
+              - t: "Masuk ke Bot Settings > Mode Bisnis dan aktifkan Mode Bisnis (Business Mode) untuk bot tersebut."
+          - t: Hubungkan Akun Telegram Pribadi ke Bot
+            sub:
+              - t: "Buka aplikasi Telegram (akun pribadi), masuk ke Settings > Telegram Bisnis > Chatbot."
+              - t: Masukkan username atau link bot kamu, lalu klik Tambahkan.
+              - t: "Pilih izin akses bot: All 1:1 Chats (semua chat pribadi) atau Only Specific Chats (chat tertentu saja)."
+      - t: "Tips: Untuk membuat bot Telegram, gunakan BotFather dengan perintah /newbot. Setelah bot dibuat, BotFather akan memberikan Bot API Token."
+  MenghubungkanPekerjaAIEmail:
+    u: pekerja_ai_doc_email_setup
+    r: Panduan menghubungkan Pekerja AI ke layanan Email untuk mengirim email, notifikasi, dll. Mencakup pemilihan penyedia, otorisasi, konfigurasi SMTP manual, dan pengumpulan alamat email serta persetujuan.
+    s:
+      - t: Klik menu Connected Platforms, pilih Email, lalu klik Connect.
+      - t: Pilih penyedia layanan email kamu dari form (misal: Gmail, Outlook, Zoho, dll) dan hubungkan akun email tersebut dengan mengikuti proses otorisasi.
+      - t: Jika penyedia email tidak ada dalam daftar, pilih Other dan masukkan konfigurasi SMTP manual.
+      - t: "Beberapa penyedia memerlukan pengaturan tambahan (misal: Gmail memerlukan pembuatan App Password, Zoho memerlukan password aplikasi jika 2FA aktif)."
+      - t: "Pastikan email terhubung berhasil. (Akan tampil status atau info akun email di platform Email.)"
+      - t: "Pengumpulan Alamat Email dan Persetujuan:"
+        sub:
+          - t: Sebelum mengirim email ke pengguna melalui bot, kumpulkan terlebih dahulu alamat email pengguna dan persetujuannya.
+          - t: Gunakan blok User Input untuk meminta alamat email pengguna, simpan ke field Email (setiap kontak di Pekerja.ai memiliki field Email).
+          - t: "Gunakan aksi Set Email Opt-In (di blok Actions) untuk menandai bahwa pengguna memberi izin menerima email. (Sebaiknya aksi ini dijalankan ketika pengguna menekan tombol \"Setuju menerima email\".)"
+          - t: "Catatan: Email tidak akan terkirim jika persetujuan pengguna tidak diset dengan Set Email Opt-In."
+      - t: "Catatan untuk Gmail: Disarankan menggunakan App Password daripada password Gmail biasa. Gunakan App Password tersebut saat menghubungkan Gmail."
+      - t: "Catatan untuk Zoho Mail: Jika Autentikasi 2 Faktor aktif, gunakan application-specific password."
+      - t: "Tips: Satu-satunya cara mengirim email melalui Pekerja.ai adalah dengan menjalankan alur (Flow) yang memiliki aksi kirim email."
+  MenghubungkanAkunTelegramPekerjaAIViaBotAkunPremium:
+    u: https://youtu.be/DltOzZpEI4w
+    r: Video ini menjelaskan dua cara menghubungkan Telegram ke platform Pekerja AI: melalui Bot Telegram atau Akun Telegram Pribadi/Bisnis (memerlukan Telegram Premium).
+    s:
+      - t: Menghubungkan via Bot Telegram:
+      - t: Buat bot baru di Telegram menggunakan @BotFather. Ikuti instruksi @BotFather untuk mendapatkan token API bot Anda.
+      - t: Di platform Pekerja AI, buka menu 'Connected Platforms'
+      - t: Pilih Telegram dan klik 'Connect'.
+      - t: Masukkan token API bot yang Anda dapatkan dari @BotFather.
+      - t: Klik 'Continue'
+      - t: Uji koneksi dengan mengirim pesan ke username bot Telegram Anda.
+      - t: "Menghubungkan via Akun Telegram Pribadi/Bisnis (Premium):"
+      - t: Pastikan akun Telegram Anda sudah berlangganan Premium.
+      - t: Di Telegram, chat dengan @BotFather, kirim perintah '/mybots', dan pilih bot yang sudah Anda hubungkan atau buat bot baru.
+      - t: Masuk ke pengaturan bot tersebut di @BotFather.
+      - t: Aktifkan opsi 'Business Mode'.
+      - t: "Di platform Pekerja AI, buka menu 'Connected Platforms' -> Telegram. Cari opsi untuk menghubungkan akun bisnis/premium."
+      - t: Ikuti instruksi untuk menambahkan bot yang sudah diaktifkan Business Mode-nya. Akun pribadi/bisnis Anda kini terhubung.
+  MenghubungkanAkunInstagramProfesionalPekerjaAI:
+    u: https://youtu.be/A5wssJ3N3vw
+    r: Video ini memandu cara menghubungkan akun Instagram Anda ke platform Pekerja AI agar dapat mengelola pesan dan otomatisasi.
+    s:
+      - t: "Pastikan Akun Instagram Profesional: Akun Instagram Anda harus berupa akun Profesional (Bisnis atau Kreator). Jika masih akun pribadi, ubah melalui Pengaturan Instagram."
+      - t: "Hubungkan ke Halaman Facebook: Akun Instagram Profesional Anda harus terhubung ke sebuah Halaman Facebook (Facebook Page). Lakukan ini melalui Pengaturan Instagram atau Pengaturan Halaman Facebook."
+      - t: "Hubungkan di Pekerja AI:"
+        sub:
+          - t: "Masuk ke platform Pekerja AI, buka menu 'Connected Platforms' atau Pengaturan -> Channel."
+          - t: Pilih Instagram dan klik 'Connect'.
+          - t: Anda akan diarahkan ke Facebook untuk memberikan izin. Ikuti langkah-langkah otorisasi, pastikan Anda memilih Halaman Facebook yang benar dan memberikan semua izin yang diperlukan.
+          - t: "Setelah berhasil, tombol 'Connect' akan berubah status menjadi terhubung."
+      - t: (Opsional) Atur fitur tambahan jika ada.
+      - t: Lakukan pengujian dengan mengirim pesan ke akun Instagram Anda dari akun lain.
+  MenghubungkanWhatsAppBusinessAPIPekerjaAI:
+    u: https://www.youtube.com/watch?v=BzN7Z1KpRV0
+    r: Video tutorial ini menjelaskan cara menghubungkan WhatsApp Business API Anda ke akun Pekerja AI Anda. Ini mencakup pembuatan akun Facebook Business Manager, pengaturan aplikasi di Facebook Developers, dan...
+    s:
+      - t: "Pergi ke Facebook Developers -> navigasi ke developers.facebook.com"
+      - t: Pastikan Anda login dengan akun Facebook yang sama yang digunakan untuk membuat akun Business Manager
+      - t: "Buat Aplikasi -> Klik -> Create App"
+      - t: "Klik -> Other"
+      - t: "Klik -> Next"
+      - t: "Klik -> Business"
+      - t: Pilih akun Business Manager yang ingin Anda gunakan
+      - t: "Klik -> Create App"
+      - t: Masukkan kata sandi Facebook Anda jika diminta
+      - t: "Siapkan WhatsApp -> Klik -> WhatsApp"
+      - t: "Klik -> Set up"
+      - t: "Klik -> Start using the API"
+      - t: "Tambahkan Nomor Telepon -> Klik -> Add phone number"
+      - t: Masukkan nama tampilan untuk akun WhatsApp Business Anda
+      - t: Pilih kategori bisnis
+      - t: "Klik -> Next"
+      - t: Masukkan nomor telepon yang ingin Anda gunakan (pastikan belum terhubung ke akun WhatsApp Business biasa)
+      - t: Pilih metode verifikasi (SMS atau Panggilan Telepon)
+      - t: Masukkan kode verifikasi
+      - t: "Klik -> Next"
+      - t: "Konfigurasi Webhooks -> Klik -> Configuration"
+      - t: Masukkan Callback URL (disediakan dalam deskripsi video)
+      - t: "Masukkan \"WhatsApp\" sebagai token Verifikasi"
+      - t: "Klik -> Verify"
+      - t: Berlangganan ke semua bidang webhook
+      - t: "Siapkan Pengguna Sistem di Business Manager -> Kembali ke akun Business Manager Anda"
+      - t: "Klik -> System Users"
+      - t: "Jika Anda tidak memiliki pengguna sistem, buat satu: Klik -> Add, Masukkan nama untuk pengguna sistem, Pilih peran (Karyawan atau Admin)"
+      - t: "Tetapkan Aset ke Pengguna Sistem -> Pilih pengguna sistem"
+      - t: "Klik -> Add Assets"
+      - t: Pilih aplikasi yang Anda buat
+      - t: Aktifkan kontrol penuh
+      - t: "Klik -> WhatsApp account"
+      - t: Pilih akun WhatsApp Business Anda
+      - t: Aktifkan kontrol penuh
+      - t: "Klik -> Save Changes"
+      - t: "Hasilkan Token -> Klik -> Generate Token"
+      - t: Pilih aplikasi yang Anda buat
+      - t: "Klik -> Next"
+      - t: Atur kedaluwarsa token ke Tidak Pernah (Never)
+      - t: Pilih semua izin
+      - t: "Klik -> Generate Token"
+      - t: Verifikasi akun Anda jika diminta
+      - t: Salin token yang dihasilkan
+      - t: "Hubungkan ke Pekerja AI -> Pergi ke akun Pekerja AI Anda"
+      - t: "Klik -> Connect Platforms"
+      - t: "Klik -> WhatsApp"
+      - t: "Klik -> Connect"
+      - t: Centang kedua kotak
+      - t: Tempel token di bidang Access Token
+      - t: "Dapatkan ID Akun WhatsApp Business -> Kembali ke halaman Facebook Developers"
+      - t: "Klik -> API setup"
+      - t: Pilih nomor telepon Anda
+      - t: Salin ID Akun WhatsApp Business
+      - t: Tempel ID Akun WhatsApp Business di bidang Wabha di Pekerja AI
+      - t: "Klik -> Continue"
+      - t: "Klik -> Connect"
+  SetupIntegrasiBerbagaiChannelWebchatWhatsAppInstagramTelegramEmail:
+    u: https://www.youtube.com/live/pohCJefEdxY?si=2JdBCsE7BFw-foV-
+    r: Cara menghubungkan chatbot ke berbagai channel: Webchat, WhatsApp, Instagram, Telegram, Email.
+    s:
+      - t: "Buka Connected Platforms → Manage."
+      - t: Pilih Webchat, klik Add Domain, masukkan domain website Anda.
+      - t: Pilih WhatsApp, masukkan nomor bisnis dan ikuti verifikasi.
+      - t: Pilih Instagram (Messenger API), sambungkan akun bisnis Facebook Anda.
+      - t: Untuk Telegram, klik Connect, masukkan Bot Token.
+      - t: Untuk Email, masukkan SMTP server dan kredensial.
+      - t: Klik Save lalu test setiap channel dengan mengirim pesan uji.

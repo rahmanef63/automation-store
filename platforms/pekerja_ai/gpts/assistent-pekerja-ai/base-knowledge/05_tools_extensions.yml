@@ -1,0 +1,162 @@
+# file: 05_tools_extensions.yml
+# generated: 2025-05-15
+# top_keys: Advanced_APIUsage_Integrations, Broadcast_MassMessaging, Ecommerce_ProductFeatures, PlatformTools_Utilities, UI_UX_Customization
+
+Advanced_APIUsage_Integrations:
+  FiturIntegrationsMenghubungkanLayananPihakKetiga:
+    u: pekerja_ai_doc_integrations_overview
+    r: Fitur Integrations berfungsi untuk mengoneksikan bot AI ke layanan pihak ketiga seperti Google Sheets, Google Calendar, API, dan lainnya. Biasanya memerlukan API Access Token atau autentikasi.
+    s:
+      - t: Fitur Integrations digunakan untuk koneksi ke layanan pihak ketiga.
+      - t: "Contoh layanan: Google Sheets, Google Calendar, API lainnya."
+      - t: Untuk menggunakan integrasi, biasanya diperlukan API Access Token atau autentikasi ke layanan terkait.
+  MendapatkanMenggunakanAPIAccessTokenPekerjaai:
+    u: pekerja_ai_doc_api_access_token
+    r: Panduan untuk mendapatkan API Access Token unik milik Anda di platform Pekerja.ai, yang digunakan untuk mengizinkan akses API ke akun Anda dan mempelajari dokumentasi API.
+    s:
+      - t: "Buka menu Integrations > API Access Token di platform Pekerja.ai."
+      - t: "Klik tombol Generate untuk membuat API Key/Token unik milik Anda. (Token ini akan digunakan untuk mengizinkan akses API ke akun Anda.)"
+      - t: "Selanjutnya, Anda bisa mempelajari dokumentasi API di URL berikut: https://client.pekerja.ai/api - halaman ini berisi panduan penggunaan API Pekerja.ai."
+  MengaksesMemanfaatkanDokumentasiAPIPekerjaAIIntegrasiLanjutan:
+    u: https://www.youtube.com/live/IBRyfbV1-Vw?si=DvVl_XI18JAtcp6f
+    r: Cara mengakses dan memanfaatkan dokumentasi API Pekerja AI untuk integrasi lanjutan.
+    s:
+      - t: Buka menu 'Integration', 'Settings', atau 'Developer Tools' di platform Pekerja AI.
+      - t: Cari link atau tombol menuju 'API Docs' atau 'Dokumentasi API'.
+      - t: "Di halaman dokumentasi, Anda akan menemukan daftar endpoint API yang tersedia (misal: GET /accounts, POST /chat, DELETE /flow, dsb.)."
+      - t: "Klik setiap endpoint untuk melihat detailnya, termasuk:"
+        sub:
+          - t: Metode HTTP (GET, POST, PUT, DELETE)
+          - t: URL endpoint
+          - t: Parameter yang dibutuhkan (path, query, body request)
+          - t: Contoh request
+          - t: Contoh response (sukses dan error)
+          - t: Informasi otentikasi (cara menyertakan API key atau token).
+      - t: Gunakan tool eksternal seperti Postman, Insomnia, atau cURL untuk menguji endpoint API secara langsung.
+      - t: Salin contoh kode dari dokumentasi (jika tersedia dalam berbagai bahasa pemrograman) dan integrasikan ke aplikasi atau sistem eksternal Anda.
+  IntegrasiAIAgentEksternalContohGPKDariChina:
+    u: https://www.youtube.com/live/IBRyfbV1-Vw?si=DvVl_XI18JAtcp6f
+    r: Memperkenalkan AI agent eksternal (GPK) dari China untuk riset bisnis lebih dalam.
+    s:
+      - t: Di menu 'Integration' atau 'Connected Platforms', cari opsi 'External API' atau 'Custom Integration'.
+      - t: Klik 'Add API' atau 'Tambah Integrasi Baru'.
+      - t: Jika ada preset untuk agen tertentu (seperti GPK Agent), pilih itu. Jika tidak, pilih opsi 'Custom API'.
+      - t: "Masukkan informasi yang diperlukan:"
+        sub:
+          - t: "Nama Integrasi (misal, 'GPK Research Agent')"
+          - t: Endpoint URL dari API eksternal tersebut.
+          - t: "Metode otentikasi (misal, API Key, Bearer Token) dan masukkan kredensialnya."
+          - t: Header tambahan jika diperlukan.
+      - t: Simpan pengaturan integrasi. API eksternal ini sekarang akan tersedia untuk digunakan dalam Flow Anda.
+      - t: Test koneksi (jika ada tombol test) atau langsung gunakan dalam Flow dengan card 'External API' atau 'HTTP Request' untuk memastikan integrasi berfungsi.
+  MelakukanRisetMendalamAgenEksternalGPKViaFlow:
+    u: https://www.youtube.com/live/IBRyfbV1-Vw?si=DvVl_XI18JAtcp6f
+    r: Cara memanfaatkan GPK untuk scraping data website dan media sosial secara otomatis.
+    s:
+      - t: "Pastikan agen eksternal (seperti GPK) sudah terintegrasi (lihat guide 'Integrasi dengan AI Agent Eksternal')."
+      - t: Dalam Flow Builder, tambahkan card 'External API', 'HTTP Request', atau 'Webhook'.
+      - t: Pilih API eksternal yang sudah Anda konfigurasi (misal, GPK).
+      - t: "Konfigurasi request:"
+        sub:
+          - t: Pilih metode HTTP (GET, POST, dll.) sesuai kebutuhan API eksternal.
+          - t: Masukkan path spesifik endpoint jika diperlukan.
+          - t: "Kirim parameter yang dibutuhkan oleh API eksternal, misalnya URL target untuk scraping (bisa dari Custom Field atau input user). Contoh: `{\"url\": \"{{target_website_url}}\"}`." # JSON in YAML
+      - t: "Map respons dari API eksternal ke Custom Fields di Pekerja AI. Misalnya, jika API mengembalikan JSON dengan `product_name` dan `price`, map nilai-nilai ini ke Custom Field `{{gpk_product_name}}` dan `{{gpk_price}}`."
+      - t: "Hubungkan card ini ke card berikutnya (misal, 'Send Message') untuk menampilkan hasil riset kepada pengguna atau menyimpannya untuk diproses lebih lanjut."
+      - t: "Test alur: kirim chat yang memicu flow ini (misal, \"Riset toko kamera dos.co.id\") dan periksa apakah output dari agen eksternal ditampilkan atau disimpan dengan benar."
+
+Broadcast_MassMessaging:
+  PesanBroadcastKontakTelegram:
+    u: https://youtu.be/5iqxvqfSomM
+    r: Cara mengirim pesan broadcast ke kontak telegram broadcast adalah fitur yang memungkinkan Anda mengirim pesan massal ke banyak kontak sekaligus di Pekerja Ai. cocok untuk mengirim pengumuman, diskon, atau...
+    s:
+      - t: Pastikan Anda sudah memiliki Flow yang ingin dikirimkan sebagai isi pesan broadcast.
+      - t: Masuk ke menu 'Broadcast' di sidebar platform.
+      - t: Klik tombol '+ Send' atau 'Create Broadcast'.
+      - t: "Pilih Channel: 'Telegram'."
+      - t: "Pilih Flow: Pilih Flow yang sudah Anda siapkan dari daftar."
+      - t: "Opsional: Gunakan 'Conditions' atau 'Segmentasi' untuk memfilter target kontak berdasarkan Tag, Custom Field, atau kriteria lainnya. Jika tidak difilter, broadcast akan dikirim ke semua kontak Telegram yang memenuhi syarat."
+      - t: Review pengaturan broadcast Anda.
+      - t: Klik 'Send' atau 'Schedule' untuk mengirim broadcast segera atau menjadwalkannya.
+  PesanBroadcastKontakWhatsAppTemplateMessageVsActiveContacts:
+    u: https://youtu.be/SioJbZkbpzc
+    r: Cara mengirim broadcast ke kontak WhatsApp fitur broadcast ini super powerful karena memungkinkan kamu mengirim pesan ke banyak kontak sekaligus secara otomatis cocok banget buat kirim pengumuman diskon update...
+    s:
+      - t: "Buat Flow yang ingin Anda kirimkan. Catatan penting:"
+        sub:
+          - t: "Jika Anda ingin mengirim ke semua kontak WhatsApp (termasuk yang di luar jendela 24 jam interaksi terakhir), Flow Anda HARUS berupa 'Template Message' yang sudah disetujui oleh WhatsApp/Meta."
+          - t: Jika Flow Anda bukan Template Message, broadcast hanya bisa dikirim ke kontak yang telah berinteraksi dengan Anda dalam 24 jam terakhir.
+      - t: Masuk ke menu 'Broadcast'.
+      - t: Klik tombol '+ Send' atau 'Create Broadcast'.
+      - t: "Pilih Channel: 'WhatsApp'."
+      - t: Klik 'Continue'.
+      - t: "Pilih Jenis Pesan Broadcast:"
+        sub:
+          - t: "'Template Message': Pilih ini jika Anda menggunakan Template Message yang disetujui (untuk menjangkau semua kontak)."
+          - t: "'Active contacts within 24 hours' (Kontak aktif dalam 24 jam): Pilih ini jika Anda mengirim Flow biasa (non-template)."
+      - t: Klik 'Continue'.
+      - t: "Pilih Flow yang akan dikirim (misalnya, Flow 'kirim pesan promosi')."
+      - t: "Opsional: Atur 'Conditions' atau 'Segmentasi' untuk memfilter target audiens jika perlu."
+      - t: Klik 'Send'.
+      - t: Klik 'Continue'/'Confirm' untuk memulai pengiriman broadcast.
+
+Ecommerce_ProductFeatures:
+  MenambahProdukFiturEcommerceMelaluiImporFileCSV:
+    u: https://youtu.be/m2VmF31myR4
+    r: dalam tutorial ini saya akan menunjukkan cara mengimpor produk di bagian e-commerce, saya akan menginput produk dari file csv, fitur ini Menghemat banyak waktu dalam membuat produk di akun kamu dengan...
+    s:
+      - t: Siapkan data produk Anda dalam format file CSV. Sangat disarankan untuk mengunduh template CSV yang disediakan oleh platform Pekerja AI untuk memastikan format kolomnya benar.
+      - t: Isi template CSV dengan data produk Anda (nama produk, harga, deskripsi, SKU, stok, gambar URL, dll., sesuai kolom template).
+      - t: "Masuk ke menu 'Tools' -> 'E-commerce' (atau menu E-commerce langsung jika ada)."
+      - t: Cari dan pilih tombol '[Import Products]' atau 'Impor Produk'.
+        sub:
+          - t: "Jika Anda belum memiliki template, klik 'Get Template File' atau 'Unduh Template' untuk mendapatkannya."
+          - t: Klik 'Select file' atau 'Pilih File' untuk mengunggah file CSV yang sudah Anda isi, atau seret file CSV ke area yang ditentukan.
+      - t: Tunggu hingga proses validasi file selesai.
+      - t: Platform mungkin akan meminta Anda untuk melakukan mapping kolom (mencocokkan kolom di CSV Anda dengan field produk di sistem).
+      - t: Setelah validasi dan mapping (jika ada) selesai, pilih tombol '[Continue]' atau 'Lanjutkan'.
+      - t: Produk Anda akan diimpor. Periksa daftar produk di E-commerce untuk memastikan semua data masuk dengan benar.
+
+PlatformTools_Utilities:
+  PemanfaatanToolQRCodeGeneratorImageGenerationEditor:
+    u: https://www.youtube.com/live/IBRyfbV1-Vw?si=DvVl_XI18JAtcp6f
+    r: Menunjukkan fitur generate QR code untuk share dan generate/edit image dalam platform.
+    s:
+      - t: "QR Code Generator:"
+        sub:
+          - t: "Di sidebar Dashboard, buka menu 'Tools' → 'QR Code Generator'."
+          - t: "Masukkan URL yang ingin dijadikan QR Code (misalnya, link ke flow chat Anda, halaman promosi, website)."
+          - t: Klik 'Generate' atau 'Buat QR'.
+          - t: Download gambar QR Code yang dihasilkan.
+          - t: Sisipkan QR Code ini di materi promosi Anda (online atau cetak) untuk memudahkan pengguna mengakses link tersebut.
+      - t: "Image Generation/Editor:"
+        sub:
+          - t: "Di sidebar Dashboard, buka menu 'Tools' → 'Image Generation' (atau nama serupa)."
+          - t: "Masukkan prompt teks yang mendeskripsikan gambar yang ingin Anda buat (contoh: \"Foto produk UMKM yang menarik dengan latar belakang cerah\")."
+          - t: Klik 'Generate'. Hasil gambar akan muncul.
+          - t: (Jika ada fitur editor) Anda mungkin bisa melakukan editing dasar pada gambar yang dihasilkan.
+          - t: Klik 'Download' untuk menyimpan gambar ke perangkat Anda.
+
+UI_UX_Customization:
+  TombolPemulaiPercakapanConversationStartersChannel:
+    u: https://youtu.be/x3HZoRIC3nc
+    r: Cara membuat conversation starters fitur ini bikin pengguna bisa langsung mulai chat dengan bisnis lewat daftar pertanyaan yang sering ditanyakan Jadi mereka enggak cuma lihat tombol get started yang biasa...
+    s:
+      - t: "Akses pengaturan channel yang ingin Anda kustomisasi (misal, Facebook Messenger, Web Chat). Ini bisa melalui menu Profil -> Settings -> Channel, atau langsung dari 'Connected Platforms'."
+      - t: Pilih channel yang relevan (contoh: Facebook Messenger).
+      - t: "Cari menu atau bagian yang disebut 'Conversation Starters', 'Get Started Button Payloads', atau 'Persistent Menu' (tergantung channel dan platform)."
+      - t: "Ketik pertanyaan atau label tombol yang ingin Anda tampilkan sebagai pemulai percakapan (misal, \"Tanya Produk\", \"Cek Status Pesanan\", \"Bicara dengan Agen\")."
+      - t: Untuk setiap pertanyaan/tombol, atur respons otomatis atau alur (Flow) yang akan dijalankan ketika tombol tersebut dipilih oleh pengguna.
+      - t: Anda biasanya bisa menambahkan beberapa Conversation Starters.
+      - t: Simpan pengaturan Anda. Perubahan akan terlihat saat pengguna memulai percakapan baru dengan bot Anda di channel tersebut.
+  KustomisasiPesanSelamatDatangWelcomeMessageWebchatChannelLain:
+    u: https://www.youtube.com/live/pohCJefEdxY?si=2JdBCsE7BFw-foV-
+    r: Menentukan pesan sambutan pertama saat user membuka chat di Webchat atau channel lain.
+    s:
+      - t: "Akses pengaturan channel spesifik, misalnya 'Webchat', melalui menu 'Connected Platforms' atau 'Settings' -> 'Channels'."
+      - t: Di pengaturan Webchat (atau channel lain yang mendukung), cari tab atau bagian 'Welcome Message' atau 'Greeting Text'.
+      - t: "Isi teks pesan sambutan yang ingin ditampilkan saat pengguna pertama kali membuka jendela chat. Contoh: “Selamat datang di Toko Kamera DOS! Ada yang bisa kami bantu?”"
+      - t: Anda mungkin bisa menambahkan link website atau tombol quick reply (jika fitur didukung) pada welcome message.
+      - t: Klik 'Save' atau 'Simpan Perubahan'.
+      - t: Buka website Anda (jika Webchat) atau mulai chat baru di channel tersebut untuk melihat apakah welcome message muncul sesuai konfigurasi.
+      - t: "Ulangi proses ini untuk channel lain (misal, WhatsApp, Instagram) jika mereka memiliki pengaturan Welcome Message/Greeting Text terpisah."
