@@ -1,5 +1,5 @@
 # file: 04_flow_design.yml
-# generated: 2025-05-12
+# generated: 2025-05-12 (direvisi berdasarkan appConfig lengkap)
 # top_keys: FlowDesign_Core, FlowTriggers_AutomatedExecution, UseCase_Examples_Detailed_Walkthroughs
 
 FlowDesign_Core:
@@ -7,332 +7,333 @@ FlowDesign_Core:
     u: pekerja_ai_doc_flow_google_sheets
     r: Menjelaskan cara kerja flow yang menyimpan data otomatis dari bot ke spreadsheet Google Sheets melalui integrasi, seperti data leads, feedback, atau pemesanan secara real-time.
     s:
-      - t: Gambaran langkah:
+      - t: "Langkah 1: Pastikan Integrasi Google Sheets Aktif"
         sub:
-          - t: Pastikan sudah mendapatkan credential Google Sheets (misal melalui API Access Token).
-          - t: Dalam flow, tambahkan aksi untuk mengirim data ke Google Sheets (misalnya menggunakan webhook/API Google Sheets atau fitur bawaan jika tersedia).
-          - t: Tentukan Spreadsheet ID dan mapping kolom dengan data dari bot.
-          - t: Saat flow dijalankan, data pengguna akan di-append sebagai baris baru di sheet tersebut.
-      - t: "(Detail teknis integrasi Google Sheets: Pekerja.ai terhubung via API menggunakan token yang di-generate di Integrations. Pastikan token sudah terisi sebelum menjalankan flow ini.)"
+          - t: "Akses: **appConfig.header.settings** (klik ikon Settings/pojok kanan atas) > **[Tab] integrations** (dalam `SettingsConnectedPlatforms`)."
+          - t: "Cari item dengan `name: Google Sheets`. Klik tombol **'Connect'** (`SettingsConnectedPlatforms.integrations[name=Google Sheets].button`). Ikuti proses otorisasi."
+      - t: "Langkah 2: Membuat Aksi Google Sheets di Flow Editor"
+        sub:
+          - t: "Akses Flow Editor: **appConfig.sidebar.menu[title=Flows] > [Tab] Flows**."
+          - t: "Klik tombol **'add'** (`appConfig.sidebar.menu[title=Flows].main.tabs[title=Flows].sections[title=Flows].addButton`). Dialog 'Add New Flow' akan muncul. Isi `flowName` (input). Klik 'Save' atau tombol konfirmasi."
+          - t: "Atau, pilih flow yang sudah ada dari 'table' dan klik namanya untuk masuk ke `flowEditorPage`."
+          - t: "Di `flowEditorPage.mainCanvas`, tambahkan node baru. Dari `nodeCollection`, pilih node dengan `type: ActionsNode`."
+          - t: "Klik node 'ActionsNode' yang baru ditambahkan. Sidebar konfigurasi (`configRef: FlowSidebarActions_ActionDropdownOptions`) akan muncul."
+          - t: "Di sidebar, pilih grup **'GoogleSheets'** > pilih aksi dengan `label: Google Sheets Action`."
+          - t: "Dialog 'Google Sheets' (`FlowSidebarActions_ActionDropdownOptions.GoogleSheets[label='Google Sheets Action'].dialog`) akan muncul. Konfigurasi field:"
+            sub:
+              - t: "`actionSelector` (type: select, label: Action): Pilih 'send data'."
+              - t: "`spreadsheetSelector` (type: select, label: Spreadsheet): Pilih Spreadsheet dari `dataSource: existingSpreadsheets`. Jika belum ada, klik `addNewButton` (`label: add new`, action: route to `https://client.pekerja.ai/en/spreadsheets`)."
+              - t: "`worksheetSelector` (type: select, label: Worksheet): Pilih Worksheet dari `dataSource: selectedSpreadsheetSheets`."
+              - t: "Di `customFieldMapping`, klik tombol 'add' atau '+' untuk menambahkan pemetaan. Pilih `customFieldSelector` dan isi `googleColumnTitleSelector`."
+          - t: "Klik 'Save' atau tombol konfirmasi dialog. Hubungkan node 'ActionsNode' ini dalam alur flow Anda."
+          - t: "Klik tombol **'Publish'** di `flowEditorPage.header.publishButton`."
+
   ContohFlowMenganalisisGambarDikirimPenggunaAI:
     u: pekerja_ai_doc_flow_image_analysis
     r: Menjelaskan flow yang memungkinkan bot menganalisis gambar (foto produk, dokumen) yang dikirim pengguna menggunakan kecerdasan AI dan memberikan hasil analisis.
     s:
-      - t: Gambaran langkah:
+      - t: "Langkah 1: Menangkap Input Gambar dari Pengguna di Flow Editor"
         sub:
-          - t: Flow dimulai ketika pengguna mengirim attachment gambar.
-          - t: Bot kemudian memanfaatkan layanan vision AI (bisa internal atau API eksternal) untuk menganalisa konten gambar.
-          - t: "Hasil analisis (misal: \"Gambar tersebut berisi sebuah mobil warna merah...\") kemudian dikirim kembali ke pengguna sebagai balasan."
-      - t: "(Contoh implementasi: Bot mengirim gambar ke API visi komputer (seperti Google Vision atau OCR untuk teks), menerima hasilnya, lalu merespons pengguna. Integrasi semacam ini membutuhkan kredensial API terkait.)"
+          - t: "Akses Flow Editor: **appConfig.sidebar.menu[title=Flows] > [Tab] Flows**. Pilih/buat flow."
+          - t: "Tambahkan node dengan `type: SendMessage` dari `nodeCollection`."
+          - t: "Klik node 'SendMessage'. Sidebar konfigurasi (`sidebarConfig`) akan muncul."
+          - t: "Di `addContentButton` (`label: + Add Content`), pilih menu item dengan `label: Get User Data`."
+          - t: "Konfigurasi 'Get User Data' (`config`):"
+            sub:
+              - t: "Isi `messageInput` (misal, 'Silakan unggah gambar Anda')."
+              - t: "Klik tombol edit (ikon pensil atau tombol 'edit') untuk membuka `editButtonDialog`."
+              - t: "Di `replyTypeDropdown`, pilih 'Image'."
+              - t: "Pada `saveResponseToCustomField` (`<<: *commonSaveToCustomFieldConfig`), pilih Custom Field untuk menyimpan URL gambar. Jika belum ada, klik `addCustomFieldButtonRef` (`AddCustomFieldButtonAndDialog`) untuk membuat baru."
+              - t: "Klik 'Save' atau konfirmasi."
+      - t: "Langkah 2: Menganalisis Gambar dengan AI"
+        sub:
+          - t: "Setelah output 'Data was saved' dari node 'Get User Data', tambahkan node dengan `type: ActionsNode`."
+          - t: "Klik node 'ActionsNode'. Di sidebar konfigurasi (`configRef: FlowSidebarActions_ActionDropdownOptions`), pilih grup **'OpenAI'** > aksi dengan `label: Analyze image`."
+          - t: "Konfigurasi `config` aksi 'Analyze image':"
+            sub:
+              - t: "`imageSource` (type: customFieldSelect, label: Image): Pilih Custom Field tempat URL gambar disimpan."
+              - t: "`prompt` (type: input, label: Prompt): Masukkan prompt (misal, 'whats in this image?')."
+              - t: "`modelSelector` (options: GPT-4o mini, GPT-4o): Pilih model."
+              - t: "`saveToCustomField` (`<<: *commonSaveToCustomFieldConfig`): Pilih Custom Field untuk menyimpan hasil analisis."
+      - t: "Langkah 3: Mengirim Hasil Analisis"
+        sub:
+          - t: "Tambahkan node `type: SendMessage` berikutnya."
+          - t: "Klik node. Di `addContentButton`, pilih `label: Text`. Pada `config.textInput`, isi dengan variabel Custom Field hasil analisis (misal, `{{hasil_analisis_gambar}}`)."
+          - t: "Hubungkan semua node dan klik **'Publish'** (`flowEditorPage.header.publishButton`)."
+
   ContohFlowMengirimEmailOtomatisPenggunaAdmin:
     u: pekerja_ai_doc_flow_send_email
     r: Mengatur bot untuk mengirim email secara otomatis kepada pengguna atau admin, misalnya notifikasi order, hasil registrasi, dsb., setelah channel Email terhubung.
     s:
-      - t: Gambaran langkah:
+      - t: "Langkah 1: Pastikan Channel Email Terhubung"
         sub:
-          - t: Pastikan channel Email sudah terhubung (seperti dijelaskan di bagian Email).
-          - t: Di dalam flow, tambahkan blok Action: Send Email.
-          - t: Isi detail email yang akan dikirim: alamat penerima (bisa email pengguna dari field), subjek, dan isi pesan (dapat menyertakan data yang dikumpulkan bot).
-          - t: Setelah flow dijalankan (misal dipicu oleh event tertentu atau perintah admin), sistem akan mengirim email tersebut melalui akun email yang telah diintegrasikan.
-      - t: "(Ingat: Pengguna harus sudah opt-in email. Flow ini biasanya dikombinasikan dengan langkah Set Email Opt-In dan pengumpulan email sebagaimana dijelaskan di integrasi Email.)"
+          - t: "Akses: **appConfig.header.settings** (ikon Settings/pojok kanan atas/logo pekerja ai) > **[Tab] channels**."
+          - t: "Cari item `name: Email`. Klik tombol **'Connect'** (`SettingsConnectedPlatforms.channels[name=Email].button`). Ikuti proses koneksi."
+      - t: "Langkah 2: Membuat Aksi Kirim Email di Flow Editor"
+        sub:
+          - t: "Akses Flow Editor: **appConfig.sidebar.menu[title=Flows] > [Tab] Flows**. Pilih/buat flow."
+          - t: "Tambahkan node dengan `type: SendEmail` dari `nodeCollection`."
+          - t: "Klik node 'SendEmail'. Sidebar konfigurasi (`sidebarConfig`) akan muncul. Isi `fields`:"
+            sub:
+              - t: "`emailTopic` (select, placeholder: type email topic)."
+              - t: "`emailFrom` (input, placeholder: `{{email}}`)."
+              - t: "`emailTo` (input, placeholder: `{{email}}` atau alamat admin)."
+              - t: "`emailSubject` (input, placeholder: subject)."
+              - t: "`Preheader` (input, placeholder: preheader)."
+              - t: "`headline` (input, placeholder: enter your headline)."
+              - t: "`image` (`<<: *commonImageUploader`)."
+              - t: "`text` (input, placeholder: enter your text)."
+              - t: "Tambahkan tombol jika perlu melalui `componentRef: FlowSidebarNode_AddButtonDialog`."
+              - t: "`code` (input, placeholder: footer/unsubscribe link)."
+              - t: "(Opsional) Gunakan `addContent` (`label: +Add Content`, action: `addEmailContentBlock`) untuk menambah blok konten terstruktur (headline, image, text, button, code)."
+          - t: "Hubungkan node dan klik **'Publish'** (`flowEditorPage.header.publishButton`)."
+
   FlowDefaultReplySederhana:
     u: https://youtu.be/GAIJBjGgkrk
-    r: Cara membuat default reply flow default replay adalah pesan otomatis yang dikirim bot saat enggak memahami pesan dari pengguna fitur ini bisa membantu kamu untuk menampilkan daftar FAQ atau pertanyaan yang...
+    r: Cara membuat default reply. Default reply adalah pesan otomatis yang dikirim bot saat tidak memahami pesan dari pengguna.
     s:
-      - t: "Pilih -> Settings"
-      - t: "Pilih -> Default Reply Dropdown"
-      - t: "Pilih -> Default Reply"
-      - t: di sidebar menu "Pilih -> Flows"
-      - t: "Pilih -> Add"
-      - t: Beri nama alur Anda
-      - t: "Pilih -> Continue"
-      - t: "Pilih -> Send Message"
-      - t: "Pilih -> [+Add Content]"
-      - t: "Pilih -> text"
-      - t: "Ketik pesan Anda (contoh -> Halo, {{first_name}} kami kurang mengerti apa yang anda maksud, kami bantu hubungkan ke agent kami yah)"
-      - t: "Pilih -> Add Button"
-      - t: "Beri nama tombol Anda (contoh -> Hubungkan ke Agent)"
-      - t: "Pilih -> Save"
-      - t: "Tekan -> continue"
-      - t: "Pilih -> Send Message (untuk langkah selanjutnya setelah tombol ditekan)"
-      - t: "Pilih -> [+Add Content]"
-      - t: "Pilih -> Actions -> Inbox -> transfer conversation to human (jika tombolnya untuk transfer ke agen)"
-      - t: "Pilih -> Publish"
-      - t: "Catatan Error: Jika error, hapus dan sambungkan ulang alur Anda, pastikan terhubung dengan tombol yang dibuat (contoh -> Hubungkan ke Agent)."
-      - t: "Pilih -> Preview untuk melihat alur Anda."
+      - t: "Langkah 1: Atur Default Reply di Pengaturan Umum"
+        sub:
+          - t: "Akses: **appConfig.header.settings** (ikon Settings/Gear) > **[Tab] general** (dalam `SettingsConnectedPlatforms`)."
+          - t: "Cari field/label **'Default Reply'**. Klik dropdown di sebelahnya (atau mekanisme UI yang ada untuk memilih/membuat flow)."
+          - t: "Pilih opsi untuk membuat flow baru (misal, 'Create New Flow') atau pilih flow yang sudah ada dari `_commonFlowSelector` jika tersedia."
+      - t: "Langkah 2: Jika Membuat Flow Baru"
+        sub:
+          - t: "Anda akan diarahkan ke dialog 'Add New Flow' (**appConfig.sidebar.menu[title=Flows].main.tabs[title=Flows].sections[title=Flows].addButton.action**). Isi `flowName` (input). Klik 'Save' atau konfirmasi."
+          - t: "Kemudian Anda akan masuk ke `flowEditorPage`."
+      - t: "Langkah 3: Desain Flow di Flow Editor"
+        sub:
+          - t: "Di `flowEditorPage.mainCanvas`, dari 'Starting Step' (node awal), tambahkan node `type: SendMessage`."
+          - t: "Klik node 'SendMessage'. Di `sidebarConfig.addContentButton`, pilih `label: Text`."
+          - t: "Pada `config.textInput`, ketik pesan: `Halo, {{first_name}} kami kurang mengerti maksud Anda. Kami bantu hubungkan ke agen ya.`"
+          - t: "Gunakan `config.addButtonRef: FlowSidebarNode_AddButtonDialog` (tombol `+ Add Button`). Dialog 'add button' (`FlowSidebarNode_AddButtonDialog`) akan muncul."
+            sub:
+              - t: "`buttonName` (input): `Hubungkan ke Agen`."
+              - t: "`action` (select): Pilih 'Perform Action'."
+              - t: "Klik 'Save' pada dialog tombol."
+          - t: "Dari output tombol 'Hubungkan ke Agen' pada node 'SendMessage', tambahkan node `type: ActionsNode`."
+          - t: "Klik node 'ActionsNode'. Di `configRef: FlowSidebarActions_ActionDropdownOptions`, pilih grup **'Inbox'** > aksi `label: Transfer Conversation to Human`."
+          - t: "(Opsional) Pada `config` aksi tersebut, centang `notifyAdminCheckbox` jika perlu."
+          - t: "Klik **'Publish'** (`flowEditorPage.header.publishButton`)."
+      - t: "Catatan Error: Periksa koneksi antar node jika ada masalah."
+      - t: "Gunakan tombol **'preview'** (`flowEditorPage.button[label=preview]`) atau tes langsung."
+
   MembangunAlurKerjaAIFlowsKompleksBerbagaiKontenTindakan:
     u: https://youtu.be/zKv4uwVO1Fg
-    r: Video ini membahas cara memanfaatkan fitur 'Flows' untuk membangun alur kerja otomatis yang kompleks, mencakup berbagai jenis konten (teks, gambar, video, file), tindakan (tagging, webhook, prompt AI),...
+    r: Video ini membahas cara memanfaatkan fitur 'Flows' untuk membangun alur kerja otomatis yang kompleks.
     s:
-      - t: Buka menu 'Flows' dan buat Flow baru atau edit yang sudah ada.
-      - t: Pilih node 'Send Message' atau klik node output dari langkah sebelumnya untuk menambahkan langkah baru.
-      - t: Tentukan tipe channel (misal: Instagram, WhatsApp, atau Omni channel) jika diperlukan untuk konten/fitur spesifik channel.
-      - t: "Tambahkan langkah pertama, misalnya 'Send Message'. Klik '[+Add Content]'."
-      - t: Pilih jenis konten yang ingin dikirim (teks, gambar, video, kartu, file, dll.). Anda bisa menambahkan lebih dari satu konten dalam satu blok pesan.
-      - t: Tambahkan 'Action' (Tindakan) otomatis jika diperlukan, seperti menambahkan tag, mengirim data ke webhook, menjalankan prompt AI, dll.
-      - t: "Tambahkan 'Button' (Tombol) pada pesan untuk interaksi pengguna. Atur fungsi tombol (misal: membalas pesan, membuka URL, menjalankan Flow lain)."
-      - t: Hubungkan blok-blok Flow (node) sesuai alur logika yang diinginkan menggunakan garis konektor.
-      - t: Tambahkan blok konten atau tindakan baru sesuai kebutuhan untuk membangun alur yang lebih kompleks.
-      - t: Simpan dan publikasikan Flow Anda. Anda dapat mengujinya secara manual melalui menu obrolan atau preview.
-  DasarDasarFlowSidebarDragDrop:
+      - t: "Akses Flow Editor: **appConfig.sidebar.menu[title=Flows] > [Tab] Flows**. Klik tombol **'add'** atau pilih flow yang ada."
+      - t: "Di `flowEditorPage.mainCanvas`, tambahkan node dari `nodeCollection` (misal, `type: SendMessage`, `type: ActionsNode`, `type: Condition`, dll.)."
+      - t: "Untuk node **'SendMessage'**:"
+        sub:
+          - t: "Klik node. Di `sidebarConfig`, atur `nodeLabelInput` (nama node), `messageTypeSelector`."
+          - t: "Gunakan `addContentButton` untuk memilih `menuItems` konten: 'Text' (`config.textInput`), 'Image' (`config.uploader`), 'Card' (`configRef: FlowSidebarNode_Card`), 'Carousel', 'Get User Data', 'Video', 'GIF', 'Typing', 'File', atau 'Actions' (`optionsRef: FlowSidebarActions_ActionDropdownOptions`)."
+          - t: "Jika menambahkan 'Text' atau 'Card', gunakan `addButtonRef: FlowSidebarNode_AddButtonDialog` untuk membuat tombol interaktif."
+      - t: "Untuk node **'ActionsNode'**:"
+        sub:
+          - t: "Klik node. `configRef: FlowSidebarActions_ActionDropdownOptions` akan aktif di sidebar. Pilih grup dan aksi yang diinginkan (misal, 'OpenAI' > 'Generate text', 'Tags' > 'Add Tag')."
+      - t: "Hubungkan output satu node ke input node berikutnya."
+      - t: "Klik **'Publish'** (`flowEditorPage.header.publishButton`)."
+
+  DasarDasarFlowSidebarDragDrop: # Mengacu pada Flow Editor
     u: https://www.youtube.com/live/UKJGOqTxp7k?si=2o_F6pPLkhjFuZHu
-    r: Memperkenalkan konsep drag-and-drop Flow Sidebar untuk merakit alur interaksi AI.
+    r: Memperkenalkan konsep Flow Editor untuk merakit alur interaksi AI.
     s:
-      - t: Buka menu Flow di sidebar Dashboard.
-      - t: "Klik New Flow, beri nama sesuai use case (misal \"CS Toko Kamera\")."
-      - t: Drag card 'Starting Step' (atau 'Default Reply' jika itu pemicunya) ke kanvas sebagai titik awal.
-      - t: Drag card lain seperti 'Send Message', 'OpenAI', 'Action' ke kanvas.
-      - t: Sambungkan garis dari output node satu card ke input node card berikutnya untuk membuat alur.
-      - t: "Konfigurasi setiap card (misalnya, isi pesan di 'Send Message', atur prompt di 'OpenAI')."
-      - t: Atur urutan dan koneksi antar card sampai alur lengkap.
-      - t: Klik Publish untuk mengaktifkan flow.
+      - t: "Akses: **appConfig.sidebar.menu[title=Flows] > [Tab] Flows**."
+      - t: "Klik tombol **'add'** (`sections[title=Flows].addButton`). Dialog 'Add New Flow' muncul. Isi `flowName`. Klik 'Save'/'Continue'."
+      - t: "Di `flowEditorPage.mainCanvas`, Anda akan melihat 'Starting Step'."
+      - t: "Untuk menambahkan node, klik kanan di canvas atau klik output node yang ada. Daftar node dari `nodeCollection` akan muncul. Pilih node yang diinginkan (misal, 'SendMessage', 'ActionsNode', 'Condition')."
+      - t: "Node akan ditambahkan ke canvas. Anda bisa memindahkannya (drag-and-drop)."
+      - t: "Hubungkan titik output satu node ke titik input node lain untuk membuat alur."
+      - t: "Klik setiap node untuk membuka `sidebarConfig`nya di kanan. Konfigurasi detailnya."
+      - t: "Klik **'Publish'** (`flowEditorPage.header.publishButton`)."
+
   VariabelSistemSepertiLast_inputPesan:
     u: https://www.youtube.com/live/pohCJefEdxY?si=2JdBCsE7BFw-foV-
-    r: "Menjelaskan penggunaan tag `{{last_input}}` untuk otomatis menangkap pesan user."
+    r: "Menjelaskan penggunaan variabel sistem seperti `{{last_input}}`."
     s:
-      - t: Dalam card 'Send Message' atau card lain yang mendukung input teks dinamis, ketik respons Anda.
-      - t: "Sertakan variabel `{{last_input}}` untuk menampilkan input terakhir dari pengguna."
-      - t: "Contoh: \"Anda mengatakan: {{last_input}}. Bagaimana saya bisa membantu lebih lanjut?\""
-      - t: "Pastikan nama variabel sistem (seperti `last_input`, `first_name`) diketik dengan benar, termasuk kurung kurawal gandanya."
-      - t: Klik Save pada card dan Publish flow.
-      - t: Tes dengan mengirim pesan ke chatbot, lalu periksa apakah balasan mengandung input terakhir Anda dengan benar.
+      - t: "Akses Flow Editor: **appConfig.sidebar.menu[title=Flows] > [Tab] Flows**. Pilih/buat flow."
+      - t: "Pada node yang mendukung input teks, seperti `config.textInput` di `SendMessage > Text`, atau field `userMessage` di `ActionsNode > OpenAI > Generate text` (`<<: *commonUserMessageInputLastInput`)."
+      - t: "Ketik `{{last_input}}` untuk menangkap pesan terakhir pengguna. Contoh: `Anda baru saja mengetik: {{last_input}}`."
+      - t: "Variabel lain seperti `{{first_name}}`, `{{email}}` juga bisa digunakan jika datanya ada di kontak."
+      - t: "Simpan konfigurasi node. Klik **'Publish'** (`flowEditorPage.header.publishButton`)."
 
 FlowTriggers_AutomatedExecution:
   PekerjaBotResponsOtomatisBerdasarkanKataKunciPesanPengguna:
     u: pekerja_ai_doc_pekerja_bot
     r: Fitur Pekerja Bot (Auto-response bot) menyediakan respons otomatis terhadap pesan spesifik dari pelanggan secara cepat dan konsisten, berdasarkan kata kunci atau kalimat.
     s:
-      - t: Klik menu Pekerja Bot, lalu klik Add untuk menambahkan aturan bot baru.
-      - t: Isi form Pekerja Bot sesuai kebutuhan, lalu Save:
+      - t: "Cara 1: Fitur Channel Spesifik (Contoh Instagram DM)"
         sub:
-          - t: "User Message: Isi dengan kata kunci atau kalimat spesifik dari pelanggan yang ingin ditangani. Masukkan variasi kata kunci yang mewakili maksud serupa. (Contoh: untuk pertanyaan harga, masukkan kata kunci seperti harga, price, biaya, berapa)."
-          - t: "Bot Response: Pilih jenis respon yang akan diberikan bot:"
+          - t: "Akses: **appConfig.sidebar.menu[title=Pekerja Bot] > [Tab] Instagram DM to DM**."
+          - t: "Pada `content.userMessageSection.fields` (yang menggunakan `<<: *commonTextInputPlaceholder`), masukkan kata kunci atau kalimat pemicu."
+          - t: "Pada `content.botResponseSection.options`, pilih respons: 'Text Message' (`type: textarea`) dan isi balasan, atau 'Flow' (`type: select`, `<<: *commonFlowSelector`) dan pilih flow."
+          - t: "(Simpan jika ada tombolnya. UI ini mungkin untuk satu aturan global per channel, bukan list aturan)."
+      - t: "Cara 2: Menggunakan Node 'Condition' di Flow Editor (Umum)"
+        sub:
+          - t: "Akses Flow Editor: **appConfig.sidebar.menu[title=Flows] > [Tab] Flows**. Buat/edit flow."
+          - t: "Setelah 'Starting Step', tambahkan node `type: Condition`."
+          - t: "Klik node 'Condition'. Di `sidebarConfig.button[label=+Condition]` (yang menggunakan `componentRef: BtnForFilterOrCondition`), atur kondisi:"
             sub:
-              - t: "Text Message: Bot akan membalas dengan teks biasa yang Anda tentukan."
-              - t: "Flow: Bot akan menjalankan suatu Flow sebagai respon. (Misal menjalankan Flow berisi penjelasan produk secara detail.)"
-      - t: Simpan pengaturan. Kini, ketika pesan pengguna mengandung kata kunci tersebut, Pekerja Bot akan merespons otomatis sesuai pengaturan.
+              - t: "`firstRowOptions`: Pilih 'System Fields' > 'LastUserInput'."
+              - t: "`secondRowOptions`: Pilih 'Contains' (atau 'Is')."
+              - t: "`thirdRowInputType`: Masukkan kata kunci Anda."
+          - t: "Hubungkan output 'True' dari kondisi ke alur/node balasan yang sesuai."
+          - t: "Klik **'Publish'** (`flowEditorPage.header.publishButton`)."
+
   MenjalankanFlowSecaraTerjadwalDripCampaigns:
     u: https://youtu.be/2F-p19HcoWk
-    r: Video ini menjelaskan cara menggunakan fitur Drip Campaigns untuk menjadwalkan pengiriman Flow (alur otomatis) kepada kontak pada waktu tertentu setelah mereka ditambahkan ke kampanye.
+    r: Video ini menjelaskan cara menggunakan fitur Drip Campaigns untuk menjadwalkan pengiriman Flow.
     s:
-      - t: Buka menu 'Tools' (Alat) dan pilih 'Drip Campaigns'.
-      - t: Buat kampanye baru dengan mengklik [Add] dan beri nama kampanye Anda.
-      - t: Klik tombol '+ Message' di dalam kampanye yang baru dibuat.
-      - t: Pada kolom 'Send' atau 'Action', pilih opsi untuk menjalankan 'Flow'.
-      - t: Pilih Flow spesifik yang ingin dijalankan dari daftar Flow Anda.
-      - t: "Pada bagian 'After', tentukan kapan Flow tersebut akan dijalankan relatif terhadap waktu kontak ditambahkan ke kampanye (misalnya, setelah 5 menit, 1 jam, 2 hari)."
-      - t: Anda bisa menambahkan beberapa langkah Flow terjadwal dalam satu kampanye dengan interval waktu yang berbeda.
-      - t: Klik 'Save' (Simpan) untuk menyimpan pengaturan kampanye Drip Anda.
-  MenjalankanFlowSecaraOtomatisTriggersParametersParameterPemicu:
+      - t: "Akses: **appConfig.sidebar.menu[title=Tools] > [Pilih tool] Drip Campaigns** (`tools[name='Drip Campaigns']`)."
+      - t: "Di `pageContent.section[title='Drip Campaigns']`, klik `addButton` (`label: add`). Dialog 'Add New Drip Campaign' muncul."
+      - t: "Isi `fields.campaignName` (input). Klik 'Save' atau konfirmasi."
+      - t: "Pilih kampanye yang baru dibuat dari tabel. Konfigurasikan pesan di `pageContent.messageConfig`:"
+        sub:
+          - t: "`sendFlowSelector` (`<<: *commonFlowSelector`, label: Send): Pilih Flow."
+          - t: "`sendAfterTimer` (type: timeDurationInput, label: After): Tentukan waktu."
+          - t: "Gunakan `addMessageButton` (`label: + message`) untuk menambah langkah."
+      - t: "Simpan pengaturan kampanye."
+
+  MenjalankanFlowSecaraOtomatisTriggersParametersParameterPemicu: # Ini merujuk ke AI Parameters
     u: https://youtu.be/AyK_hdKtCZM
-    r: Video ini menunjukkan cara mengatur Triggers Parameters (Parameter Pemicu) untuk secara otomatis menjalankan Flow tertentu ketika suatu peristiwa (pemicu) terjadi, seperti saat ada kontak baru masuk.
+    r: Video ini menunjukkan cara mengatur AI Parameters (Parameter Pemicu) untuk secara otomatis menjalankan Flow.
     s:
-      - t: "Buka menu 'Tools' (Alat), lalu pilih 'Triggers Parameters' (atau 'AI Parameters' / 'Automation Rules' tergantung versi UI)."
-      - t: Buat pemicu baru dengan mengklik [Add] atau edit yang sudah ada.
-      - t: "Pilih 'Trigger Event' (Peristiwa Pemicu) yang akan mengaktifkan aksi ini, contohnya 'New Contact' (Kontak Baru), 'Tag Applied', 'Custom Field Changed'."
-      - t: "Konfigurasi detail pemicu (misalnya, jika 'Tag Applied', pilih tag mana)."
-      - t: Pilih 'Action' (Aksi) yang ingin dijalankan ketika pemicu terjadi. Pilih opsi untuk menjalankan 'Flow'.
-      - t: Pilih Flow spesifik yang ingin dijalankan secara otomatis (misalnya, Flow onboarding untuk kontak baru).
-      - t: Simpan pengaturan parameter pemicu Anda. Flow akan otomatis berjalan ketika kondisi pemicu terpenuhi.
-  MenjalankanFlowBerdasarkanKataKunciPesanPelangganPekerjaBotBotWorker:
+      - t: "Akses: **appConfig.sidebar.menu[title=Flows] > [Tab] Ai Parameters**."
+      - t: "Pada `section[title='Ai Parameters']`, klik `addButton` (`label: add`). Dialog 'Add New AI Parameter' muncul."
+      - t: "Isi `fields.name` (input, placeholder: input Ai parameter name)."
+      - t: "Di `configuration`:"
+        sub:
+          - t: "`whenThisHappens.triggerOptions` (type: select, label: Trigger Event): Pilih pemicu dari `groups` (Tags, Custom Fields, dll.)."
+          - t: "`actionOption` (type: select, label: Action): Pilih aksi (misal, 'Start Another Flow'). Pilih Flow yang diinginkan."
+      - t: "Klik 'Save' atau konfirmasi. Pastikan parameter 'active' (`type: toggle`) di tabel."
+
+  MenjalankanFlowBerdasarkanKataKunciPesanPelangganPekerjaBotBotWorker: # Mirip dengan 'PekerjaBotResponsOtomatis...'
     u: https://youtu.be/lUa07VnMvdY
-    r: Video ini menjelaskan cara mengatur Pekerja Bot (Bot Worker) untuk mendeteksi pesan tertentu dari pelanggan dan kemudian menjalankan Flow sebagai respons.
+    r: Video ini menjelaskan cara mengatur deteksi pesan tertentu dari pelanggan untuk menjalankan Flow.
     s:
-      - t: "Buka menu 'Pekerja Bot' (atau 'Keywords' / 'Bot Rules' tergantung versi UI)."
-      - t: Tambahkan aturan bot baru dengan mengklik [Add].
-      - t: "Pada bagian 'If message from customer' (Jika pesan dari pelanggan), masukkan kata kunci atau frasa yang ingin dideteksi (misalnya, 'info produk', 'bantuan')."
-      - t: "Atur kondisi kecocokan (misalnya, 'exact match' / persis sama, 'contains' / mengandung kata, 'regex')."
-      - t: Pada bagian 'Bot Response' (Maka lakukan), pilih aksi yang ingin dijalankan. Pilih opsi 'Run Flow' (Jalankan Flow).
-      - t: Pilih Flow spesifik yang ingin dijalankan ketika kata kunci terdeteksi.
-      - t: Simpan pengaturan pekerja bot Anda.
+      - t: "Lihat langkah pada `FlowTriggers_AutomatedExecution:PekerjaBotResponsOtomatisBerdasarkanKataKunciPesanPengguna`. Menggunakan node 'Condition' di Flow Editor adalah metode yang paling fleksibel."
+
   MenjalankanFlowAITriggersBerdasarkanDeteksiNiatIntentPelanggan:
     u: https://youtu.be/A8dY4BE-Aok
-    r: Video ini menjelaskan cara menggunakan AI Triggers untuk menjalankan Flow secara otomatis berdasarkan deteksi niat (intent) atau topik tertentu dalam pesan pelanggan menggunakan kecerdasan buatan.
+    r: Video ini menjelaskan cara menggunakan AI Triggers untuk menjalankan Flow secara otomatis berdasarkan deteksi niat.
     s:
-      - t: Mengatur AI Trigger:
+      - t: "Langkah 1: Membuat AI Trigger"
         sub:
-          - t: "Masuk ke menu 'Flow' (atau 'AI Tools'), lalu klik tab 'AI Trigger'."
-          - t: "Tambahkan AI Trigger baru. Beri nama yang deskriptif (misalnya, 'Cek Harga', 'Tanya Stok')."
-          - t: "[What does this trigger do?] Tentukan deskripsi atau contoh frasa agar AI mengenali niat ini (misalnya, saat AI mendeteksi niat bertanya harga)."
-          - t: "[What data to collect?] Anda dapat menambahkan field untuk menyimpan data yang diekstrak oleh AI dari pesan (misalnya, nama produk dari pertanyaan harga). Klik tombol [Add New] untuk menambahkan field ekstraksi."
-          - t: "[What flow is triggered?] Pilih Flow yang ingin dijalankan ketika trigger ini aktif. Contoh: jika AI mendeteksi pertanyaan harga, jalankan Flow 'Informasi Harga'."
-          - t: (Opsional) Tambahkan pesan yang akan dikirim sebelum atau sesudah Flow berjalan.
-          - t: Simpan AI Trigger Anda.
-      - t: "Mengaktifkan AI Trigger dalam Prompt (jika diperlukan oleh sistem):"
+          - t: "Akses: **appConfig.sidebar.menu[title=Flows] > [Tab] Ai Triggers**."
+          - t: "Pada `section[title='Ai Triggers']`, klik `addButton` (`label: add`). Dialog 'Add New AI Trigger' muncul."
+          - t: "Isi `fields`:"
+            sub:
+              - t: "`name` (input, placeholder: type ai trigger name)."
+              - t: "`description` (textarea, label: What does this trigger do?)."
+              - t: "`dataToCollect` (type: keyValueList, label: What data to collect?). Klik `addButtonLabel: add new`. Isi `keyPlaceholder: Prompt (optional)` dan `valuePlaceholder: Custom Field Name`."
+              - t: "`triggeredFlow` (`<<: *commonFlowSelector`, label: What flow is triggered)."
+              - t: "`outputMessage` (input, label: What is the output message? (Optional))."
+          - t: "Simpan AI Trigger."
+      - t: "Langkah 2: Menggunakan AI Trigger dalam Flow (dengan Aksi OpenAI)"
         sub:
-          - t: "Kembali ke menu 'Pekerja AI' dan masuk ke bagian 'Prompt' (atau konfigurasi AI utama)."
-          - t: Di bagian [AI Triggers] atau sejenisnya, pastikan AI Trigger yang baru Anda buat dipilih atau diaktifkan untuk digunakan oleh model AI utama.
-          - t: Simpan perubahan pada konfigurasi Prompt.
-      - t: Uji hasilnya dengan mengirim pesan yang sesuai dengan niat yang telah Anda konfigurasikan pada AI Trigger.
-  AITriggerEskalasiAgenManusiaBerdasarkanKondisiDinamis:
+          - t: "Akses Flow Editor: **appConfig.sidebar.menu[title=Flows] > [Tab] Flows**. Pilih/buat flow."
+          - t: "Tambahkan node `type: ActionsNode`. Klik node."
+          - t: "Di sidebar (`configRef: FlowSidebarActions_ActionDropdownOptions`), pilih **'OpenAI' > 'Generate text'**."
+          - t: "Pada `config` aksi 'Generate text', gunakan `aiTriggers` (`<<: *commonAiTriggersMultiSelect`). Pilih AI Trigger yang telah dibuat."
+          - t: "Klik **'Publish'** (`flowEditorPage.header.publishButton`)."
+      - t: "Alternatif: Jika AI Trigger langsung memicu flow (dari `fields.triggeredFlow` di Langkah 1), pastikan itu dikonfigurasi dengan benar."
+
+  AITriggerEskalasiAgenManusiaBerdasarkanKondisiDinamis: # Lebih tepat menggunakan Condition Node
     u: https://www.youtube.com/live/IBRyfbV1-Vw?si=DvVl_XI18JAtcp6f
-    r: Menjelaskan card AI Trigger untuk memindahkan percakapan ke CS manusia berdasarkan kondisi dinamis.
+    r: Menjelaskan cara memindahkan percakapan ke CS manusia berdasarkan kondisi dinamis.
     s:
-      - t: Tambahkan card 'AI Trigger' di titik alur tertentu dalam Flow Anda (misalnya, setelah user menyebutkan budget dan budget tersebut melebihi threshold tertentu).
-      - t: "Konfigurasi AI Trigger (bisa jadi ini merujuk pada Condition yang memicu Action, atau AI Trigger yang sudah dibuat di menu terpisah):"
+      - t: "Akses Flow Editor: **appConfig.sidebar.menu[title=Flows] > [Tab] Flows**. Pilih/buat flow."
+      - t: "Tambahkan node `type: Condition`."
+      - t: "Klik node 'Condition'. Di `sidebarConfig.button[label=+Condition]` (`componentRef: BtnForFilterOrCondition`), atur kondisi. Contoh:"
         sub:
-          - t: "Rule: Misal, Custom Field `budget > 5000000` ATAU pesan pengguna mengandung kata kunci tertentu yang mengindikasikan urgensi."
-      - t: Jika kondisi pada 'AI Trigger' (atau Condition card) terpenuhi, hubungkan ke Action 'Transfer to Human' atau 'Send Inbox Message'.
-      - t: "Di flow 'Pindah Ke Manusia' (atau Action yang relevan):"
-        sub:
-          - t: Tambahkan card 'Send Inbox Message' (atau sejenisnya) untuk memberitahu agen.
-          - t: "Konfigurasi notifikasi: tugaskan ke admin/tim tertentu, tambahkan tag 'urgent', dll."
-      - t: "Publish flow dan test dengan mengirim pesan yang memenuhi kondisi trigger (misal, menyebutkan budget tinggi)."
+          - t: "`firstRowOptions`: 'Custom Fields' > pilih custom field `budget_pengguna`."
+          - t: "`secondRowOptions`: 'GreaterThan'."
+          - t: "`thirdRowInputType`: `5000000`."
+      - t: "Hubungkan output 'True' dari 'Condition' ke node `type: ActionsNode`."
+      - t: "Klik node 'ActionsNode'. Di sidebar (`configRef: FlowSidebarActions_ActionDropdownOptions`), pilih **'Inbox' > 'Transfer Conversation to Human'**."
+      - t: "Klik **'Publish'** (`flowEditorPage.header.publishButton`)."
 
 UseCase_Examples_Detailed_Walkthroughs:
   ContohKasusMenghubungkanWebchatWidgetPekerjaAIWebsiteAnda:
     u: https://www.youtube.com/live/pohCJefEdxY?si=2JdBCsE7BFw-foV-
     r: Contoh implementasi chat widget Pekerja AI di website toko kamera sebagai use case praktis.
     s:
-      - t: Di platform Pekerja AI, navigasi ke 'Connected Platforms' atau 'Channels'.
-      - t: "Pilih 'Webchat'. Jika belum ada, buat konfigurasi Webchat baru (misalnya, dengan nama domain website Anda)."
-      - t: Cari opsi 'Get Embed Code', 'Installation', atau 'Setup'.
-      - t: "Anda akan diberikan sebuah potongan kode JavaScript (`<script>...</script>`). Copy seluruh kode ini."
-      - t: "Buka file HTML utama dari website Anda (biasanya `index.html` atau template utama)."
-      - t: Paste kode JavaScript yang sudah dicopy tadi tepat sebelum tag penutup `</body>` di file HTML Anda. Beberapa platform mungkin menyarankan di dalam `<head>`, ikuti instruksi spesifik dari Pekerja AI.
-      - t: Simpan perubahan pada file HTML Anda dan unggah kembali ke server hosting website Anda (jika perlu).
-      - t: Reload website Anda di browser. Ikon chat widget seharusnya muncul di pojok situs (biasanya kanan bawah).
-      - t: Klik ikon chat widget untuk memastikan tampil dan berfungsi. Test Welcome Message dan alur chat awal sesuai dengan Flow yang terhubung ke Webchat tersebut.
+      - t: "Akses: **appConfig.header.settings** (ikon Settings/Gear) > **[Tab] channels** (dalam `SettingsConnectedPlatforms`)."
+      - t: "Cari item `name: Web Chat`. Klik tombol **'Connect'** (`SettingsConnectedPlatforms.channels[name='Web Chat'].button`)."
+      - t: "(Asumsi UI) Setelah proses koneksi/konfigurasi Web Chat selesai (menghubungkan ke flow, dll.), akan ada mekanisme untuk mendapatkan kode embed. Ini mungkin di halaman yang sama atau di daftar konfigurasi Web Chat yang sudah ada (misal, di **appConfig.sidebar.menu[title=Tools].main.tools[name='Testing Chat']** jika `Testing Chat` adalah untuk mengelola konfigurasi Web Chat)."
+      - t: "Jika di **appConfig.sidebar.menu[title=Tools].main.tools[name='Testing Chat'] > pageContent.table > rowActions**, mungkin ada opsi 'Get Code' atau 'Embed'."
+      - t: "Salin kode JavaScript yang diberikan."
+      - t: "Tempelkan kode sebelum tag `</body>` di HTML website Anda."
+      - t: "Simpan dan unggah. Muat ulang website untuk melihat widget."
+
   ContohKasusMembangunJalurFlowTerpisahSalesVsCustomerSupport:
     u: https://www.youtube.com/live/IBRyfbV1-Vw?si=DvVl_XI18JAtcp6f
     r: Contoh implementasi dua jalur flow berbeda untuk sales dan customer support.
     s:
-      - t: "Buat Custom Field (User Field) di Flow Sidebar, misalnya dengan nama `user_intent` atau `knowledge_segment`."
-      - t: Di awal flow utama Anda (atau setelah input awal pengguna), gunakan AI (misal, card OpenAI dengan prompt untuk klasifikasi niat) atau serangkaian pertanyaan untuk menentukan niat pengguna (Sales atau Support). Simpan hasil klasifikasi ini ke Custom Field `user_intent` (misal, nilainya 'sales' atau 'support').
-      - t: Tambahkan card 'Condition'.
+      - t: "Langkah 1: Buat Custom Field `user_intent`"
         sub:
-          - t: "Rule 1: Jika Custom Field `user_intent` == 'sales', hubungkan output 'True' ke Flow atau bagian Flow yang dirancang khusus untuk Sales (misalnya, dengan prompt Sales, informasi produk, proses pemesanan)."
-          - t: "Rule 2 (atau output 'False' dari Rule 1, yang kemudian dihubungkan ke Condition lain): Jika Custom Field `user_intent` == 'support', hubungkan ke Flow atau bagian Flow yang dirancang untuk Customer Support (misalnya, dengan prompt Support, FAQ, solusi masalah, opsi eskalasi)."
-      - t: "Test skenario: Kirim chat dengan intensi pembelian (misal, \"Saya mau beli produk A\") dan pastikan AI mengarahkan ke alur Sales. Kemudian, kirim chat dengan keluhan atau pertanyaan dukungan (misal, \"Produk saya ada error\") dan pastikan AI mengarahkan ke alur Support."
-      - t: Simpan dan publish flow dengan kedua jalur (sales dan support) terpisah namun terhubung melalui logika kondisi.
+          - t: "Akses: **appConfig.sidebar.menu[title=Flows] > [Tab] Custom Fields > containers[title='Custom Fields'] > sections[title='Custom Fields']**."
+          - t: "Klik `addButtonRef: AddCustomFieldButtonAndDialog`. Dialog 'Add New Custom Field' muncul."
+          - t: "Isi `fields.name`: `user_intent`, `fields.type`: `text`. Klik 'Save'."
+      - t: "Langkah 2: Desain Flow Utama di Flow Editor"
+        sub:
+          - t: "Akses Flow Editor. Setelah 'Starting Step', tambahkan node `type: ActionsNode`."
+          - t: "Klik node. Di sidebar, pilih **'OpenAI' > 'Generate text'**."
+            sub:
+              - t: "Prompt: Klasifikasikan `{{last_input}}` menjadi 'sales' atau 'support'."
+              - t: "`saveToCustomField`: Pilih `user_intent`."
+          - t: "Tambahkan node `type: Condition`."
+          - t: "Klik node 'Condition'. Gunakan `sidebarConfig.button[label=+Condition]` (`componentRef: BtnForFilterOrCondition`)."
+            sub:
+              - t: "Rule 1: `firstRowOptions`: 'Custom Fields' > `user_intent`. `secondRowOptions`: 'Is'. `thirdRowInputType`: 'sales'."
+            - t: "Hubungkan output 'True' ke Flow Sales. Output 'False' ke Flow Support (atau Condition lain)."
+      - t: "Klik **'Publish'** (`flowEditorPage.header.publishButton`)."
+
   PanduanLengkapMembangunSistemBookingLapanganIntegrasiTagCustomFieldAIKalender:
-    u: internal-live-session-notes-2025-05-09 # This is a placeholder URL
-    r: Panduan langkah demi langkah untuk membangun sistem booking lapangan menggunakan tag, custom field, AI triggers, AI parameters, flow, dan integrasi Google Calendar, berdasarkan catatan live session tanggal...
+    u: internal-live-session-notes-2025-05-09
+    r: Panduan langkah demi langkah untuk sistem booking lapangan.
     s:
-      - t: Persiapan Tag untuk Tahapan Booking
+      - t: "Tahap 1: Persiapan Tag"
         sub:
-          - t: "Buat tag berikut di sistem Anda: 'bl_perkenalan', 'bl_pengecekan', 'bl_penawaran', 'bl_pembayaran', 'bl_selesai'. (Nama tag bisa disesuaikan, 'bl_' adalah contoh prefix untuk 'booking lapangan')"
-      - t: Persiapan Custom Fields dan Account Fields
+          - t: "Akses: **appConfig.sidebar.menu[title=Flows] > [Tab] Tags > sections[title=Tags]**."
+          - t: "Klik `addButton` (`label: add`). Dialog 'Add New Tag' muncul. Isi `fields.tagName`. Ulangi untuk: `bl_perkenalan`, `bl_pengecekan`, `bl_penawaran`, `bl_pembayaran`, `bl_selesai`."
+      - t: "Tahap 2: Persiapan Custom Fields & Account Fields"
         sub:
-          - t: "Custom Fields (User Fields - spesifik per kontak):"
-            sub:
-              - t: "Nama: 'bl_nama_pelanggan', Tipe: Text"
-              - t: "Nama: 'bl_reply_ai', Tipe: Text (untuk menyimpan respons dinamis dari AI)"
-              - t: "Nama: 'bl_status_booking', Tipe: Text (misal: 'perkenalan', 'pengecekan', 'penawaran', 'konfirmasi', 'selesai')"
-              - t: "Nama: 'bl_oprasional_mulai_request', Tipe: Date and Time (jadwal yang diminta user)"
-              - t: "Nama: 'bl_oprasional_terakhir_request', Tipe: Date and Time (jadwal yang diminta user)"
-              - t: "Nama: 'bl_respon_jadwal_kalender', Tipe: Text (hasil pengecekan ketersediaan dari kalender)"
-              - t: "Nama: 'bl_respon_konversi_openai', Tipe: Text (hasil olahan OpenAI dari input user terkait jadwal)"
-          - t: "Account Fields (Global - berlaku untuk seluruh akun):"
-            sub:
-              - t: "Nama: 'bl_info_profil_bisnis', Tipe: Text, Value: (isi dengan prompt atau teks yang mendeskripsikan profil bisnis Anda, jam operasional, dll.)"
-              - t: "Nama: 'bl_info_gaya_komunikasi', Tipe: Text, Value: (isi dengan prompt atau teks tentang gaya komunikasi yang diinginkan dari AI)"
-              - t: "Nama: 'bl_info_formula_oprasional', Tipe: Text, Value: (isi dengan prompt atau teks mengenai aturan operasional booking, misal durasi minimal, dll.)"
-      - t: "Konfigurasi AI Triggers (jika platform mendukung NLU terpisah dari Flow)"
+          - t: "Akses: **appConfig.sidebar.menu[title=Flows] > [Tab] Custom Fields**."
+          - t: "**Custom Fields:** Di `containers[title='Custom Fields']`, klik `addButtonRef: AddCustomFieldButtonAndDialog`. Buat: `bl_nama_pelanggan` (text), `bl_reply_ai` (text), `bl_status_booking` (text), `bl_oprasional_mulai_request` (date and time), `bl_oprasional_terakhir_request` (date and time), `bl_respon_jadwal_kalender` (text), `bl_respon_konversi_openai` (text)."
+          - t: "**Account Fields:** Di `containers[title='Account Fields']`, klik `addButton` (`label: add`). Buat: `bl_info_profil_bisnis` (text/long text, isi Value dengan prompt), `bl_info_gaya_komunikasi` (text/long text, isi Value), `bl_info_formula_oprasional` (text/long text, isi Value)."
+      - t: "Tahap 3: Konfigurasi AI Triggers"
         sub:
-          - t: "AI Trigger 'bl_perkenalan_intent':"
+          - t: "Akses: **appConfig.sidebar.menu[title=Flows] > [Tab] Ai Triggers > section[title='Ai Triggers']**."
+          - t: "Klik `addButton` (`label: add`). Dialog 'Add New AI Trigger' muncul. Buat trigger `name: bl_1_perkenalan` (contoh dari `appConfig`):"
             sub:
-              - t: "Deskripsi/Pemicu: 'Aktif saat AI mendeteksi pelanggan menyebutkan nama & menanyakan status/ketersediaan awal.'"
-              - t: "Data yang Dikoleksi (Ekstraksi Entitas):"
-                sub:
-                  - t: "'status_booking_awal' -> simpan ke Custom Field 'bl_status_booking' (misal, dengan nilai 'perkenalan')"
-                  - t: "'nama_pelanggan' -> simpan ke Custom Field 'bl_nama_pelanggan'"
-              - t: "Flow yang Dipicu: Flow utama booking ('default reply' atau flow booking khusus)."
-          - t: "AI Trigger 'bl_penawaran_intent':"
-            sub:
-              - t: "Deskripsi/Pemicu: 'Aktif saat AI mendeteksi pelanggan ingin booking lapangan. Set Custom Field 'bl_status_booking' menjadi 'penawaran'.'"
-              - t: "Data yang Dikoleksi: 'status_booking_saat_ini' -> update Custom Field 'bl_status_booking' menjadi 'penawaran'"
-              - t: "Flow yang Dipicu: Flow utama booking."
-          - t: "AI Trigger 'bl_pengecekan_jadwal_intent':"
-            sub:
-              - t: "Deskripsi/Pemicu: 'Aktif saat AI mendeteksi pelanggan memberikan informasi waktu, durasi, atau jumlah lapangan. Set 'bl_status_booking' menjadi 'pengecekan'.'"
-              - t: "Data yang Dikoleksi:"
-                sub:
-                  - t: "'status_booking_saat_ini' -> update Custom Field 'bl_status_booking' menjadi 'pengecekan'"
-                  - t: "'waktu_mulai_booking' -> simpan ke Custom Field 'bl_oprasional_mulai_request'"
-                  - t: "'waktu_selesai_booking' -> simpan ke Custom Field 'bl_oprasional_terakhir_request'"
-              - t: "Flow yang Dipicu: Flow utama booking."
-      - t: "Konfigurasi AI Parameters / Automation Rules (untuk manajemen tag otomatis)"
+              - t: "`description`: 'Jalankan saat pelanggan sebut nama & ingin booking.'"
+              - t: "`dataToCollect`: Klik `addButtonLabel: add new`. Key: `status_booking_penawaran`, Value: `bl_status_booking`. Key: `nama_pelanggan`, Value: `bl_nama_pelanggan`."
+              - t: "`triggeredFlow`: Pilih Flow Booking Utama."
+          - t: "Ulangi untuk trigger lain."
+      - t: "Tahap 4: Konfigurasi AI Parameters"
         sub:
-          - t: "Aturan 'Otomatisasi Tag Penawaran':"
-            sub:
-              - t: "Pemicu 1: Custom Field 'bl_nama_pelanggan' -> 'has changed to any value'."
-              - t: "Pemicu 2 (AND): Custom Field 'bl_status_booking' -> 'value is' -> 'penawaran'."
-              - t: "Aksi 1: 'Remove Tag' -> Pilih semua tag KECUALI 'bl_penawaran'."
-              - t: "Aksi 2: 'Add Tag' -> Pilih tag 'bl_penawaran'."
-              - t: Simpan aturan.
-          - t: "Aturan 'Otomatisasi Mulai Flow Pengecekan':"
-            sub:
-              - t: "Pemicu: Tag 'bl_pengecekan' -> 'is applied'."
-              - t: "Aksi: 'Start another flow' -> Pilih flow utama booking ('default reply' atau flow booking khusus)."
-              - t: Simpan aturan.
-          - t: Pastikan semua aturan/parameter ini aktif.
-      - t: Desain Alur Flow Booking di Flow Sidebar
+          - t: "Akses: **appConfig.sidebar.menu[title=Flows] > [Tab] Ai Parameters > section[title='Ai Parameters']**."
+          - t: "Klik `addButton` (`label: add`). Dialog 'Add New AI Parameter' muncul."
+          - t: "Aturan 'Otomatisasi Tag Penawaran': Name: `Auto Tag Penawaran`. `whenThisHappens`: CF `bl_nama_pelanggan` changed AND CF `bl_status_booking` is 'penawaran'. `actionOption`: Remove Tag (all except `bl_penawaran`), Add Tag `bl_penawaran`."
+          - t: "Pastikan 'active' toggle."
+      - t: "Tahap 5: Desain Alur Flow Booking di Flow Editor"
         sub:
-          - t: "Titik Awal Flow (Starting Step):"
-            sub:
-              - t: "Bisa dipicu oleh 'Default Reply', keyword, atau AI Trigger."
-          - t: "Kondisi Awal (berdasarkan Tag atau Custom Field 'bl_status_booking'):"
-            sub:
-              - t: "Jika tag 'bl_perkenalan' ATAU 'bl_status_booking' == 'perkenalan': Lanjut ke blok OpenAI 'Olah Respon Perkenalan'."
-              - t: "Jika tag 'bl_penawaran' ATAU 'bl_status_booking' == 'penawaran': Lanjut ke blok OpenAI 'Olah Respon Penawaran'."
-              - t: "Jika tag 'bl_pengecekan' ATAU 'bl_status_booking' == 'pengecekan': Lanjut ke blok 'Konfirmasi Pengecekan Jadwal' lalu ke OpenAI 'Cek Status Ketersediaan'."
-              - t: "Jika 'bl_status_booking' == 'konfirmasi': Lanjut ke blok 'Kirim Detail Konfirmasi'."
-          - t: "Blok Action OpenAI 'Olah Respon Perkenalan':"
-            sub:
-              - t: "System Prompt: Gunakan Account Field 'bl_info_profil_bisnis' dan 'bl_info_gaya_komunikasi'. Instruksikan AI untuk menyapa, mengkonfirmasi nama (jika sudah ada dari AI Trigger), dan menanyakan kebutuhan booking."
-              - t: "Save response to Custom Field: 'bl_reply_ai'."
-              - t: "AI Trigger to use (jika NLU di dalam OpenAI node): 'bl_perkenalan_intent'."
-              - t: "Lanjut ke 'Kirim Pesan AI'."
-          - t: "Blok Action OpenAI 'Olah Respon Penawaran':"
-            sub:
-              - t: "System Prompt: Gunakan Account Field relevan. Instruksikan AI untuk memberikan informasi penawaran, harga, dan meminta detail tanggal/waktu booking."
-              - t: "Save response to Custom Field: 'bl_reply_ai'."
-              - t: "AI Trigger to use: 'bl_penawaran_intent'."
-              - t: "Lanjut ke 'Kirim Pesan AI'."
-          - t: "Blok Send Message 'Konfirmasi Pengecekan Jadwal':"
-            sub:
-              - t: "Text: \"Siap kak {{bl_nama_pelanggan}}, saya cek dulu ya ketersediaan jadwal dan lapangannya untuk {{bl_oprasional_mulai_request}} sampai {{bl_oprasional_terakhir_request}}.\""
-              - t: "Lanjut ke OpenAI 'Cek Status Ketersediaan'."
-          - t: "Blok Action OpenAI 'Cek Status Ketersediaan (Konversi Input User ke Format Kalender)':"
-            sub:
-              - t: "System Prompt: Instruksikan AI untuk mengkonversi input natural language dari user (misal, 'besok pagi jam 9 selama 2 jam') menjadi format Date & Time yang baku untuk Custom Field 'bl_oprasional_mulai_request' dan 'bl_oprasional_terakhir_request'. Gunakan Account Field 'bl_info_formula_oprasional' jika ada aturan khusus."
-              - t: "Save response (hasil konversi atau status) to Custom Field: 'bl_respon_konversi_openai'."
-              - t: "AI Trigger to use: 'bl_pengecekan_jadwal_intent'."
-              - t: "Lanjut ke Action 'Appointment Scheduling'."
-          - t: "Blok Action 'Appointment Scheduling' (Integrasi Google Calendar - pastikan !ref PanduanLengkapMembangunSistemBookingLapanganIntegrasiTagCustomFieldAIKalender@6 selesai):"
-            sub:
-              - t: "Calendar: Pilih kalender 'Booking Lapangan' yang sudah diintegrasikan."
-              - t: "Check Availability (Cek Ketersediaan):"
-                sub:
-                  - t: "Start Date: Gunakan Custom Field 'bl_oprasional_mulai_request'."
-                  - t: "End Date: Gunakan Custom Field 'bl_oprasional_terakhir_request'."
-              - t: "Result use by AI: No (atau Yes, tergantung kebutuhan)."
-              - t: "Save response to Custom Field: 'bl_respon_jadwal_kalender' (misal, 'Tersedia' atau 'Tidak Tersedia pada jam tersebut. Slot tersedia berikutnya adalah...')."
-              - t: "Lanjut ke 'Kirim Hasil Pengecekan Jadwal'."
-          - t: "Blok Send Message 'Kirim Pesan AI':"
-            sub:
-              - t: "Text: \"{{bl_reply_ai}}\"."
-          - t: "Blok Send Message 'Kirim Hasil Pengecekan Jadwal':"
-            sub:
-              - t: "Text: \"{{bl_respon_jadwal_kalender}}\". Jika tersedia, tambahkan tombol 'Konfirmasi Booking'. Jika tidak, berikan opsi lain."
-              - t: "Jika 'Konfirmasi Booking' ditekan, set 'bl_status_booking' = 'konfirmasi', tambahkan tag 'bl_pembayaran', dan arahkan ke alur pembayaran/konfirmasi akhir."
-      - t: Konfigurasi Integrasi Google Calendar
+          - t: "Akses Flow Editor. Buat flow 'Booking Lapangan Utama'."
+          - t: "Gunakan node 'Condition' untuk routing berdasarkan `bl_status_booking`."
+          - t: "Gunakan node 'ActionsNode' > 'OpenAI' > 'Generate text' untuk olah respon (gunakan CF & Account Fields, save ke `bl_reply_ai`, pilih AI Trigger jika perlu)."
+          - t: "Gunakan node 'SendMessage' untuk mengirim `{{bl_reply_ai}}` atau pesan statis."
+          - t: "Untuk cek kalender: Node 'ActionsNode' > 'Appointments' > 'Appointment Scheduling'. Dialog 'Appointment Scheduling' muncul. Isi `appointmentAction: check availability`, `calendar`, `dateCustomField` (pilih `bl_oprasional_mulai_request` & `bl_oprasional_terakhir_request`). Simpan hasil ke `bl_respon_jadwal_kalender`."
+          - t: "Kirim `{{bl_respon_jadwal_kalender}}` dengan 'SendMessage', tambahkan tombol 'Konfirmasi Booking' (`_flowSidebarNodeAddButtonDialogRef`)."
+          - t: "Klik **'Publish'**."
+      - t: "Tahap 6: Konfigurasi Integrasi Google Calendar"
         sub:
-          - t: "Buka Tools (sidebar) -> Google Calendar -> Klik [Add] (atau 'Connect New Calendar')."
-            sub:
-              - t: "Beri nama koneksi kalender, misal: 'Booking Lapangan Futsal'."
-              - t: Ikuti proses otorisasi untuk menghubungkan akun Google Calendar Anda.
-              - t: Pilih kalender spesifik yang akan digunakan untuk booking.
-              - t: "Konfigurasi 'Availability Settings' (jam operasional, durasi slot, buffer time jika perlu)."
-              - t: "(Opsional) Notification -> Confirmation Flow: Pilih Flow yang akan dijalankan setelah booking berhasil dibuat di kalender (misal, Flow 'Booking Sukses kirim Notif')."
-      - t: Persiapan Web Chatbot untuk Testing
+          - t: "Akses: **appConfig.sidebar.menu[title=Tools] > [Pilih tool] Google Calendar** (`tools[name='Google Calendar']`)."
+          - t: "Di `pageContent.tabs[title='Calendars'] > section[title='Calendars']`, klik `addButton` (`label: add`). Dialog 'Add New Calendar' muncul. Isi `calendarName`: `Booking Lapangan Futsal`."
+          - t: "Ikuti proses otorisasi. Pastikan 'active' toggle."
+      - t: "Tahap 7: Persiapan Web Chatbot untuk Testing"
         sub:
-          - t: "Buka Connected Platforms (sidebar) -> Channels -> Web Chatbot."
-          - t: "Klik [Add] -> Add New."
-            sub:
-              - t: "Name: 'Tes Booking Lapangan'."
-              - t: Hubungkan ke Flow utama booking yang telah Anda buat.
-              - t: Klik [Save].
-          - t: "Klik ikon titik tiga di sebelah kanan Web Chatbot yang baru dibuat -> Get Link."
-          - t: Gunakan link ini di browser untuk melakukan testing end-to-end dari alur booking.
+          - t: "Akses: **appConfig.header.settings** (ikon Settings/pojok kanan atas/logo pekerja ai) > **[Tab] channels > Web Chat**."
+          - t: "Klik `button[label=Connect]`. Konfigurasi Web Chat, hubungkan ke Flow 'Booking Lapangan Utama'."
+          - t: "Dapatkan link/kode embed dari daftar Web Chat yang ada (mungkin di **appConfig.sidebar.menu[title=Tools].main.tools[name='Testing Chat']** jika itu tempatnya)."

@@ -230,3 +230,20 @@ PengaturanAkun_Pengguna:
    - `01_platform_basics.yml` -> `AccountManagement_Settings:DevelopmentModePengujianBotTerisolasi`
    - Lokasi UI: Header > Settings > [Tab] general > [Toggle] Development Mode.
    - Referensi YAML: `SettingsConnectedPlatforms.general.developmentMode`
+  flow_transfer:
+    title: Memindahkan Flow ke Akun Baru atau Workspace Lain
+    summary: |
+      Untuk memindahkan flow secara efisien, disarankan menggunakan fitur Template. Metode ini memungkinkan penyimpanan dan pengelompokan banyak flow sekaligus, dibanding import satu per satu.
+
+    steps:
+      - step_1: |
+          Masuk ke menu `Tools > Templates`. Sebaiknya buat folder terlebih dahulu untuk mengelompokkan template sesuai kategori atau project.
+      - step_2: |
+          Klik tombol “+ Buat Template”. Pilih flow dan item lain (seperti Custom Field, Tag, AI Trigger) yang ingin disertakan dengan membuka accordion dan mencentang elemen yang dibutuhkan.
+      - step_3: |
+          Setelah submit, sistem akan menghasilkan link yang bisa digunakan sendiri atau dibagikan ke akun lain dalam workspace berbeda.
+
+    notes:
+      - Template dapat menyimpan banyak flow dan konfigurasi sekaligus, tidak perlu satu per satu.
+      - Fitur import flow manual hanya cocok untuk pindahan kecil atau testing cepat.
+      - Pastikan akun tujuan sudah siap dengan struktur data yang relevan jika tidak disertakan dalam template.

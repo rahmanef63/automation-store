@@ -79,7 +79,7 @@ Flows:
       # ... Node-node berdasarkan informasi dari sesi 1-4
       # Contoh Node berdasarkan Sesi 3 (Pengumpulan Data):
       Kumpulkan_Nama_Email:
-        type: GetUserData
+        type: SendMessage
         label: Mohon Isi Data Diri
         config:
           messageInput: "Untuk melanjutkan, silakan masukkan nama Anda."
