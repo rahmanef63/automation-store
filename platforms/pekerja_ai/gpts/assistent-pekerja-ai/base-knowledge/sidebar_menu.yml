@@ -1322,6 +1322,7 @@ appConfig:
                   nodeCollection: 
                     - type: SendMessage
                       label: Send Message
+                      is_node: true
                       sidebarConfig: 
                         nodeLabelInput: true
                         messageTypeSelector:
@@ -1423,13 +1424,16 @@ appConfig:
                               optionsRef: FlowSidebarActions_ActionDropdownOptions
                     - type: StartFlow
                       label: Start Flow
+                      is_node: true
                       sidebarConfig:
                         flowSelector: true 
                     - type: ActionsNode
                       label: Actions
+                      is_node: true
                       configRef: FlowSidebarActions_ActionDropdownOptions 
                     - type: Condition
                       label: Condition
+                      is_node: true
                       sidebarConfig:
                         followingCondition: 
                           type: select
@@ -1447,6 +1451,7 @@ appConfig:
                           output: true
                     - type: SendEmail
                       label: Send Email
+                      is_node: true
                       sidebarConfig:
                         fields:
                           - name: emailTopic
@@ -1513,10 +1518,13 @@ appConfig:
                                       You received this email from {{page_name}}. If you would like to unsubscribe, <<click here>>
                     - type: SplitTraffic
                       label: Split Traffic
+                      is_node: true
                     - type: Wait
                       label: Wait
+                      is_node: true
                     - type: LandingPage
                       label: Landing Page
+                      is_node: true
                 button: 
                   position: right center 
                   label : preview
