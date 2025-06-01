@@ -11,12 +11,12 @@ definitions:
     type: multiSelect
     label: AI triggers (optional)
     dataSource: aiTriggers
-  _flowBuilderNodeAddButtonDialogRef: &flowBuilderNodeAddButtonDialogRef
+  _flowSidebarNodeAddButtonDialogRef: &flowSidebarNodeAddButtonDialogRef
     type: button
     label: + Add Button
     action:
       type: dialog
-      contentRef: FlowBuilderNode_AddButtonDialog
+      contentRef: FlowSidebarNode_AddButtonDialog
   _addCustomFieldButtonDialogRef: &addCustomFieldButtonDialogRef 
     type: button
     label: add new
@@ -251,7 +251,7 @@ definitions:
     - GPT-4
     - GPT-4 Turbo
     - GPT-3.5 Turbo 16K
-  FlowBuilderNode_AddButtonDialog:
+  FlowSidebarNode_AddButtonDialog:
     label: add button 
     fields:
       - name: buttonName
@@ -268,7 +268,7 @@ definitions:
           - Start Another Flow
           - Start Another Step
           - Start External Step
-  FlowBuilderNode_Card:
+  FlowSidebarNode_Card:
     fields:
       - name: image
         <<: *commonImageUploader
@@ -280,8 +280,8 @@ definitions:
         type: input
         label: Subtitle
       - name: addButton
-        <<: *flowBuilderNodeAddButtonDialogRef
-  FlowBuilderActions_ActionDropdownOptions:
+        <<: *flowSidebarNodeAddButtonDialogRef
+  FlowSidebarActions_ActionDropdownOptions:
     Inbox:
       - label: Transfer Conversation to Human
         config:
@@ -1346,17 +1346,17 @@ appConfig:
                               active: true
                               config:
                                 textInput: true 
-                                addButtonRef: FlowBuilderNode_AddButtonDialog
+                                addButtonRef: FlowSidebarNode_AddButtonDialog
                             - label: Image
                               active: true
                               config:
                                 uploader: true 
                             - label: Card
                               active: true
-                              configRef: FlowBuilderNode_Card
+                              configRef: FlowSidebarNode_Card
                             - label: Carousel
                               active: true
-                              configRef: FlowBuilderNode_Card 
+                              configRef: FlowSidebarNode_Card 
                             - label: Get User Data
                               active: true
                               config:
@@ -1420,14 +1420,14 @@ appConfig:
                                     uploader: true
                             - label: Actions 
                               type: dropdown
-                              optionsRef: FlowBuilderActions_ActionDropdownOptions
+                              optionsRef: FlowSidebarActions_ActionDropdownOptions
                     - type: StartFlow
                       label: Start Flow
                       sidebarConfig:
                         flowSelector: true 
                     - type: ActionsNode
                       label: Actions
-                      configRef: FlowBuilderActions_ActionDropdownOptions 
+                      configRef: FlowSidebarActions_ActionDropdownOptions 
                     - type: Condition
                       label: Condition
                       sidebarConfig:
@@ -1477,7 +1477,7 @@ appConfig:
                           - name: text
                             type: input 
                             placeholder: enter your text
-                          - componentRef: FlowBuilderNode_AddButtonDialog 
+                          - componentRef: FlowSidebarNode_AddButtonDialog 
                           - name: code 
                             label : Code
                             type: input 
@@ -1503,7 +1503,7 @@ appConfig:
                                     placeholder: enter your text
                               - type: buttonBlock
                                 fields:
-                                  - componentRef: FlowBuilderNode_AddButtonDialog
+                                  - componentRef: FlowSidebarNode_AddButtonDialog
                               - type: codeBlock
                                 fields:
                                   - name: code
@@ -2100,7 +2100,7 @@ appConfig:
                               - title: Variants
                                 fields:
                                   - name: variants 
-                                    type: variantBuilder 
+                                    type: variantSidebar 
                               - title: More Options
                                 sections: 
                                   - title: Add-ons
@@ -2108,7 +2108,7 @@ appConfig:
                                       Add products that clients can buy as an add-on. You can also give free products here. For example, a restaurant may give free drinks options here. You must create a product before you use it as add-on.
                                     fields:
                                       - name: addons 
-                                        type: addonBuilder 
+                                        type: addonSidebar 
                                   - title: Tags
                                     fields:
                                       - name: productTags
@@ -2459,7 +2459,7 @@ appConfig:
                             label: Save data to custom fields.
                             defaultValue: true
                           - key: questions 
-                            type: questionBuilder 
+                            type: questionSidebar 
                             label: Questions
                             questionFields: 
                               - key: questionText 
@@ -2528,7 +2528,7 @@ appConfig:
                                 type: file 
                                 label: Image
                               - key: candidates
-                                type: candidateBuilder 
+                                type: candidateSidebar 
                                 label: Candidates or Options
                                 candidateFields:
                                   - key: name
@@ -2727,7 +2727,7 @@ appConfig:
                             label: Conversation Starters
                             itemLabel: Prompt
                           - key: persistentMenu
-                            type: menuItemBuilder 
+                            type: menuItemSidebar 
                             label: Persistent Menu
                             itemLabel: Menu Item
                           - key: template
